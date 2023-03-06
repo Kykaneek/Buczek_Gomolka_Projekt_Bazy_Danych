@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "6GE42tjzRD2dl4U/sTMLgOwkCckCH7WSxCblFWkqHkI=",
+  "Source": "BAZy",
+  "BasePath": "_content/BAZy",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "BAZy\\wwwroot",
+      "Source": "BAZy",
+      "ContentRoot": "C:\\Users\\kuba1\\source\\repos\\BAZy\\BAZy\\wwwroot\\",
+      "BasePath": "_content/BAZy",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\kuba1\\source\\repos\\BAZy\\BAZy\\wwwroot\\favicon.ico",
+      "SourceId": "BAZy",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\kuba1\\source\\repos\\BAZy\\BAZy\\wwwroot\\",
+      "BasePath": "_content/BAZy",
+      "RelativePath": "favicon.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon.ico"
+    }
+  ]
+}
