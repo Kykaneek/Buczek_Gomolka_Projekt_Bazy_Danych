@@ -1,0 +1,1 @@
+# Buczek_Gomolka_Projekt_Bazy_Danych
