@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44490",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Users\\kuba1\\source\\repos\\BAZy\\BAZy\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}

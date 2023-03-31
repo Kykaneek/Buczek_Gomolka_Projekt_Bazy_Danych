@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "tYBBAsOZ0v8jDQ8TV+NeH7Ao2ApHVKilPI6WBjx3o2F94VbdVJA8iNn0dmsb5WZsAN28ScpTo5L5ZsX0Pc+b2g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\kuba1\\source\\repos\\BAZy\\BAZy\\BAZy.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kuba1\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\7.0.0\\microsoft.aspnetcore.spaproxy.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
