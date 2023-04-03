@@ -1,4 +1,4 @@
-namespace Bazydanych
+namespace Bazydanych.Models
 {
     public class WeatherForecast
     {
