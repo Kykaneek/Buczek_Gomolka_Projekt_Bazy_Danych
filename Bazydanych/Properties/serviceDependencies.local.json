@@ -1,13 +1,16 @@
 {
   "dependencies": {
     "secrets1": {
-      "type": "secrets.user"
+      "secretStore": null,
+      "resourceId": null,
+      "type": "secrets.user",
+      "connectionId": null
     },
     "mssql1": {
       "secretStore": "LocalSecretsFile",
+      "resourceId": null,
       "type": "mssql.onprem",
-      "connectionId": "ConnectionStrings:Carboart",
-      "dynamicId": null
+      "connectionId": "ConnectionStrings:Carboart"
     }
   }
 }
