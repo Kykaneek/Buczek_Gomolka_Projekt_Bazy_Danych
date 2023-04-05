@@ -6,6 +6,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers().AddNewtonsoftJson();
 
 var app = builder.Build();
 

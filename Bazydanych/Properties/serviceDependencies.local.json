@@ -5,12 +5,6 @@
       "resourceId": null,
       "type": "secrets.user",
       "connectionId": null
-    },
-    "mssql1": {
-      "secretStore": "LocalSecretsFile",
-      "resourceId": null,
-      "type": "mssql.onprem",
-      "connectionId": "ConnectionStrings:Carboart"
     }
   }
 }
