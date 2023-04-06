@@ -32,9 +32,13 @@ namespace Bazydanych.Controllers
             {
                 return BadRequest();
             }
-            var user = await _authcontext.Users.FirstOrDefaultAsync(x => x.Login == userObj.Login && x.Pass == userObj.Pass);
+            var user = await _authcontext.Users.FirstOrDefaultAsync(x => x.Login == userObj.Login );
             if ( user == null)
                 return NotFound(new { Message = "Błędne dane logowania" });
+            if (!Passwordhash.Veryfypass(userObj.Pass, user.Pass)) // Admin --hash 6rKKXOPYG7UVjNGcDdat4M1S427v3vu3cnggkmfe8R/aKuJ3
+            {
+                return BadRequest(new { Message = "Błędne hasło logowania" });
+            }
             return Ok(new
             {
                 Message = "Poprawnie zalogowano"

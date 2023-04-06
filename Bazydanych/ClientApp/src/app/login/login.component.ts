@@ -1,9 +1,7 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +13,7 @@ export class LoginComponent implements OnInit{
   auth: any;
   type: string = "password";
   loginform!: FormGroup;
-  constructor(private LoginService: LoginService, library: FaIconLibrary,private fb: FormBuilder) {
-    library.addIconPacks(fas, far)
+  constructor(private LoginService: LoginService,private fb: FormBuilder,private route:Router) {
   }
   ngOnInit(): void {
     this.loginform = this.fb.group({
@@ -38,7 +35,9 @@ export class LoginComponent implements OnInit{
     if (this.loginform.valid) {
       this.LoginService.Login(this.loginform.value).subscribe({
         next: (res) => {
-          alert(res.message)
+          alert(res.message);
+          this.loginform.reset();
+          this.route.navigate(['/']);
         },
         error: (err) => {
           alert(err!.error.message)
