@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit{
   //logowanie 
   onLogin() {
     if (this.loginform.valid) {
-      console.log(this.loginform.value);
       this.LoginService.Login(this.loginform.value).subscribe({
         next: (res) => {
           alert(res.message)
