@@ -26,7 +26,7 @@ namespace Bazydanych.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Auth( User userObj)
+        public async Task<IActionResult> Auth(User userObj)
         {
             if(userObj == null)
             {

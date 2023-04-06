@@ -10,23 +10,23 @@
       <div class="col-lg-8">
         <div class="card-body py-5 px-md-5">
           <form [formGroup]="loginform">
-            <div class="form-group pt-3" [class.error]="loginform.controls['username'].dirty && loginform.hasError('required','username')">
+            <div class="form-group pt-3" [class.error]="loginform.controls['Login'].dirty && loginform.hasError('required','Login')">
               <div class="form-check-input-field" >
                 <span class="fa fa-user p-2"></span>
-                <input formControlName="username" type="text"  placeholder="Username" />
+                <input formControlName="Login" type="text"  placeholder="Username" />
 
               </div>
             </div>
-            <small *ngIf="loginform.controls['username'].dirty && loginform.hasError('required','username')" class="text-danger">*Nazwa użytkownika jest wymagana</small>
-            <div class="form-group pt-3" [class.error]="loginform.controls['password'].dirty && loginform.hasError('required','password')">
+            <small *ngIf="loginform.controls['Login'].dirty && loginform.hasError('required','Login')" class="text-danger">*Nazwa użytkownika jest wymagana</small>
+            <div class="form-group pt-3" [class.error]="loginform.controls['Pass'].dirty && loginform.hasError('required','Pass')">
               <div class="input-field" >
                 <span class="fa fa-lock p-2" ></span>
-                <input formControlName="password" [type]="type"  placeholder="Password" />
+                <input formControlName="Pass" [type]="type"  placeholder="Password" />
                 <span (click)="Showpass()" class=""></span>
               </div>
             </div>
-            <small *ngIf="loginform.controls['password'].dirty && loginform.hasError('required','password')" class="text-danger">*Hasło jest wymagane</small>
-            <button (click)="onSubmit()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Login</button>
+            <small *ngIf="loginform.controls['Pass'].dirty && loginform.hasError('required','Pass')" class="text-danger">*Hasło jest wymagane</small>
+            <button (click)="onLogin()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Login</button>
           </form>
         </div>
       </div>

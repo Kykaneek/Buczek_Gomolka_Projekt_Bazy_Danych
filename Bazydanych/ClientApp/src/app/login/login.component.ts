@@ -11,6 +11,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
+  
   auth: any;
   type: string = "password";
   loginform!: FormGroup;
@@ -19,8 +20,8 @@ export class LoginComponent implements OnInit{
   }
   ngOnInit(): void {
     this.loginform = this.fb.group({
-      username: ['', Validators.required],
-      password: ['',Validators.required]
+      Login: ["", Validators.required],
+      Pass: ["",Validators.required]
       })
   }
  
@@ -32,9 +33,18 @@ export class LoginComponent implements OnInit{
   checkpass() {
 
   }
-  onSubmit() {
+  //logowanie 
+  onLogin() {
     if (this.loginform.valid) {
-      
+      console.log(this.loginform.value);
+      this.LoginService.Login(this.loginform.value).subscribe({
+        next: (res) => {
+          alert(res.message)
+        },
+        error: (err) => {
+          alert(err!.error.message)
+        }
+        })
     } else {
       this.validateAllForm(this.loginform);
       alert("Wymagane pola nie są uzupełnione");
