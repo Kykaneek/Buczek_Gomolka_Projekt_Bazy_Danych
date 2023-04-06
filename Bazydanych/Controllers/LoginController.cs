@@ -25,8 +25,8 @@ namespace Bazydanych.Controllers
             _authcontext = appDB;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Auth( User userObj)
+        [HttpPost("login")]
+        public async Task<IActionResult> Auth([FromBody] User userObj)
         {
             if(userObj == null)
             {

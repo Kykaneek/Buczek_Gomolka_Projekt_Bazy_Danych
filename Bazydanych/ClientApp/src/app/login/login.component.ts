@@ -32,9 +32,17 @@ export class LoginComponent implements OnInit{
   checkpass() {
 
   }
-  onSubmit() {
+  //logowanie 
+  onLogin() {
     if (this.loginform.valid) {
-      
+      this.LoginService.Login(this.loginform.value).subscribe({
+        next: (res) => {
+          alert(res.message)
+        },
+        error: (err) => {
+          alert(err!.error.message)
+        }
+        })
     } else {
       this.validateAllForm(this.loginform);
       alert("Wymagane pola nie są uzupełnione");
