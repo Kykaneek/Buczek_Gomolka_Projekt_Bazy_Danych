@@ -16,3 +16,9 @@ section {
     border-bottom-left-radius: 0.5rem;
   }
 }
+class.err {
+    border-color: red;
+    border-inline-color: red;
+    color: red;
+    width: 10000px;
+}

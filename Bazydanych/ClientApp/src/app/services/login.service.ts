@@ -22,10 +22,7 @@ export class LoginService {
   getAllUser(): Observable<any[]> {
     return this.http.get<any[]>(this.Apiurl + "Login");
   }
-  getuserauth(): Observable<any[]> {
+  Validate(): Observable<any[]> {
     return this.http.get<any[]>(this.Apiurl + "Login");
-  }
-  GetUserbyCode(id: any) {
-    return this.http.get(this.Apiurl + 'Login' + id);
   }
 }

@@ -9,25 +9,25 @@
       </div>
       <div class="col-lg-8">
         <div class="card-body py-5 px-md-5">
+          <form [formGroup]="loginform">
+            <div class="form-group pt-3" [class.error]="loginform.controls['username'].dirty && loginform.hasError('required','username')">
+              <div class="form-check-input-field" >
+                <span class="fa fa-user p-2"></span>
+                <input formControlName="username" type="text"  placeholder="Username" />
 
-          <form>
-            <!-- Email input -->
-            <div class="form-outline mb-4">
-              <input placeholder="Login" id="form2Example1" class="form-control" />
-              <label class="form-label" for="form2Example1">Użytkownik</label>
+              </div>
             </div>
-
-            <!-- Password input -->
-            <div class="form-outline mb-5">
-              <input type="password" placeholder="Hasło" id="form2Example2" class="form-control" />
-              <label class="form-label" for="form2Example2">Hasło</label>
+            <small *ngIf="loginform.controls['username'].dirty && loginform.hasError('required','username')" class="text-danger">*Nazwa użytkownika jest wymagana</small>
+            <div class="form-group pt-3" [class.error]="loginform.controls['password'].dirty && loginform.hasError('required','password')">
+              <div class="input-field" >
+                <span class="fa fa-lock p-2" ></span>
+                <input formControlName="password" [type]="type"  placeholder="Password" />
+                <span (click)="Showpass()" class=""></span>
+              </div>
             </div>
-
-            <!-- Submit button -->
-            <button type="button" class="btn btn-primary btn-block mb-1" onclick="LoginToCarboatSys">Zaloguj</button>
-
+            <small *ngIf="loginform.controls['password'].dirty && loginform.hasError('required','password')" class="text-danger">*Hasło jest wymagane</small>
+            <button (click)="onSubmit()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Login</button>
           </form>
-
         </div>
       </div>
     </div>
