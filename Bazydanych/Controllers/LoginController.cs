@@ -1,7 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Bazydanych.Context;
+using Bazydanych.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NuGet.Protocol.Plugins;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -12,30 +18,28 @@ namespace Bazydanych.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+        private readonly AppDB _authcontext;
 
-        public LoginController(IConfiguration configuration)
+        public LoginController(AppDB appDB)
         {
-            _configuration = configuration;
+            _authcontext = appDB;
         }
-        [HttpGet]
-        public JsonResult Check()
+
+        [HttpPost]
+        public async Task<IActionResult> Auth( User userObj)
         {
-            string query = @"Select * from Users";
-            DataTable table = new DataTable();
-            string DataSource = _configuration.GetConnectionString("DBCon");
-            SqlDataReader reader;
-            using (SqlConnection conn= new SqlConnection(DataSource))
+            if(userObj == null)
             {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand(query, conn)) {
-                    reader = command.ExecuteReader();
-                    table.Load(reader);
-                reader.Close();
-                conn.Close();
-                }
+                return BadRequest();
             }
-            return new JsonResult(table);
+            var user = await _authcontext.Users.FirstOrDefaultAsync(x => x.Login == userObj.Login && x.Pass == userObj.Pass);
+            if ( user == null)
+                return NotFound(new { Message = "Błędne dane logowania" });
+            return Ok(new
+            {
+                Message = "Poprawnie zalogowano"
+            });
         }
     }
+ 
 }

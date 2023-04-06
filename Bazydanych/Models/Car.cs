@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bazydanych.Models
 {
@@ -19,8 +20,9 @@ namespace Bazydanych.Models
         public bool IsTruck { get; set; }
         public int Loadingsize { get; set; }
         public bool IsAvailable { get; set; }
-
+        [NotMapped]
         public virtual ICollection<Loading> Loadings { get; set; }
+        [NotMapped]
         public virtual ICollection<PlannedTrace> PlannedTraces { get; set; }
     }
 }

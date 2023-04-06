@@ -1,3 +1,7 @@
+using Bazydanych.Context;
+using Microsoft.EntityFrameworkCore;
+using System.Drawing;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers().AddNewtonsoftJson();
-
+builder.Services.AddDbContext<AppDB>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBCon"));
+});
 var app = builder.Build();
 
 

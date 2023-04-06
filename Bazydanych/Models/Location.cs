@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bazydanych.Models
 {
@@ -17,9 +18,11 @@ namespace Bazydanych.Models
         public string? City { get; set; }
         public string? Street { get; set; }
         public string? Number { get; set; }
-
+        [NotMapped]
         public virtual ICollection<ContractorLocation> ContractorLocations { get; set; }
+        [NotMapped]
         public virtual ICollection<Trace> TraceFinishLocationNavigations { get; set; }
+        [NotMapped]
         public virtual ICollection<Trace> TraceStartLocationNavigations { get; set; }
     }
 }
