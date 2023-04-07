@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\Intercepters\" />
     <Folder Include="ClientApp\src\app\services\" />
     <Folder Include="Migrations\" />
   </ItemGroup>

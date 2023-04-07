@@ -10,4 +10,18 @@ export class LoginService {
   Login(LoginOjb: any) {
     return this.http.post<any>(this.Apiurl,LoginOjb);
   }
+
+  storetoken(Tokenvalue: string) {
+    localStorage.setItem('token', Tokenvalue)
+  }
+
+  gettoken() {
+    return localStorage.getItem('token')
+  }
+
+  isLogIn(): boolean {
+    //weryfikacja czy token istnieje
+    return !!localStorage.getItem('token')
+  }
+
 }

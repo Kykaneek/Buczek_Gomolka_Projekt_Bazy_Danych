@@ -23,6 +23,7 @@ namespace Bazydanych.Models
         public bool is_driver { get; set; }
         public bool is_in_base { get; set; }
         public int? pause_time { get; set; }
+        public string? Token { get; set; }  
         [NotMapped]
         public virtual ICollection<PlannedTrace> PlannedTraces { get; set; }
         [NotMapped]

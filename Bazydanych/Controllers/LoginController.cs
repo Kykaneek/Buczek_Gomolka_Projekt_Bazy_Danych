@@ -1,15 +1,21 @@
 ﻿using Bazydanych.Context;
 using Bazydanych.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using NuGet.Protocol.Plugins;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Bazydanych.Controllers
@@ -24,6 +30,28 @@ namespace Bazydanych.Controllers
         {
             _authcontext = appDB;
         }
+        private string CreateJwt(User user, Role roles)
+        {
+
+            var jwtHandler = new JwtSecurityTokenHandler();
+            var key_encode = Encoding.ASCII.GetBytes("CreateKeySecrect");
+            var identity = new ClaimsIdentity(new Claim[]
+            {
+            new Claim(ClaimTypes.Role,roles.UserRole),
+            new Claim(ClaimTypes.Name,$"{user.Login}")
+            });
+            var creedindetials = new SigningCredentials(new SymmetricSecurityKey(key_encode), SecurityAlgorithms.HmacSha256);
+
+            var TokenDescrypter = new SecurityTokenDescriptor
+            {
+                Subject = identity,
+                Expires = DateTime.Now.AddHours(1),
+                SigningCredentials = creedindetials
+            };
+            var token = jwtHandler.CreateToken(TokenDescrypter);
+            return jwtHandler.WriteToken(token);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Auth(User userObj)
@@ -39,11 +67,25 @@ namespace Bazydanych.Controllers
             {
                 return BadRequest(new { Message = "Błędne hasło logowania" });
             }
+            var role = await _authcontext.Roles.FirstOrDefaultAsync(x => x.UserId == user.Id);
+            if (role == null)
+            {
+                return NotFound(new { Message = "Użytkownik nie posiada Roli, skontaktuj się z administratorem systemu." });
+            }
+            user.Token = CreateJwt(user,role);
             return Ok(new
             {
+                Token = user.Token,
                 Message = "Poprawnie zalogowano"
-            });
+            }) ;
+        }
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<User>> GetAllUsers()
+        {
+            return Ok(await _authcontext.Users.ToListAsync());
         }
     }
- 
+
+    
 }

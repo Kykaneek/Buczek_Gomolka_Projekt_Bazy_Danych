@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit{
         next: (res) => {
           alert(res.message);
           this.loginform.reset();
-          this.route.navigate(['/']);
+          this.LoginService.storetoken(res.token);
+          this.route.navigate(['/users']);
         },
         error: (err) => {
           alert(err!.error.message)
