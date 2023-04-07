@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
 using NuGet.Protocol.Plugins;
 using System.Configuration;
 using System.Data;
@@ -58,25 +59,32 @@ namespace Bazydanych.Controllers
         {
             if(userObj == null)
             {
-                return BadRequest();
+                return BadRequest(new {
+                    Message = "Błędne dane logowania" });
             }
             var user = await _authcontext.Users.FirstOrDefaultAsync(x => x.Login == userObj.Login );
             if ( user == null)
                 return NotFound(new { Message = "Błędne dane logowania" });
             if (!Passwordhash.Veryfypass(userObj.Pass, user.Pass)) // Admin --hash 6rKKXOPYG7UVjNGcDdat4M1S427v3vu3cnggkmfe8R/aKuJ3
             {
-                return BadRequest(new { Message = "Błędne hasło logowania" });
+                return BadRequest(new {
+                    Message = "Błędne hasło logowania" });
             }
             var role = await _authcontext.Roles.FirstOrDefaultAsync(x => x.UserId == user.Id);
             if (role == null)
             {
-                return NotFound(new { Message = "Użytkownik nie posiada Roli, skontaktuj się z administratorem systemu." });
+                return BadRequest(new
+                {
+                    Message = "Błędne dane logowania"
+                });
+
             }
             user.Token = CreateJwt(user,role);
             return Ok(new
             {
-                Token = user.Token,
-                Message = "Poprawnie zalogowano"
+                
+                Message = "Poprawnie zalogowano",
+                Token = user.Token
             }) ;
         }
         [Authorize]

@@ -11,7 +11,8 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guard/auth.guard';
 import { UsersComponent } from './users/users.component';
 import { TokenInterceptor } from './Intercepters/token.interceptor';
-
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -23,9 +24,12 @@ const routes: Routes = [
     NavMenuComponent,
     HomeComponent,
     UsersComponent,
-    LoginComponent
+    LoginComponent,
+
   ],
   imports: [
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
