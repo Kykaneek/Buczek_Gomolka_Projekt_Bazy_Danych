@@ -9,12 +9,14 @@ import { ApiService } from '../services/api.service';
 export class UsersComponent implements OnInit {
 
   public users: any = [];
-  constructor(private api:ApiService) { }
+  constructor(private api: ApiService) {
+}
 
   ngOnInit(): void {
     this.api.getUsers().subscribe((res: any) => {
       this.users = res;
     })
   }
+
 
 }

@@ -27,8 +27,9 @@ export class TokenInterceptor implements HttpInterceptor {
       catchError((err: any) => {
         if (err instanceof HttpErrorResponse) {
       if (err.status === 401) {
-        this.toast.warning( "Sesja wygasła zaloguj się ponownie" );
-          this.router.navigate(['login'])
+        this.toast.warning("Sesja wygasła zaloguj się ponownie");
+        localStorage.clear();
+        this.router.navigate(['/login'])
       }
         }
         return throwError(err);

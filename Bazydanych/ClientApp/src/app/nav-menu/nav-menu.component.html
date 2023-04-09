@@ -1,41 +1,64 @@
 <header>
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar border-bottom box-shadow mb-3" data-bs-theme="dark" style="background-color: #e3f2fd;"
   >
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">CarBoat</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
-        [ngClass]="{ show: isExpanded }"
-      >
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content"
+           [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [class.disabled]="false" [routerLink]="['/']">Home</a>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [class.disabled]="false" [routerLink]="['/login']">Logout</a>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [class.disabled]="false" [routerLink]="['/users']">Users</a>
-
+            <a class="nav-link active" [class.disabled]="false" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item"
-              [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
+
+
+          <li class="nav-item dropdown" *ngIf="IsLogin">
+            <a class="nav-link dropdown-toggle nav-link active" href="#" id="dropdownMenuOffset" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Administrator
+            </a>
+            <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuOffset">
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="dropdown-item" [class.disabled]="false" [routerLink]="['/users']">Użytkownicy</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="dropdown-item" [class.disabled]="false" [routerLink]="['/traces']">Trasy</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="dropdown-item" [class.disabled]="false" [routerLink]="['/cars']">Pojazdy</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="dropdown-item" [class.disabled]="false" [routerLink]="['/contractors']">Kontrahenci</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="dropdown-item" [class.disabled]="false" [routerLink]="['/permissions']">Uprawnienia</a>
+              </li>
+            </ul>
           </li>
 
         </ul>
       </div>
-    </div>
-  </nav>
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" *ngIf="IsLogin" [routerLinkActive]="['link-active']">
+            <button class="btn btn-danger" (click)="logout()" [routerLink]="['/login']">Logout</button>
+          </li>
+          <li class="nav-item" *ngIf="!IsLogin"
+              [routerLinkActive]="['link-active']"
+              [routerLinkActiveOptions]="{ exact: true }">
+            <button class="btn btn-success" [routerLink]="['/login']">Login</button>
+          </li>
+          </ul>
+      </div>
+           
+      </div>
+</nav>
 </header>

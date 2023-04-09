@@ -35,10 +35,13 @@ export class LoginComponent implements OnInit{
     if (this.loginform.valid) {
       this.LoginService.Login(this.loginform.value).subscribe({
         next: (res) => {
-          this.toast.success(res.message);
+          
           this.loginform.reset();
           this.LoginService.storetoken(res.token);
-          this.route.navigate(['/users']);
+          this.route.navigate(['users'])
+          this.toast.success(res.message);
+
+
         },
         error: (err) => {
           this.toast.error(err!.error.message);
