@@ -15,35 +15,37 @@
         <div class="form-check-input-field">
           <div class="row">
             <span class="fa fa-user p-2"></span>
-            <label class="col-md-1">Login</label>
-            <div class="col-md-11 mb-4"><input formControlName="Login" type="text" class="form-control" placeholder="Username" /></div>
+            <label class="col-sm-1">Login</label>
+            <div class="col-sm-10 mb-2">
+              <input formControlName="Login" type="text" class="form-control" placeholder="Username" />
+              <small *ngIf="loginform.controls['Login'].errors && loginform.controls['Login'].errors.required" class="text-danger">*Nazwa użytkownika jest wymagana</small>
+            </div>
           </div>
         </div>
       </div>
-
-      <small *ngIf="loginform.controls['Login'].dirty && loginform.hasError('required','Login')" class="text-danger">*Nazwa użytkownika jest wymagana</small>
       <div class="form-group pt-3" [class.error]="loginform.controls['Pass'].dirty && loginform.hasError('required','Pass')">
         <div class="input-field">
           <div class="row">
             <span class="fa fa-lock p-2"></span>
-            <label class="col-md-1">Login</label>
-            <div class="col-md-11 mb-4"><input formControlName="Pass" class="form-control" [type]="type" placeholder="Password" /></div>
+            <label class="col-sm-1">Hasło</label>
+            <div class="col-sm-10 mb-2">
+              <input formControlName="Pass" class="form-control" [type]="type" placeholder="Password" />
+              <small *ngIf="loginform.controls['Pass'].errors && loginform.controls['Pass'].errors.required" class="text-danger">*Hasło jest wymagane</small>
+            </div>
             <span (click)="Showpass()" class=""></span>
           </div>
-          </div>
+          <div class="row">
+                      </div>
         </div>
-      <small *ngIf="loginform.controls['Pass'].dirty && loginform.hasError('required','Pass')" class="text-danger">*Hasło jest wymagane</small>
+      </div>
     </form>
 
 
-  <div class="py-4 text-center">
-    <button (click)="onLogin()" type="submit" class="btn btn-lg btn-primary btn-block">Dołącz na Pokład!</button>
+
+    <div class="py-4 text-center">
+      <button (click)="onLogin()" type="submit" class="btn btn-lg btn-primary btn-block">Dołącz na Pokład!</button>
+    </div>
+
   </div>
 
-</div>
 
-
-
-
-
-<!-- Section: Design Block -->

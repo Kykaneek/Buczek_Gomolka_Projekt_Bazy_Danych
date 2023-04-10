@@ -1,0 +1,7 @@
+table > tr > td {
+  margin: 5px;
+}
+
+table > tbody > tr:hover {
+  background-color: #aeebfc;
+}
