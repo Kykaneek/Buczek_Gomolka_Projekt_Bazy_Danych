@@ -1,36 +1,49 @@
 <!-- Section: Design Block -->
-<section class=" text-center text-lg-start">
 
-  <div class="card mb-3">
-    <div class="row g-0 d-flex align-items-center">
-      <div class="col-lg-2 d-none d-lg-flex">
-        <img src="" alt="LOGO"
-             class="w-100 rounded-t-6 rounded-tr-lg-0 rounded-bl-lg-5" />
-      </div>
-      <div class="col-lg-8">
-        <div class="card-body py-5 px-md-5">
-          <form [formGroup]="loginform">
-            <div class="form-group pt-3" [class.error]="loginform.controls['Login'].dirty && loginform.hasError('required','Login')">
-              <div class="form-check-input-field" >
-                <span class="fa fa-user p-2"></span>
-                <input formControlName="Login" type="text"  placeholder="Username" />
 
-              </div>
-            </div>
-            <small *ngIf="loginform.controls['Login'].dirty && loginform.hasError('required','Login')" class="text-danger">*Nazwa użytkownika jest wymagana</small>
-            <div class="form-group pt-3" [class.error]="loginform.controls['Pass'].dirty && loginform.hasError('required','Pass')">
-              <div class="input-field" >
-                <span class="fa fa-lock p-2" ></span>
-                <input formControlName="Pass" [type]="type"  placeholder="Password" />
-                <span (click)="Showpass()" class=""></span>
-              </div>
-            </div>
-            <small *ngIf="loginform.controls['Pass'].dirty && loginform.hasError('required','Pass')" class="text-danger">*Hasło jest wymagane</small>
-            <button (click)="onLogin()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Login</button>
-          </form>
+<div class="container">
+  <div class="py-3 text-center">
+    <h1>TU BUDZIE LOGO</h1>
+    <h3>Wejdź na pokład Kapitanie!</h3>
+    <p class="lead">Zacznij zarządzać swym okrętem</p>
+  </div>
+
+  <div class="py-4 text-center border border-black px-4 rounded-1">
+
+    <form [formGroup]="loginform">
+      <div class="form-group pt-3" [class.error]="loginform.controls['Login'].dirty && loginform.hasError('required','Login')">
+        <div class="form-check-input-field">
+          <div class="row">
+            <span class="fa fa-user p-2"></span>
+            <label class="col-md-1">Login</label>
+            <div class="col-md-11 mb-4"><input formControlName="Login" type="text" class="form-control" placeholder="Username" /></div>
+          </div>
         </div>
       </div>
-    </div>
+
+      <small *ngIf="loginform.controls['Login'].dirty && loginform.hasError('required','Login')" class="text-danger">*Nazwa użytkownika jest wymagana</small>
+      <div class="form-group pt-3" [class.error]="loginform.controls['Pass'].dirty && loginform.hasError('required','Pass')">
+        <div class="input-field">
+          <div class="row">
+            <span class="fa fa-lock p-2"></span>
+            <label class="col-md-1">Login</label>
+            <div class="col-md-11 mb-4"><input formControlName="Pass" class="form-control" [type]="type" placeholder="Password" /></div>
+            <span (click)="Showpass()" class=""></span>
+          </div>
+          </div>
+        </div>
+      <small *ngIf="loginform.controls['Pass'].dirty && loginform.hasError('required','Pass')" class="text-danger">*Hasło jest wymagane</small>
+    </form>
+
+
+  <div class="py-4 text-center">
+    <button (click)="onLogin()" type="submit" class="btn btn-lg btn-primary btn-block">Dołącz na Pokład!</button>
   </div>
-</section>
+
+</div>
+
+
+
+
+
 <!-- Section: Design Block -->

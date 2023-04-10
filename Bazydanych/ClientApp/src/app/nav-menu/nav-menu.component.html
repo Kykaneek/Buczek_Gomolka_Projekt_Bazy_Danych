@@ -47,16 +47,24 @@
         </ul>
       </div>
       <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-        <ul class="navbar-nav flex-grow">
+        <ul class="navbar-nav row">
           <li class="nav-item" *ngIf="IsLogin" [routerLinkActive]="['link-active']">
             <button class="btn btn-danger" (click)="logout()" [routerLink]="['/login']">Logout</button>
           </li>
-          <li class="nav-item" *ngIf="!IsLogin"
+
+          <li class="nav-item col-md-5" *ngIf="!IsLogin"
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
             <button class="btn btn-success" [routerLink]="['/login']">Login</button>
           </li>
-          </ul>
+
+          <li class="nav-item col-md-5" *ngIf="!IsLogin"
+              [routerLinkActive]="['link-active']"
+              [routerLinkActiveOptions]="{ exact: true }">
+            <button class="btn btn-success" [routerLink]="['/register']">Register</button>
+          </li>
+
+        </ul>
       </div>
            
       </div>
