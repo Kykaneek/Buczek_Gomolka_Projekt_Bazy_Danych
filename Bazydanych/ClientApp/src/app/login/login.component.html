@@ -2,50 +2,42 @@
 
 
 <div class="container">
-  <div class="py-3 text-center">
-    <h1>TU BUDZIE LOGO</h1>
-    <h3>Wejdź na pokład Kapitanie!</h3>
-    <p class="lead">Zacznij zarządzać swym okrętem</p>
-  </div>
+  <div class="py-3 ">
+    <h1 class=" text-center">TU BUDZIE LOGO w tle</h1>
 
-  <div class="py-4 text-center border border-black px-4 rounded-1">
 
-    <form [formGroup]="loginform">
-      <div class="form-group pt-3" [class.error]="loginform.controls['Login'].dirty && loginform.hasError('required','Login')">
-        <div class="form-check-input-field">
-          <div class="row">
-            <span class="fa fa-user p-2"></span>
-            <label class="col-sm-1">Login</label>
-            <div class="col-sm-10 mb-2">
-              <input formControlName="Login" type="text" class="form-control" placeholder="Username" />
-              <small *ngIf="loginform.controls['Login'].errors && loginform.controls['Login'].errors.required" class="text-danger">*Nazwa użytkownika jest wymagana</small>
+
+
+
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6">
+            <div class="border border-3 border-primary"></div>
+            <div class="card bg-white shadow-lg">
+              <div class="card-body p-5">
+                <form class="mb-3 mt-md-4" [formGroup]="loginform">
+                  <h2 class="fw-bold mb-2 text-uppercase justify-content-center text-center">CarBoat</h2>
+                  <p class=" mb-5">Podaj Login i Hasło!</p>
+                  <div class="mb-3">
+                    <label class="form-label ">Login</label>
+                    <input formControlName="Login" type="email" class="form-control" id="email" placeholder="Username">
+                    <small *ngIf="loginform.controls['Login'].errors && loginform.controls['Login'].errors.required" class="text-danger">*Nazwa użytkownika jest wymagana</small>
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label ">Password</label>
+                    <input formControlName="Pass" [type]="type" class="form-control" id="Hasło" placeholder="Password">
+                    <small *ngIf="loginform.controls['Pass'].errors && loginform.controls['Pass'].errors.required" class="text-danger">*Hasło jest wymagane</small>
+                  </div>
+                  <div class="d-grid">
+                    <button (click)="onLogin()" class="btn btn-outline-primary" type="submit">Login</button>
+                  </div>
+                </form>
+
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="form-group pt-3" [class.error]="loginform.controls['Pass'].dirty && loginform.hasError('required','Pass')">
-        <div class="input-field">
-          <div class="row">
-            <span class="fa fa-lock p-2"></span>
-            <label class="col-sm-1">Hasło</label>
-            <div class="col-sm-10 mb-2">
-              <input formControlName="Pass" class="form-control" [type]="type" placeholder="Password" />
-              <small *ngIf="loginform.controls['Pass'].errors && loginform.controls['Pass'].errors.required" class="text-danger">*Hasło jest wymagane</small>
-            </div>
-            <span (click)="Showpass()" class=""></span>
-          </div>
-          <div class="row">
-                      </div>
-        </div>
-      </div>
-    </form>
-
-
-
-    <div class="py-4 text-center">
-      <button (click)="onLogin()" type="submit" class="btn btn-lg btn-primary btn-block">Dołącz na Pokład!</button>
     </div>
-
   </div>
-
-
