@@ -18,7 +18,11 @@ export class NavMenuComponent {
 
   public IsLogin: boolean = this.LoginService.isLogIn();
   isExpanded = false;
-  constructor(private router: Router, private LoginService: LoginService, private toast: ToastrService) { }
+  constructor(private router: Router, private LoginService: LoginService, private toast: ToastrService) {
+    LoginService.login$.subscribe(val => {
+      this.IsLogin = LoginService.isLogIn();
+    })
+}
   collapse() {
     this.isExpanded = false;
   }

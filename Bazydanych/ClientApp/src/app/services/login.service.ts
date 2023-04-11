@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,9 +10,11 @@ export class LoginService {
   Login(LoginOjb: any) {
     return this.http.post<any>(this.Apiurl,LoginOjb);
   }
-
+  private login = new BehaviorSubject<any>(this.isLogIn)
+  public login$ = this.login.asObservable();
   storetoken(Tokenvalue: string) {
     localStorage.setItem('token', Tokenvalue)
+    this.login.next(true)
   }
 
   gettoken() {
@@ -23,5 +25,5 @@ export class LoginService {
     //weryfikacja czy token istnieje
     return !!localStorage.getItem('token')
   }
-
+ 
 }
