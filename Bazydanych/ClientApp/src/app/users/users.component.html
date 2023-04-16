@@ -27,25 +27,27 @@
 
       <thead>
         <tr>
-          <th>lp</th>
+          
           <th>Użytkownik</th>
           <th>Czy Kierowca</th>
           <th>Numer Telefonu</th>
           <th>W firmie</th>
           <th>Czas przerwy</th>
           <th>Kategoria prawa jazdy</th>
+          <th>Akcje</th>
         </tr>
       </thead>
 
       <tbody >
         <tr *ngFor="let user of users">
-          <td><div class="d-flex justify-content-center"><button class="btn btn-outline-secondary">Pokaż</button><button class="btn btn-outline-secondary">Usuń</button></div></td>
+         
           <td>{{user.login}}</td>
           <td>{{user.is_driver}}</td>
           <td>{{user.phone}}</td>
           <td>{{user.is_in_base}}</td>
           <td>{{user.pause_time}}</td>
           <td>{{user.licence}}</td>
+           <td><div class="d-flex justify-content-center"><button class="btn btn-outline-secondary">Pokaż</button><button class="btn btn-outline-secondary">Usuń</button></div></td>
         </tr>
       </tbody>
     </table>
@@ -60,9 +62,7 @@
 
 
             <div class="d-flex justify-content-center">
-              <button class="btn btn-success m-1">Dodaj użytkownika</button>
-              <button class="btn btn-danger m-1">Usuń użytkownika</button>
-              <button class="btn btn-warning m-1">Modyfikuj użytkownika</button>
+              <button class="btn btn-success m-1" [routerLink]="['/adduser']">Dodaj użytkownika</button>
             </div>
 
 

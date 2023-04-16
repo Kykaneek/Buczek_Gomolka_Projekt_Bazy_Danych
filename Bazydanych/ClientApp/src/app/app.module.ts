@@ -6,7 +6,7 @@ import { RouterModule ,Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { TracesComponent } from './traces/traces.component';
 import { CarsComponent } from './cars/cars.component';
-import { RegisterComponent } from './register/register.component';
+import { AddusersComponent } from './addusers/addusers.component';
 import { ContractorsComponent } from './contractors/contractors.component';
 import { PermissionsComponent } from './permissions/permissions.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -20,12 +20,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full', },
   { path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
-  { path: 'register', component: RegisterComponent },
-  { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'traces', component: TracesComponent, canActivate: [AuthGuard] },
   { path: 'cars', component: CarsComponent, canActivate: [AuthGuard] },
   { path: 'contractors', component: ContractorsComponent, canActivate: [AuthGuard] },
   { path: 'permissions', component: PermissionsComponent, canActivate: [AuthGuard] },
+  { path: 'adduser', component: AddusersComponent, canActivate: [AuthGuard]}
 ]
 @NgModule({
   declarations: [
@@ -34,10 +34,10 @@ const routes: Routes = [
     HomeComponent,
     UsersComponent,
     LoginComponent,
-    RegisterComponent,
     ContractorsComponent,
     PermissionsComponent,
     CarsComponent,
+    AddusersComponent,
     TracesComponent
 
   ],
