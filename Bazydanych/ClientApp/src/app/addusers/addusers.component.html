@@ -1,1 +1,40 @@
-<p>addusers works!</p>
+
+
+<h3 class="border-bottom pb-2"><b>Dodaj użytkownika</b></h3>
+
+<form class="d-flex flex-column p-2 justify-content-start align-items-start">
+
+  <div class="row">
+    <div class="row"><label class="col-2">Nazwa użytkownika</label><input class="form-control col" type="text" placeholder="Imię i Nazwisko" /></div>
+    <div class="row"><label class="col-2">Hasło</label><input class="form-control col" type="password" placeholder="Hasło" /></div>
+    <div class="row"><label class="col-2">Powtórz Hasło</label><input class="form-control col" type="password" placeholder="Ponownie hasło" /> </div>
+    <div class="row"><label class="col-2">Kontakt</label><input class="form-control col" type="text" placeholder="Telefon" /> </div>
+
+    <div class="row">
+      <label class="col-2">Czy kierowca</label>
+      <select class="col form-control">
+        <option>Tak</option>
+        <option>Nie</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label class="col-2">Kategoria prawa jazdy</label>
+      <select class="col form-control">
+        <option>B - pojazdy osobowe</option>
+        <option>C - pojazdy ciężarowe</option>
+      </select>
+    </div>
+  </div>
+
+  
+
+</form>
+
+<div class="d-flex justify-content-end m-t-2 ">
+  <div class="buttondiv">
+    <button class="btn btn-success m-2 col" [routerLink]="['/adduser']">Dodaj użytkownika</button>
+    <button class="btn btn-warning m-2 col" [routerLink]="['/adduser']">Powrót do listy</button>
+    <button class="btn btn-light m-2 col" [routerLink]="['/adduser']">Rezygnacja</button>
+  </div>
+</div>
