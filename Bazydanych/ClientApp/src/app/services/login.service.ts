@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  readonly Apiurl = "https://localhost:44449/api/Login";
+  readonly Apiurl = "https://localhost:44449/api/Login/Login";
   constructor(private http: HttpClient) { }
   Login(LoginOjb: any) {
     return this.http.post<any>(this.Apiurl,LoginOjb);

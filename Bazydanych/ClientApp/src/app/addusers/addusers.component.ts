@@ -28,10 +28,18 @@ export class AddusersComponent implements OnInit {
   Resignate() {
     this.registerform.reset();
     this.route.navigate(['users'])
+    
   }
   Back() {
     this.registerform.reset();
-    this.route.navigate(['users'])
+    var answer = window.confirm("Czy przerwać dodawanie użytkownika?");
+    if (answer) {
+      this.route.navigate(['users'])
+    }
+    else {
+     
+    }
+    
   }
   onRegister() {
     if (this.registerform.valid) {
