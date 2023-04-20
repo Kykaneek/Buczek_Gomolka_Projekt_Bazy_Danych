@@ -10,6 +10,7 @@ export class LoginService {
   Login(LoginOjb: any) {
     return this.http.post<any>(this.Apiurl,LoginOjb);
   }
+
   private login = new BehaviorSubject<any>(this.isLogIn)
   public login$ = this.login.asObservable();
   storetoken(Tokenvalue: string) {

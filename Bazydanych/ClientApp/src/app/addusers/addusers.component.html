@@ -2,50 +2,48 @@
 
 <h3 class="border-bottom pb-2"><b>Dodaj użytkownika</b></h3>
 
-<form class="d-flex flex-column p-2 justify-content-start align-items-start">
+<form class="d-flex flex-column p-2 justify-content-start align-items-start" [formGroup]="registerform">
 
   <div class="row">
-    <div class="row"><label class="col-2">Nazwa użytkownika</label><input class="form-control col" type="text" placeholder="Imię i Nazwisko" /></div>
-    <div class="row"><label class="col-2">Hasło</label><input class="form-control col" type="password" placeholder="Hasło" /></div>
-    <div class="row"><label class="col-2">Powtórz Hasło</label><input class="form-control col" type="password" placeholder="Ponownie hasło" /> </div>
-    <div class="row"><label class="col-2">Kontakt</label><input class="form-control col" type="text" placeholder="Telefon" /> </div>
+    <div class="row"><label class="col-2">Nazwa użytkownika</label><input class="form-control col" type="text" placeholder="Imię i Nazwisko" formControlName="Login" /></div>
+    <div class="row"><label class="col-2">Hasło</label><input class="form-control col" type="password" placeholder="Hasło" formControlName="Pass" /></div>
+    <div class="row"><label class="col-2">Powtórz Hasło</label><input class="form-control col" type="password" placeholder="Ponownie hasło" formControlName="VerPass" /> </div>
+    <div class="row"><label class="col-2">Kontakt</label><input class="form-control col" type="text" placeholder="Telefon" formControlName="Phone" /> </div>
 
     <div class="row">
       <label class="col-2">Czy kierowca</label>
-      <select class="col form-control">
-        <option>Tak</option>
-        <option>Nie</option>
+      <select class="col form-control" formControlName="is_Driver">
+        <option value="true">Tak</option>
+        <option value="false">Nie</option>
       </select>
     </div>
 
     <div class="row">
       <label class="col-2">Kategoria prawa jazdy</label>
-      <select class="col form-control">
-        <option>B - pojazdy osobowe</option>
-        <option>C - pojazdy ciężarowe</option>
+      <select class="col form-control" formControlName="Licence">
+        <option value="B">B - pojazdy osobowe</option>
+        <option value="C">C - pojazdy ciężarowe</option>
       </select>
     </div>
 
     <div class="row">
       <label class="col-2">Rola użytkownika</label>
-      <select class="col form-control">
-        <option>Administrator</option>
-        <option>Użytkownik planujący</option>
-        <option>Kierowca</option>
+      <select class="col form-control" formControlName="UserRole">
+        <option value="User">Użytkownik planujący</option>
+        <option value="Driver">Kierowca</option>
+        <option value="Admin">Administrator</option>
       </select>
     </div>
 
 
   </div>
 
-  
-
+  <div class="d-flex justify-content-end m-t-2 ">
+    <div class="buttondiv">
+      <button class="btn btn-success m-2 col" (click)="onRegister()" >Dodaj użytkownika</button>
+      <button class="btn btn-warning m-2 col" (click)="Back()" >Powrót do listy</button>
+      <button class="btn btn-light m-2 col" (click)="Resignate()" >Rezygnacja</button>
+    </div>
+  </div>
 </form>
 
-<div class="d-flex justify-content-end m-t-2 ">
-  <div class="buttondiv">
-    <button class="btn btn-success m-2 col" >Dodaj użytkownika</button>
-    <button class="btn btn-warning m-2 col" [routerLink]="['/users']">Powrót do listy</button>
-    <button class="btn btn-light m-2 col" [routerLink]="['/users']">Rezygnacja</button>
-  </div>
-</div>

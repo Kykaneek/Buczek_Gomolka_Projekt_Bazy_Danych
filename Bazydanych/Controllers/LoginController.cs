@@ -29,7 +29,7 @@ namespace Bazydanych.Controllers
 
         public LoginController(AppDB appDB)
         {
-            _authcontext = appDB;
+                   _authcontext = appDB;
         }
         private string CreateJwt(User user, Role roles)
         {
@@ -93,6 +93,7 @@ namespace Bazydanych.Controllers
         {
             return Ok(await _authcontext.Users.ToListAsync());
         }
+
     }
 
     
