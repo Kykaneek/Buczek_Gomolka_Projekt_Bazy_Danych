@@ -1,0 +1,22 @@
+h3 {
+  margin-top: 3%;
+}
+
+.row > div {
+  margin-top: 25px;
+  margin-left: 35px;
+  padding-right: 2px;
+}
+
+.row > input, select {
+  max-width: 80%;
+}
+
+form {
+  margin-bottom: 1%;
+}
+
+divbutton > button {
+  margin-left: 1%;
+  min-width: 25%;
+}

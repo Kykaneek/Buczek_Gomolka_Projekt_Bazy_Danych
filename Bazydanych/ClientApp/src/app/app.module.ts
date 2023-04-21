@@ -17,6 +17,9 @@ import { UsersComponent } from './users/users.component';
 import { TokenInterceptor } from './Intercepters/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditUserComponent } from './edituser/edituser.component';
+import { EditConcractorComponent } from './editconcractor/editconcractor.component';
+import { AddConcractorComponent } from './addcontractor/addcontractor.component';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full', },
   { path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -25,7 +28,10 @@ const routes: Routes = [
   { path: 'cars', component: CarsComponent, canActivate: [AuthGuard] },
   { path: 'contractors', component: ContractorsComponent, canActivate: [AuthGuard] },
   { path: 'permissions', component: PermissionsComponent, canActivate: [AuthGuard] },
-  { path: 'adduser', component: AddusersComponent, canActivate: [AuthGuard]}
+  { path: 'adduser', component: AddusersComponent, canActivate: [AuthGuard]},
+  { path: 'edituser', component: EditUserComponent, canActivate: [AuthGuard]},
+  { path: 'editconcractor', component: EditConcractorComponent, canActivate: [AuthGuard]},
+  { path: 'addcontractor', component: AddConcractorComponent, canActivate: [AuthGuard]}
 ]
 @NgModule({
   declarations: [
@@ -38,8 +44,10 @@ const routes: Routes = [
     PermissionsComponent,
     CarsComponent,
     AddusersComponent,
-    TracesComponent
-
+    TracesComponent,
+    EditUserComponent,
+    EditConcractorComponent,
+    AddConcractorComponent
   ],
   imports: [
     BrowserAnimationsModule,

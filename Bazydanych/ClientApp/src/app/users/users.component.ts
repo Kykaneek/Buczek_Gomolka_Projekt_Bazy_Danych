@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -10,7 +11,7 @@ import { ApiService } from '../services/api.service';
 export class UsersComponent implements OnInit {
 
   public users: any = [];
-  constructor(private api: ApiService, private toast: ToastrService) {
+  constructor(private api: ApiService, private route: Router, private toast: ToastrService) {
 
 }
 
@@ -25,5 +26,8 @@ export class UsersComponent implements OnInit {
     })
   }
 
+  ShowUser(): void {
+    this.route.navigate(['/edituser']);
+  }
 
 }
