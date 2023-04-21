@@ -10,5 +10,8 @@ export class RegisterService {
   Register(LoginOjb: any) {
     return this.http.post<any>(this.Apiurl, LoginOjb);
   }
-
+  isLogIn(): boolean {
+    //weryfikacja czy token istnieje
+    return !!localStorage.getItem('token')
+  }
 }

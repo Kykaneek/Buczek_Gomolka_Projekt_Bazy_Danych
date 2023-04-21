@@ -16,6 +16,11 @@ export class ApiService {
   DeleteUser(User: any) {
     return this.http.post<any>(this.Delete, User);
   }
-
-
+  getUser(User: any) {
+    return this.http.get<any>(this.ApiUrl,User);
+  }
+  isLogIn(): boolean {
+    //weryfikacja czy token istnieje
+    return !!localStorage.getItem('token')
+  }
 }

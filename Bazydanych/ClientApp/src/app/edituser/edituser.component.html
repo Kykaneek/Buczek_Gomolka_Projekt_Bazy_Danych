@@ -5,12 +5,12 @@
 <section class="d-flex flex-column p-2 justify-content-start align-items-start">
 
   <div class="row">
-    <div class="row"><label class="col-2">Nazwa użytkownika</label><input class="form-control col" type="text" disabled placeholder="Imię i Nazwisko" /></div>
-    <div class="row"><label class="col-2">Kontakt</label><input class="form-control col" type="text" placeholder="Telefon" disabled /> </div>
+    <div class="row"><label class="col-2">Nazwa użytkownika</label><input class="form-control col" type="text" id="Login"  /></div>
+    <div class="row"><label class="col-2">Kontakt</label><input class="form-control col" type="text" id="Phone" /> </div>
 
     <div class="row">
       <label class="col-2">Czy kierowca</label>
-      <select class="col form-control" disabled >
+      <select class="col form-control" id="IsDriver"  >
         <option value="true">Tak</option>
         <option value="false">Nie</option>
       </select>
@@ -18,7 +18,7 @@
 
     <div class="row">
       <label class="col-2">Kategoria prawa jazdy</label>
-      <select class="col form-control" disabled>
+      <select class="col form-control" id="Licence" >
         <option value="B">B - pojazdy osobowe</option>
         <option value="C">C - pojazdy ciężarowe</option>
       </select>
@@ -26,7 +26,7 @@
 
     <div class="row">
       <label class="col-2">Rola użytkownika</label>
-      <select class="col form-control" disabled>
+      <select class="col form-control" id="UserRole" >
         <option value="User">Użytkownik planujący</option>
         <option value="Driver">Kierowca</option>
         <option value="Admin">Administrator</option>
@@ -37,8 +37,8 @@
 
   <div class="d-flex justify-content-end mt-4 ">
     <div class="buttondiv m-t">
-      <button class="btn btn-success m-2 col" >Edytuj użytkownika</button>
-      <button class="btn btn-info m-2 col" >Edytuj hasło użytkownika</button>
+      <button class="btn btn-success m-2 col" (click)="EditUser()" >Edytuj użytkownika</button>
+      <button class="btn btn-info m-2 col" (click)="PasswordChange()" >Zmień hasło użytkownika</button>
       <button class="btn btn-warning m-2 col"  (click)="BackToList()" >Powrót do listy</button>
     </div>
   </div>

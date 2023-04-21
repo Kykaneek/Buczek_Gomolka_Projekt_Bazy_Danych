@@ -96,6 +96,7 @@ namespace Bazydanych.Controllers
         [ActionName("users")]
         public async Task<ActionResult<User>> GetAllUsers()
         {
+          
             return Ok(await _authcontext.Users.ToListAsync());
         }
         [Authorize]
@@ -138,6 +139,4 @@ namespace Bazydanych.Controllers
             });
         }
     }
-
-    
 }

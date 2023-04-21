@@ -2,25 +2,25 @@
 
 <h3 class="border-bottom pb-2"><b>Dodaj kontrahenta</b></h3>
 
-<section class="d-flex flex-column p-2 justify-content-start align-items-start">
-  <!--[formGroup]-->
-  <!--[formControlName]-->
-  <div class="row">
-    <div class="row"><label class="col-2">Nazwa Kontrahenta</label><input class="form-control col" type="text" placeholder="Kontrahent" /></div>
-    <div class="row"><label class="col-2">NIP</label><input class="form-control col" type="text" placeholder="NIP" /> </div>
-    <div class="row"><label class="col-2">PESEL</label><input class="form-control col" type="text" placeholder="PESEL" /> </div>
-    <div class="row"><label class="col-2">Lokalizacja</label><input class="form-control col" type="text" placeholder="Lokalizacja kontrahenta" /> </div>
+<form class="d-flex flex-column p-2 justify-content-start align-items-start" [formGroup]="contractorForm">
+  <section class="d-flex flex-column p-2 justify-content-start align-items-start">
+
+    <div class="row">
+      <div class="row"><label class="col-2">Nazwa Kontrahenta</label><input class="form-control col" type="text" placeholder="Kontrahent" formControlName="Name" /></div>
+      <div class="row"><label class="col-2">NIP</label><input class="form-control col" type="number" placeholder="NIP" formControlName="Nip"/> </div>
+      <div class="row"><label class="col-2">PESEL</label><input class="form-control col" type="number" placeholder="PESEL" formControlName="Pesel" /> </div>
+      <div class="row"><label class="col-2">Lokalizacja</label><input class="form-control col" type="text" placeholder="Lokalizacja kontrahenta" /> </div>
 
 
 
 
-    <div class="d-flex justify-content-end mt-4 ">
-      <div class="buttondiv m-t">
-        <button class="btn btn-success m-2 col">Dodaj użytkownika</button>
-        <button class="btn btn-warning m-2 col" (click)="Back()">Powrót do listy</button>
-        <button class="btn btn-light m-2 col" (click)="Resignate()">Rezygnacja</button>
+      <div class="d-flex justify-content-end mt-4 ">
+        <div class="buttondiv m-t">
+          <button class="btn btn-success m-2 col"(click)="onCreate()">Dodaj użytkownika</button>
+          <button class="btn btn-warning m-2 col" (click)="Back()">Powrót do listy</button>
+          <button class="btn btn-light m-2 col" (click)="Resignate()">Rezygnacja</button>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
+  </section>
+  </form>

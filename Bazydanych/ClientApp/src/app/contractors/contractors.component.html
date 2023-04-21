@@ -37,12 +37,12 @@
 
       <tbody>
 
-        <tr>
-          <td><!--{{contractor.Name}}--></td>
-          <td><!--{{contractor.Nip}}-->NIP_Kontrahenta</td>
-          <td><!--{{contractor.Pesel}}-->Pesel_Kontrahenta</td>
-          <td><!--{{contractor.LocationId}}-->Miasto_Kontrahenta</td>
-          <td><div class="d-flex justify-content-center"><button class="btn btn-outline-secondary" (click)="Edit()" [routerLink]="['/editconcractor']" >Pokaż</button><button   class="btn btn-outline-secondary">Usuń</button></div></td>
+        <tr *ngFor="let contractor of contractors">
+          <td>{{contractor.name}}</td>
+          <td>{{contractor.nip}}</td>
+          <td>{{contractor.pesel}}</td>
+          <td>{{contractor.locationID}}</td>
+          <td><div class="d-flex justify-content-center"><button class="btn btn-outline-secondary" (click)="Edit()" >Pokaż</button><button   class="btn btn-outline-secondary" (click)="Delete(contractor)">Usuń</button></div></td>
 
         </tr>
       </tbody>
@@ -59,8 +59,6 @@
 
 <div class="d-flex justify-content-center">
   <button class="btn btn-success m-1" [routerLink]="['/addcontractor']">Dodaj kontrahenta</button>
-  <button class="btn btn-danger m-1">Usuń kontrahenta</button>
-  <button class="btn btn-warning m-1" [routerLink]="['/editconcractor']" >Modyfikuj kontrahenta</button>
 </div>
 
 
