@@ -5,10 +5,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RegisterService {
-  readonly Apiurl = "https://localhost:44449/api/register";
+  readonly Apiurl = "https://localhost:44449/api/register/";
   constructor(private http: HttpClient) { }
   Register(LoginOjb: any) {
-    return this.http.post<any>(this.Apiurl, LoginOjb);
+    return this.http.post<any>(this.Apiurl+"register", LoginOjb);
+  }
+  UpdateUser(UserID: any) {
+    let queryParams = { "user": UserID };
+    return this.http.get<any>(this.Apiurl + "getuser", { params: queryParams });
+
   }
   isLogIn(): boolean {
     //weryfikacja czy token istnieje

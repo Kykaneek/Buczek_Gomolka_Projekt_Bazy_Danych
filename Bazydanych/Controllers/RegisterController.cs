@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-
+using System.Data;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Bazydanych.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class RegisterController : ControllerBase
     {
@@ -23,6 +23,7 @@ namespace Bazydanych.Controllers
         }
         [Authorize]
         [HttpPost]
+        [ActionName("register")]
         public async Task<IActionResult> Reg(Register user)
         {
             if(user == null)
@@ -87,6 +88,44 @@ namespace Bazydanych.Controllers
             {
                 Message = "Poprawnie utworzono użytkownika."
             });
+        }
+        
+        [HttpGet]
+        [ActionName("getuser")]
+        public JsonResult GetAllContractors(string user)
+        {
+
+            string query = @"select login,phone,licence,is_driver,UserRole from users u join roles r on r.userid= u.id where u.id = @userid";
+            DataTable data = new DataTable();
+            SqlDataReader reader;
+            string DataSource = _conn.GetConnectionString("DBCon");
+            SqlTransaction transaction;
+            using (SqlConnection connection = new SqlConnection(DataSource))
+            {
+                connection.Open();
+                transaction = connection.BeginTransaction();
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue("@userid", user);
+                        reader = command.ExecuteReader();
+                        data.Load(reader);
+                        reader.Close();
+
+                    }
+                    transaction.Commit();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+                return new JsonResult(data);
+            }
+
+
+
         }
     }
 }

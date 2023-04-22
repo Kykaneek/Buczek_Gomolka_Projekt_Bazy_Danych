@@ -2,15 +2,15 @@
 
 <h3 class="border-bottom pb-2"><b>Szczegóły użytkownika</b></h3>
 
-<section class="d-flex flex-column p-2 justify-content-start align-items-start">
+<section class="d-flex flex-column p-2 justify-content-start align-items-start" *ngFor="let user of useredit">
 
   <div class="row">
-    <div class="row"><label class="col-2">Nazwa użytkownika</label><input class="form-control col" type="text" id="Login"  /></div>
-    <div class="row"><label class="col-2">Kontakt</label><input class="form-control col" type="text" id="Phone" /> </div>
+    <div class="row"><label class="col-2">Nazwa użytkownika</label><input class="form-control col" type="text" id="Login" value="{{user.login}}"></div>
+    <div class="row"><label class="col-2">Kontakt</label><input class="form-control col" type="text" id="Phone" value="{{user.phone}}"/> </div>
 
     <div class="row">
       <label class="col-2">Czy kierowca</label>
-      <select class="col form-control" id="IsDriver"  >
+      <select class="col form-control" id="IsDriver" [(ngModel)]="user.is_driver">
         <option value="true">Tak</option>
         <option value="false">Nie</option>
       </select>
@@ -18,7 +18,7 @@
 
     <div class="row">
       <label class="col-2">Kategoria prawa jazdy</label>
-      <select class="col form-control" id="Licence" >
+      <select class="col form-control" id="Licence" [(ngModel)]="user.licence">
         <option value="B">B - pojazdy osobowe</option>
         <option value="C">C - pojazdy ciężarowe</option>
       </select>
@@ -26,7 +26,7 @@
 
     <div class="row">
       <label class="col-2">Rola użytkownika</label>
-      <select class="col form-control" id="UserRole" >
+      <select class="col form-control" id="UserRole" [(ngModel)]="user.userRole">
         <option value="User">Użytkownik planujący</option>
         <option value="Driver">Kierowca</option>
         <option value="Admin">Administrator</option>

@@ -47,7 +47,7 @@
           <td>{{user.is_in_base}}</td>
           <td>{{user.pause_time}}</td>
           <td>{{user.licence}}</td>
-           <td><div class="d-flex justify-content-center"><button class="btn btn-outline-secondary" (Click)="ShowUser()" [routerLink]="['/edituser']">Pokaż</button><button class="btn btn-outline-secondary" (click)="DeleteUser(user)">Usuń</button></div></td>
+           <td><div class="d-flex justify-content-center"><button class="btn btn-outline-secondary" (click)="ShowUser(user.id)" >Pokaż</button><button class="btn btn-outline-secondary" (click)="DeleteUser(user)">Usuń</button></div></td>
         </tr>
       </tbody>
     </table>
