@@ -14,8 +14,8 @@ namespace Bazydanych.Models
 
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public long? Nip { get; set; }
-        public long? Pesel { get; set; }
+        public string? Nip { get; set; }
+        public string? Pesel { get; set; }
         public int? LocationId { get; set; }
         [NotMapped]
         public virtual ICollection<ContractorLocation> ContractorLocations { get; set; }

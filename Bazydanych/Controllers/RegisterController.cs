@@ -1,4 +1,5 @@
 ﻿using Bazydanych.Context;
+using Bazydanych.Helpers;
 using Bazydanych.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -48,7 +49,20 @@ namespace Bazydanych.Controllers
                     Message = "Użytkownik musi posiadać przypisaną role"
                 });
             }
-
+            if(user.Pass != user.VerPass)
+            {
+                return BadRequest(new
+                {
+                    Message = "Hasła nie są identyczne"
+                });
+            }
+            if (!Validate.ValidateNr(user.Phone) && user.Phone != "")
+            {
+                return BadRequest(new
+                {
+                    Message = "Niepoprawny numer"
+                });
+            }
             string query = @"insert into dbo.users
                             values (@login,@pass,@phone,@licence,@isdriver,1,0,null)";
             string query1 = @"insert into dbo.roles
@@ -68,7 +82,15 @@ namespace Bazydanych.Controllers
                     {
                         command.Parameters.AddWithValue("@login", user.Login);
                         command.Parameters.AddWithValue("@pass", pass);
-                        command.Parameters.AddWithValue("@phone", user.Phone);
+                        if (user.Phone != null && user.Phone != "")
+                        {
+                            command.Parameters.AddWithValue("@phone", user.Phone);
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@phone", DBNull.Value);
+                        }
+                        
                         command.Parameters.AddWithValue("@licence", user.Licence);
                         command.Parameters.AddWithValue("@isdriver", user.is_driver);
                         command.ExecuteNonQuery();

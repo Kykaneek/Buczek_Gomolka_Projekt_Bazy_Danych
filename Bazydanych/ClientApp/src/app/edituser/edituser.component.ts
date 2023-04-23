@@ -26,7 +26,7 @@ export class EditUserComponent implements OnInit {
     this.updateform = this.fb.group({
       Id: [this.api.userID,Validators.required],
       Login: ["", Validators.required],
-      Phone: ["", Validators.required],
+      Phone: [],
       is_driver: ["", Validators.required],
       Licence: ["", Validators.required],
       UserRole: ["", Validators.required],

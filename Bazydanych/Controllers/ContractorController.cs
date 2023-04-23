@@ -6,6 +6,8 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
+using Bazydanych.Helpers;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Bazydanych.Controllers
 {
@@ -116,9 +118,36 @@ namespace Bazydanych.Controllers
                     Message = "Kontrahent o tej nazwie istnieje"
                 });
             }
-
-
-            string query = @"insert into dbo.contractors
+            if (Contractor.Nip!= null)
+            {
+                if (!Validate.IsValidNIP(Contractor.Nip))
+                {
+                    return BadRequest(new
+                    {
+                        Message = "Kontrahent posiada nieprawidłowy NIP"
+                    });
+                }
+            }
+           
+            if(Contractor.Pesel != null)
+            {
+                if (!Validate.IsValidPESEL(Contractor.Pesel))
+                {
+                    return BadRequest(new
+                    {
+                        Message = "Kontrahent posiada nieprawidłowy PESEL"
+                    });
+                }
+            }
+            if (Contractor.Pesel == null && Contractor.Nip == null)
+            {
+                return BadRequest(new
+                {
+                    Message = "Wymagane jest podanie PESEL lub NIP"
+                });
+            }
+        
+                string query = @"insert into dbo.contractors
                             values (@name,@NIP,@PESEL,@locationID)";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;
@@ -131,8 +160,24 @@ namespace Bazydanych.Controllers
                     using (SqlCommand command = new SqlCommand(query, connection, transaction))
                     {
                         command.Parameters.AddWithValue("@name", Contractor.Name);
-                        command.Parameters.AddWithValue("@NIP", Contractor.Nip);
-                        command.Parameters.AddWithValue("@PESEL", Contractor.Pesel);
+                        if(Contractor.Pesel != null) {
+                            command.Parameters.AddWithValue("@PESEL", Contractor.Pesel);
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@PESEL", DBNull.Value);
+                        }
+
+                        if (Contractor.Nip != null)
+                        {
+                            command.Parameters.AddWithValue("@NIP", Contractor.Nip);
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@NIP", DBNull.Value);
+                        }
+                        
+                       
                         command.Parameters.AddWithValue("@locationID", "");
                         command.ExecuteNonQuery();
                     }
@@ -176,6 +221,36 @@ namespace Bazydanych.Controllers
             }
             var Contractortmp = await _authcontext.Contractors.FirstOrDefaultAsync(x => x.Id == Contractor.Id);
             var owner = _authcontext.Contractors.Where(x => x.Name == Contractor.Name);
+
+            if (Contractor.Nip != null && Contractor.Nip != "")
+            {
+                if (!Validate.IsValidNIP(Contractor.Nip))
+                {
+                    return BadRequest(new
+                    {
+                        Message = "Kontrahent posiada nieprawidłowy NIP"
+                    });
+                }
+            }
+
+            if (Contractor.Pesel != null && Contractor.Pesel != "")
+            {
+                if (!Validate.IsValidPESEL(Contractor.Pesel))
+                {
+                    return BadRequest(new
+                    {
+                        Message = "Kontrahent posiada nieprawidłowy PESEL"
+                    });
+                }
+            }
+            if (Contractor.Pesel == null && Contractor.Nip == null || Contractor.Pesel == null && Contractor.Nip == "" || Contractor.Pesel == "" && Contractor.Nip == null || Contractor.Pesel == "" && Contractor.Nip == "")
+            {
+                return BadRequest(new
+                {
+                    Message = "Wymagane jest podanie PESEL lub NIP"
+                });
+            }
+
             if (owner.Count() >= 1)
             {
                 var check = await _authcontext.Contractors.FirstOrDefaultAsync(x => x.Name == Contractor.Name);
@@ -194,18 +269,27 @@ namespace Bazydanych.Controllers
                     Message = "kontrahenta musi posiadać nazwe"
                 });
             }
+            
             using (_authcontext)
             {
                 if (Contractortmp != null)
                 {
                     Contractortmp.Name = Contractor.Name;
-                    if (Contractor.Pesel != null)
+                    if (Contractor.Pesel != null && Contractor.Pesel != "")
                     {
                         Contractortmp.Pesel = Contractor.Pesel;
                     }
-                    if (Contractor.Nip != null)
+                    else
+                    {
+                        Contractortmp.Pesel = null;
+                    }
+                    if (Contractor.Nip != null && Contractor.Nip != "")
                     {
                         Contractortmp.Nip = Contractor.Nip;
+                    }
+                    else
+                    {
+                        Contractortmp.Nip = null;
                     }
                     _authcontext.SaveChanges();
 

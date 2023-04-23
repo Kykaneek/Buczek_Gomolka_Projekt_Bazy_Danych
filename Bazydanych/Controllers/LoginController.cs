@@ -1,4 +1,5 @@
 ﻿using Bazydanych.Context;
+using Bazydanych.Helpers;
 using Bazydanych.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
@@ -213,6 +214,13 @@ namespace Bazydanych.Controllers
                     });
                 }
             }
+            if (!Validate.ValidateNr(user.Phone) && user.Phone != "")
+            {
+                return BadRequest(new
+                {
+                    Message = "Niepoprawny numer"
+                });
+            }
             var role = await _authcontext.Roles.FirstOrDefaultAsync(x => x.UserId == user.Id);
             if (usertmp == null || role == null) {
                  return BadRequest(new
@@ -227,7 +235,14 @@ namespace Bazydanych.Controllers
                     usertmp.Login = user.Login;
                     usertmp.Licence = user.Licence;
                     usertmp.is_driver = user.is_driver;
-                    usertmp.Phone = user.Phone;
+                    if (user.Phone != null && user.Phone != "")
+                    {
+                        usertmp.Phone = user.Phone;
+                    }
+                    else
+                    {
+                        usertmp.Phone = null;
+                    }
                     role.UserRole = user.UserRole;
                     _authcontext.SaveChanges();
                         

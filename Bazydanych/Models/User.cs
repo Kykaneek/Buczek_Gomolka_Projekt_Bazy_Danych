@@ -18,7 +18,7 @@ namespace Bazydanych.Models
         public string Login { get; set; } = null!;
         public string Pass { get; set; } = null!;
 
-        public int? Phone { get; set; }
+        public string? Phone { get; set; }
         public string? Licence { get; set; }
         public bool is_driver { get; set; }
         public bool is_in_base { get; set; }

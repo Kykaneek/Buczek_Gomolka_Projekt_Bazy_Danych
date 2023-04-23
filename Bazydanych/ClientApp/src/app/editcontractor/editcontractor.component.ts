@@ -27,8 +27,8 @@ export class EditConcractorComponent implements OnInit {
     this.updateform = this.fb.group({
       Id: [this.api.ContractorID, Validators.required],
       Name: ["", Validators.required],
-      Nip: ["", Validators.required],
-      Pesel: ["", Validators.required]
+      Nip: [],
+      Pesel: []
     }, { initialValueIsDefault: false })
     this.api.UnsetConcrator();
   }

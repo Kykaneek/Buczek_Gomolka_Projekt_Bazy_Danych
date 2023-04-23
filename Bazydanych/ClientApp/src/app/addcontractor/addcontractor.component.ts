@@ -16,8 +16,8 @@ export class AddConcractorComponent implements OnInit {
   ngOnInit(): void {
     this.contractorForm = this.fb.group({
       Name: ["", Validators.required],
-      Nip: ["", Validators.required],
-      Pesel: ["", Validators.required]
+      Nip: [],
+      Pesel: []
     })
 }
 
@@ -27,9 +27,10 @@ export class AddConcractorComponent implements OnInit {
 
   }
   Back() {
-    this.contractorForm.reset();
+    
     var answer = window.confirm("Czy przerwać dodawanie kontrahenta?");
     if (answer) {
+      this.contractorForm.reset();
       this.route.navigate(['contractors'])
     }
     else {
@@ -42,7 +43,6 @@ export class AddConcractorComponent implements OnInit {
     if (this.contractorForm.valid) {
       this.service.Add(this.contractorForm.value).subscribe({
         next: (res) => {
-
           this.contractorForm.reset();
           this.route.navigate(['contractors'])
           this.toast.success(res.message);

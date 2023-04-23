@@ -19,7 +19,7 @@ export class AddusersComponent implements OnInit {
       Login: ["", Validators.required],
       Pass: ["", Validators.required],
       VerPass: ["", Validators.required],
-      Phone: ["", Validators.required],
+      Phone: [],
       is_Driver: ["", Validators.required],
       Licence: ["", Validators.required],
       UserRole: ["", Validators.required],
@@ -31,9 +31,10 @@ export class AddusersComponent implements OnInit {
     
   }
   Back() {
-    this.registerform.reset();
+    
     var answer = window.confirm("Czy przerwać dodawanie użytkownika?");
     if (answer) {
+      this.registerform.reset();
       this.route.navigate(['users'])
     }
     else {
