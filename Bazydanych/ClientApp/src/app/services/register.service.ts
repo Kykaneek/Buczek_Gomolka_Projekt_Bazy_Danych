@@ -10,11 +10,7 @@ export class RegisterService {
   Register(LoginOjb: any) {
     return this.http.post<any>(this.Apiurl+"register", LoginOjb);
   }
-  UpdateUser(UserID: any) {
-    let queryParams = { "user": UserID };
-    return this.http.get<any>(this.Apiurl + "getuser", { params: queryParams });
-
-  }
+  
   isLogIn(): boolean {
     //weryfikacja czy token istnieje
     return !!localStorage.getItem('token')

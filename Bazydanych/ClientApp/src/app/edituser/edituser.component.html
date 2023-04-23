@@ -2,23 +2,23 @@
 
 <h3 class="border-bottom pb-2"><b>Szczegóły użytkownika</b></h3>
 
-<section class="d-flex flex-column p-2 justify-content-start align-items-start" *ngFor="let user of useredit">
+<section class="d-flex flex-column p-2 justify-content-start align-items-start" *ngFor="let user of useredit"  [formGroup]="updateform">
+
 
   <div class="row">
-    <div class="row"><label class="col-2">Nazwa użytkownika</label><input class="form-control col" type="text" id="Login" value="{{user.login}}"></div>
-    <div class="row"><label class="col-2">Kontakt</label><input class="form-control col" type="text" id="Phone" value="{{user.phone}}"/> </div>
-
+    <div class="row"><label class="col-2">Nazwa użytkownika</label><input class="form-control col" type="text" formControlName="Login" id="Login"[(ngModel)]="user.login" /></div>
+    <div class="row"><label class="col-2">Kontakt</label><input class="form-control col" type="text" id="Phone" formControlName="Phone" [(ngModel)]="user.phone" /> </div>
     <div class="row">
       <label class="col-2">Czy kierowca</label>
-      <select class="col form-control" id="IsDriver" [(ngModel)]="user.is_driver">
+      <select class="col form-control" formControlName="is_driver" [(ngModel)]="user.is_driver">
         <option value="true">Tak</option>
         <option value="false">Nie</option>
       </select>
     </div>
-
+                                    
     <div class="row">
       <label class="col-2">Kategoria prawa jazdy</label>
-      <select class="col form-control" id="Licence" [(ngModel)]="user.licence">
+      <select class="col form-control" formControlName="Licence" [(ngModel)]="user.licence">
         <option value="B">B - pojazdy osobowe</option>
         <option value="C">C - pojazdy ciężarowe</option>
       </select>
@@ -26,7 +26,7 @@
 
     <div class="row">
       <label class="col-2">Rola użytkownika</label>
-      <select class="col form-control" id="UserRole" [(ngModel)]="user.userRole">
+      <select class="col form-control" formControlName="UserRole" [(ngModel)]="user.userRole">
         <option value="User">Użytkownik planujący</option>
         <option value="Driver">Kierowca</option>
         <option value="Admin">Administrator</option>
@@ -37,7 +37,7 @@
 
   <div class="d-flex justify-content-end mt-4 ">
     <div class="buttondiv m-t">
-      <button class="btn btn-success m-2 col" (click)="EditUser()" >Edytuj użytkownika</button>
+      <button class="btn btn-success m-2 col" (click)="EditUsers()" >Edytuj użytkownika</button>
       <button class="btn btn-info m-2 col" (click)="PasswordChange()" >Zmień hasło użytkownika</button>
       <button class="btn btn-warning m-2 col"  (click)="BackToList()" >Powrót do listy</button>
     </div>

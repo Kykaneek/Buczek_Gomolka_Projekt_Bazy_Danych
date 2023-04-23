@@ -2,9 +2,10 @@
 {
     public class Register
     {
+        public int Id { get; set; }
         public string Login { get; set; } = null!;
-        public string Pass { get; set; } = null!;
-        public string VerPass { get; set; } = null!;
+        public string? Pass { get; set; } 
+        public string? VerPass { get; set; } 
 
         public int? Phone { get; set; }
         public string? Licence { get; set; }

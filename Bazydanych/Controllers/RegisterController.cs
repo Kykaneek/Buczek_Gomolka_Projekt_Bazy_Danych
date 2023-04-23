@@ -26,7 +26,7 @@ namespace Bazydanych.Controllers
         [ActionName("register")]
         public async Task<IActionResult> Reg(Register user)
         {
-            if(user == null)
+            if (user == null)
             {
                 return BadRequest(new
                 {
@@ -34,20 +34,21 @@ namespace Bazydanych.Controllers
                 });
             }
             var usertest = await _auth.Users.FirstOrDefaultAsync(x => x.Login == user.Login);
-            if(usertest != null)
+            if (usertest != null)
             {
                 return BadRequest(new
                 {
                     Message = "Użytkownik o tym loginie istnieje"
                 });
             }
-            if (user.UserRole == null) {
+            if (user.UserRole == null)
+            {
                 return BadRequest(new
                 {
                     Message = "Użytkownik musi posiadać przypisaną role"
                 });
             }
-           
+
             string query = @"insert into dbo.users
                             values (@login,@pass,@phone,@licence,@isdriver,1,0,null)";
             string query1 = @"insert into dbo.roles
@@ -57,7 +58,7 @@ namespace Bazydanych.Controllers
             SqlDataReader Reader1;
             string pass = Passwordhash.HashPassword(user.Pass);
             SqlTransaction transaction;
-            using (SqlConnection connection= new SqlConnection(sqlDataSource))
+            using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {
                 connection.Open();
                 transaction = connection.BeginTransaction();
@@ -79,7 +80,9 @@ namespace Bazydanych.Controllers
                         command1.ExecuteNonQuery();
                     }
                     transaction.Commit();
-                }catch(SqlException ex) { 
+                }
+                catch (SqlException ex)
+                {
                     transaction.Rollback();
                 }
                 connection.Close();
@@ -89,43 +92,9 @@ namespace Bazydanych.Controllers
                 Message = "Poprawnie utworzono użytkownika."
             });
         }
-        
-        [HttpGet]
-        [ActionName("getuser")]
-        public JsonResult GetAllContractors(string user)
-        {
-
-            string query = @"select login,phone,licence,is_driver,UserRole from users u join roles r on r.userid= u.id where u.id = @userid";
-            DataTable data = new DataTable();
-            SqlDataReader reader;
-            string DataSource = _conn.GetConnectionString("DBCon");
-            SqlTransaction transaction;
-            using (SqlConnection connection = new SqlConnection(DataSource))
-            {
-                connection.Open();
-                transaction = connection.BeginTransaction();
-                try
-                {
-                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
-                    {
-                        command.Parameters.AddWithValue("@userid", user);
-                        reader = command.ExecuteReader();
-                        data.Load(reader);
-                        reader.Close();
-
-                    }
-                    transaction.Commit();
-                    connection.Close();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                }
-                return new JsonResult(data);
-            }
 
 
 
-        }
     }
-}
+    }
+

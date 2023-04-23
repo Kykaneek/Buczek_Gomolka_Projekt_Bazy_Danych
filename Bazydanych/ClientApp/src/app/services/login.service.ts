@@ -5,10 +5,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  readonly Apiurl = "https://localhost:44449/api/Login/Login";
+  readonly Apiurl = "https://localhost:44449/api/Login/";
   constructor(private http: HttpClient) { }
   Login(LoginOjb: any) {
-    return this.http.post<any>(this.Apiurl,LoginOjb);
+    return this.http.post<any>(this.Apiurl+"Login",LoginOjb);
   }
 
   private login = new BehaviorSubject<any>(this.isLogIn)
@@ -26,5 +26,5 @@ export class LoginService {
     //weryfikacja czy token istnieje
     return !!localStorage.getItem('token')
   }
- 
+
 }

@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
   }
 
   ShowUser(userid: any) {
-    sessionStorage.setItem("USERID", userid);
+    this.api.SetUser(userid);
     this.route.navigate(['/edituser']);
   }
 

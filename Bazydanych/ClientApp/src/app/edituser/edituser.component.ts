@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from '../services/api.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterService } from '../services/register.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-edituser',
@@ -13,55 +12,69 @@ import { RegisterService } from '../services/register.service';
 
 export class EditUserComponent implements OnInit {
 
-  constructor(private route: Router, private fb: FormBuilder, private api: RegisterService) {
-    
+  constructor(private route: Router, private fb: FormBuilder, private api: ApiService, private toast: ToastrService) {
+
   }
   updateform!: FormGroup;
   public useredit: any = [];
+ 
   ngOnInit(): void {
 
-    this.api.UpdateUser(sessionStorage.getItem("USERID")).subscribe((res: any) => {
+    this.api.GetUserToUpdate().subscribe((res: any) => {
       this.useredit = res;
     })
-
-   
-
     this.updateform = this.fb.group({
+      Id: [this.api.userID,Validators.required],
       Login: ["", Validators.required],
       Phone: ["", Validators.required],
-      is_Driver: ["", Validators.required],
+      is_driver: ["", Validators.required],
       Licence: ["", Validators.required],
       UserRole: ["", Validators.required],
-    })
-    const Login = document.getElementById("Login") as HTMLInputElement
-    const Phone = document.getElementById("Phone") as HTMLInputElement
-    const Licence = document.getElementById("Licence") as HTMLInputElement
-    const UserRole = document.getElementById("UserRole") as HTMLInputElement
-    const IsDrive = document.getElementById("IsDriver") as HTMLInputElement
-    Login.disabled = true
-    Phone.disabled = true
-    Licence.disabled = true
-    UserRole.disabled = true
-    IsDrive.disabled = true
-    
+    },{ initialValueIsDefault: false })
+
+    this.api.UnsetUser();
+ 
   }
+     
   BackToList() {
     this.route.navigate(['/users']);
   }
   PasswordChange() {
 
   }
-  EditUser() {
-    const Login = document.getElementById("Login") as HTMLInputElement
-    const Phone = document.getElementById("Phone") as HTMLInputElement
-    const Licence = document.getElementById("Licence") as HTMLInputElement
-    const UserRole = document.getElementById("UserRole") as HTMLInputElement
-    const IsDrive = document.getElementById("IsDriver") as HTMLInputElement
-    
-    Login.disabled = false
-    Phone.disabled = false
-    Licence.disabled = false
-    UserRole.disabled = false
-    IsDrive.disabled = false
+  EditUsers() {
+    if (this.updateform.valid) {
+      this.api.UpdateUser(this.updateform.value).subscribe({
+        next: (res) => {
+
+          this.updateform.reset();
+          this.route.navigate(['users'])
+          this.toast.success(res.message);
+
+
+        },
+        error: (err) => {
+          this.toast.error(err!.error.message);
+        }
+      })
+    } else {
+      this.validateAllForm(this.updateform);
+      this.toast.error("Wymagane pola nie są uzupełnione");
+    }
+
+
+
+  }
+
+  private validateAllForm(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsDirty({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllForm(control);
+      }
+    })
+
   }
 }
