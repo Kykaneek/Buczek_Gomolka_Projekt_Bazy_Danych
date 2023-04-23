@@ -2,20 +2,19 @@
 
 <h3 class="border-bottom pb-2"><b>Szczegóły kontrahenta</b></h3>
 
-<section class="d-flex flex-column p-2 justify-content-start align-items-start">
+<section class="d-flex flex-column p-2 justify-content-start align-items-start" *ngFor="let contractor of concratoredit"  [formGroup]="updateform">
 
   <div class="row">
-    <div class="row"><label class="col-2">Nazwa Kontrahenta</label><input class="form-control col" type="text" disabled placeholder="" /></div>
-    <div class="row"><label class="col-2">NIP</label><input class="form-control col" type="text" placeholder="NIP" disabled /> </div>
-    <div class="row"><label class="col-2">PESEL</label><input class="form-control col" type="text" placeholder="PESEL" disabled /> </div>
+    <div class="row"><label class="col-2">Nazwa Kontrahenta</label><input class="form-control col" type="text" formControlName="Name" [(ngModel)]="contractor.name" /></div>
+    <div class="row"><label class="col-2">NIP</label><input class="form-control col" type="text" formControlName="Nip" [(ngModel)]="contractor.nip" /> </div>
+    <div class="row"><label class="col-2">PESEL</label><input class="form-control col" type="text" formControlName="Pesel" [(ngModel)]="contractor.pesel" /> </div>
     <div class="row"><label class="col-2">Lokalizacja</label><input class="form-control col" type="text" placeholder="Lokalizacja kontrahenta" disabled /> </div>
-
-
+ 
 
 
     <div class="d-flex justify-content-end mt-4 ">
       <div class="buttondiv m-t">
-        <button class="btn btn-success m-2 col">Edytuj kontrahenta</button>
+        <button class="btn btn-success m-2 col" (click)=EditConcrator()>Edytuj kontrahenta</button>
         <button class="btn btn-warning m-2 col" id="returntolist" (click)="GoToConcractors()">Powrót do listy</button>
       </div>
     </div>

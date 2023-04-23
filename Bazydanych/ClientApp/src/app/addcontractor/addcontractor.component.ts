@@ -38,7 +38,7 @@ export class AddConcractorComponent implements OnInit {
 
   }
 
-  onCreate() {
+  OnCreate() {
     if (this.contractorForm.valid) {
       this.service.Add(this.contractorForm.value).subscribe({
         next: (res) => {

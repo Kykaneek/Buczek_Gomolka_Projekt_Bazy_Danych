@@ -10,9 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 export class AppComponent {
-  @HostListener("window:beforeunload", ['$event'])
-  clearLocalStorage(event: any) {
-    localStorage.clear();
-  }
+ 
   title = 'app';
 }

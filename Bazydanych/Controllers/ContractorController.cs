@@ -91,7 +91,7 @@ namespace Bazydanych.Controllers
             }
             return Ok(new
             {
-                Message = "Poprawnie utworzono użytkownika."
+                Message = "Poprawnie utworzono kontrahenta."
             });
         }
 
@@ -153,5 +153,114 @@ namespace Bazydanych.Controllers
                 Message = "Poprawnie utworzono Kontrahenta."
             });
         }
+
+
+        [Authorize]
+        [HttpPut]
+        [ActionName("update")]
+        public async Task<IActionResult> Reg(Contractor Contractor)
+        {
+            if (Contractor == null)
+            {
+                return BadRequest(new
+                {
+                    Message = "Błędne dane"
+                });
+            }
+            if (Contractor.Name == null)
+            {
+                return BadRequest(new
+                {
+                    Message = "Użytkownik musi posiadać przypisaną role"
+                });
+            }
+            var Contractortmp = await _authcontext.Contractors.FirstOrDefaultAsync(x => x.Id == Contractor.Id);
+            var owner = _authcontext.Contractors.Where(x => x.Name == Contractor.Name);
+            if (owner.Count() >= 1)
+            {
+                var check = await _authcontext.Contractors.FirstOrDefaultAsync(x => x.Name == Contractor.Name);
+                if (check != Contractortmp)
+                {
+                    return BadRequest(new
+                    {
+                        Message = "Zmina nazwy kontrahenta nie jest możliwa - taki kontrahenta istnieje"
+                    });
+                }
+            }
+            if (Contractortmp == null)
+            {
+                return BadRequest(new
+                {
+                    Message = "kontrahenta musi posiadać nazwe"
+                });
+            }
+            using (_authcontext)
+            {
+                if (Contractortmp != null)
+                {
+                    Contractortmp.Name = Contractor.Name;
+                    if (Contractor.Pesel != null)
+                    {
+                        Contractortmp.Pesel = Contractor.Pesel;
+                    }
+                    if (Contractor.Nip != null)
+                    {
+                        Contractortmp.Nip = Contractor.Nip;
+                    }
+                    _authcontext.SaveChanges();
+
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+
+
+            return Ok(new
+            {
+                Message = "Poprawnie edytowano kontrahenta."
+            });
+        }
+
+        [Authorize]
+        [HttpGet]
+        [ActionName("getcontractor")]
+        public JsonResult GetAllContractors(string contractor)
+        {
+
+            string query = @"select * from contractors where id = @contracotrID";
+            DataTable data = new DataTable();
+            SqlDataReader reader;
+            string DataSource = _conn.GetConnectionString("DBCon");
+            SqlTransaction transaction;
+            using (SqlConnection connection = new SqlConnection(DataSource))
+            {
+                connection.Open();
+                transaction = connection.BeginTransaction();
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue("@contracotrID", contractor);
+                        reader = command.ExecuteReader();
+                        data.Load(reader);
+                        reader.Close();
+
+                    }
+                    transaction.Commit();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+                return new JsonResult(data);
+            }
+
+        }
+
+
+
     }
 }

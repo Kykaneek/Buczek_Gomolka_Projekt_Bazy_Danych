@@ -20,7 +20,8 @@ export class ContractorsComponent implements OnInit {
     })
   } 
 
-  Edit(): void {
+  Edit(contractor: any): void {
+    this.api.SetConcrator(contractor);
     this.route.navigate(['/editcontractor']);
   }
   Delete(contractor: any): void {
