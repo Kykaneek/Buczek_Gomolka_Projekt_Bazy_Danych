@@ -226,7 +226,7 @@ namespace Bazydanych.Controllers
                 {
                     usertmp.Login = user.Login;
                     usertmp.Licence = user.Licence;
-                    usertmp.is_driver = user.IsDriver;
+                    usertmp.is_driver = user.is_driver;
                     usertmp.Phone = user.Phone;
                     role.UserRole = user.UserRole;
                     _authcontext.SaveChanges();
