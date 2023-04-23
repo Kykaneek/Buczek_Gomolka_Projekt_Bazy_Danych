@@ -2,13 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule ,Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { TracesComponent } from './traces/traces.component';
 import { CarsComponent } from './cars/cars.component';
 import { AddusersComponent } from './addusers/addusers.component';
 import { ContractorsComponent } from './contractors/contractors.component';
-import { PermissionsComponent } from './permissions/permissions.component';
+import { LocationComponent } from './location/location.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -18,7 +18,7 @@ import { TokenInterceptor } from './Intercepters/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditUserComponent } from './edituser/edituser.component';
-import { EditConcractorComponent } from './editconcractor/editconcractor.component';
+import { EditConcractorComponent } from './editcontractor/editcontractor.component';
 import { AddConcractorComponent } from './addcontractor/addcontractor.component';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full', },
@@ -27,11 +27,11 @@ const routes: Routes = [
   { path: 'traces', component: TracesComponent, canActivate: [AuthGuard] },
   { path: 'cars', component: CarsComponent, canActivate: [AuthGuard] },
   { path: 'contractors', component: ContractorsComponent, canActivate: [AuthGuard] },
-  { path: 'permissions', component: PermissionsComponent, canActivate: [AuthGuard] },
-  { path: 'adduser', component: AddusersComponent, canActivate: [AuthGuard]},
-  { path: 'edituser', component: EditUserComponent, canActivate: [AuthGuard]},
-  { path: 'editconcractor', component: EditConcractorComponent, canActivate: [AuthGuard]},
-  { path: 'addcontractor', component: AddConcractorComponent, canActivate: [AuthGuard]}
+  { path: 'location', component: LocationComponent, canActivate: [AuthGuard] },
+  { path: 'adduser', component: AddusersComponent, canActivate: [AuthGuard] },
+  { path: 'edituser', component: EditUserComponent, canActivate: [AuthGuard] },
+  { path: 'editcontractor', component: EditConcractorComponent, canActivate: [AuthGuard] },
+  { path: 'addcontractor', component: AddConcractorComponent, canActivate: [AuthGuard] }
 ]
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ const routes: Routes = [
     UsersComponent,
     LoginComponent,
     ContractorsComponent,
-    PermissionsComponent,
+    LocationComponent,
     CarsComponent,
     AddusersComponent,
     TracesComponent,
@@ -58,13 +58,13 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes, {
       onSameUrlNavigation: 'reload'
-      })
+    })
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
-    multi:true
-    }],
+    multi: true
+  }],
   bootstrap: [AppComponent]
 
 
