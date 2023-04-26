@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TracesComponent } from './traces.component';
+import { AddtraceComponent } from './addtrace.component';
 
-describe('TracesComponent', () => {
-  let component: TracesComponent;
-  let fixture: ComponentFixture<TracesComponent>;
+describe('AddusersComponent', () => {
+  let component: AddtraceComponent;
+  let fixture: ComponentFixture<AddtraceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TracesComponent]
+      declarations: [AddtraceComponent]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(TracesComponent);
+    fixture = TestBed.createComponent(AddtraceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

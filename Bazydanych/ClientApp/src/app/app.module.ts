@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditUserComponent } from './edituser/edituser.component';
 import { EditConcractorComponent } from './editcontractor/editcontractor.component';
 import { AddConcractorComponent } from './addcontractor/addcontractor.component';
+import { AddtraceComponent } from './addtrace/addtrace.component';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full', },
   { path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'adduser', component: AddusersComponent, canActivate: [AuthGuard] },
   { path: 'edituser', component: EditUserComponent, canActivate: [AuthGuard] },
   { path: 'editcontractor', component: EditConcractorComponent, canActivate: [AuthGuard] },
-  { path: 'addcontractor', component: AddConcractorComponent, canActivate: [AuthGuard] }
+  { path: 'addcontractor', component: AddConcractorComponent, canActivate: [AuthGuard] },
+  { path: 'addtrace', component: AddtraceComponent, canActivate: [AuthGuard] }
 ]
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ const routes: Routes = [
     TracesComponent,
     EditUserComponent,
     EditConcractorComponent,
-    AddConcractorComponent
+    AddConcractorComponent,
+    AddtraceComponent
   ],
   imports: [
     BrowserAnimationsModule,
