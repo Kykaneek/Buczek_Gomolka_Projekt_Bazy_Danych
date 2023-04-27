@@ -7,11 +7,7 @@ namespace Bazydanych.Models
 {
     public partial class Trace
     {
-        public Trace()
-        {
-            Loadings = new HashSet<Loading>();
-            PlannedTraces = new HashSet<PlannedTrace>();
-        }
+        
         [Key]
         public int Id { get; set; }
         public int ContractorId { get; set; }
