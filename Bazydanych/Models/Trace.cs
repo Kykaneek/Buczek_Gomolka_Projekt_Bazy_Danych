@@ -16,14 +16,6 @@ namespace Bazydanych.Models
         public int Distance { get; set; }
         public TimeSpan TravelTime { get; set; }
 
-        public virtual Contractor Contractor { get; set; } = null!;
-        [NotMapped]
-        public virtual Location FinishLocationNavigation { get; set; } = null!;
-        [NotMapped]
-        public virtual Location StartLocationNavigation { get; set; } = null!;
-        [NotMapped]
-        public virtual ICollection<Loading> Loadings { get; set; }
-        [NotMapped]
-        public virtual ICollection<PlannedTrace> PlannedTraces { get; set; }
+
     }
 }

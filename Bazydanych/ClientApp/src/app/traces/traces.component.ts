@@ -21,8 +21,10 @@ export class TracesComponent implements OnInit {
   Edit(): void {
     this.route.navigate(['/addtrace']);
   }
-  Delete(): void {
-
+  Delete(trace: any): void {
+    this.api.Delete(trace).subscribe((res: any) => {
+      location.reload();
+    })
   }
 
 }
