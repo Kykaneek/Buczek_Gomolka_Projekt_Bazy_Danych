@@ -22,6 +22,8 @@ import { EditConcractorComponent } from './editcontractor/editcontractor.compone
 import { AddConcractorComponent } from './addcontractor/addcontractor.component';
 import { AddtraceComponent } from './addtrace/addtrace.component';
 import { AddCarsComponent } from './addcars/addcars.component';
+import { AddLocationComponent } from './addlocation/addlocation.component';
+
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full', },
   { path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -35,7 +37,8 @@ const routes: Routes = [
   { path: 'editcontractor', component: EditConcractorComponent, canActivate: [AuthGuard] },
   { path: 'addcontractor', component: AddConcractorComponent, canActivate: [AuthGuard] },
   { path: 'addtrace', component: AddtraceComponent, canActivate: [AuthGuard] },
-  { path: 'addcars', component: AddCarsComponent, canActivate: [AuthGuard] }
+  { path: 'addcars', component: AddCarsComponent, canActivate: [AuthGuard] },
+  { path: 'addlocation', component: AddLocationComponent, canActivate: [AuthGuard] }
 ]
 @NgModule({
   declarations: [
@@ -53,7 +56,8 @@ const routes: Routes = [
     EditConcractorComponent,
     AddConcractorComponent,
     AddtraceComponent,
-    AddCarsComponent
+    AddCarsComponent,
+    AddLocationComponent
   ],
   imports: [
     BrowserAnimationsModule,

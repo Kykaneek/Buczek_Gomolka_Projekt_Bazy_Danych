@@ -22,7 +22,7 @@ export class GetService {
     return this.http.get<any>(this.Contractor + "Getall");
   }
   getLocation() {
-    return this.http.get<any>(this.location + "Getall");
+    return this.http.get<any>(this.location + "getAllLocations");
   }
 
 

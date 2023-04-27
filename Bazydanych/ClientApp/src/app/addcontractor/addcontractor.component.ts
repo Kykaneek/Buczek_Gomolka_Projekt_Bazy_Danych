@@ -57,9 +57,9 @@ export class AddConcractorComponent implements OnInit {
       this.validateAllForm(this.contractorForm);
       this.toast.error("Wymagane pola nie są uzupełnione");
     }
-
-
   }
+
+
   private validateAllForm(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
