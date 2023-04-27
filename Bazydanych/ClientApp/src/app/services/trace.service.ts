@@ -15,7 +15,7 @@ export class TraceService {
     return this.http.post<any>(this.ApiUrl + "AddTrace", trace1);
   }
   Delete(trace1: any) {
-    return this.http.post<any>(this.ApiUrl + "DeleteDeleteTrace", trace1);
+    return this.http.post<any>(this.ApiUrl + "DeleteTrace", trace1);
   }
 
   

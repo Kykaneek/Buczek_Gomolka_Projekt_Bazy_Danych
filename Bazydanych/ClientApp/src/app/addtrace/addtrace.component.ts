@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ContractorService } from '../services/contractor.service';
+import { GetService } from '../services/get.service';
 import { TraceService } from '../services/trace.service';
 
 @Component({
@@ -10,16 +12,25 @@ import { TraceService } from '../services/trace.service';
   styleUrls: ['./addtrace.component.css']
 })
 export class AddtraceComponent implements OnInit {
-  constructor(private service: TraceService, private fb: FormBuilder, private route: Router, private toast: ToastrService) {
+  constructor(private service: TraceService, private fb: FormBuilder, private route: Router, private toast: ToastrService,private Get: GetService) {
   }
   traceForm!: FormGroup;
+  public contractors: any = [];
+  public locations: any= [];
   ngOnInit(): void {
     this.traceForm = this.fb.group({
-      Kontraktor: [],
-      Lokalizacja_Poczatkowa: [],
-      Lokalizacja_Koncowa: [],
-      Dystans: [],
-      Czas: []
+      ContractorId: [,Validators.required],
+      StartLocation: [,Validators.required],
+      FinishLocation: [,Validators.required],
+      distance: [,Validators.required],
+      TravelTime: [,Validators.required]
+    })
+
+    this.Get.getContractor().subscribe((res: any) => {
+      this.contractors = res;
+    })
+    this.Get.getLocation().subscribe((res: any) => {
+      this.locations = res;
     })
   }
 
@@ -41,7 +52,7 @@ export class AddtraceComponent implements OnInit {
 
   }
 
-  OnCreate() {
+  OnAdd() {
     if (this.traceForm.valid) {
       this.service.Add(this.traceForm.value).subscribe({
         next: (res) => {

@@ -30,7 +30,11 @@ namespace Bazydanych.Controllers
         public JsonResult GetAllTraces()
         {
 
-            string query = @"select * from Trace";
+            string query = @"select c.name Contractor,l.Name src_location,lc.Name des_location,t.distance,t.travel_time from Trace t
+                            join Contractors c on c.ID = t.contractor_id
+                            join Location l on l.ID = t.Start_location
+                            join Location lc on lc.ID = t.Finish_location
+                            ";
             DataTable data = new DataTable();
             SqlDataReader reader;
             string DataSource = _conn.GetConnectionString("DBCon");
@@ -79,7 +83,7 @@ namespace Bazydanych.Controllers
                 {
                     using (SqlCommand command = new SqlCommand(query, connection, transaction))
                     {
-                        command.Parameters.AddWithValue("@id", trace1.ContractorId);
+                        command.Parameters.AddWithValue("@id", trace1.Id);
                         command.ExecuteNonQuery();
                     }
                     transaction.Commit();
@@ -87,6 +91,10 @@ namespace Bazydanych.Controllers
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
+                    return BadRequest(new
+                    {
+                        Message = ex
+                    });
                 }
                 connection.Close();
             }
@@ -109,34 +117,35 @@ namespace Bazydanych.Controllers
                     Message = "Błędne dane"
                 });
             }
-            var TraceTest = await _authcontext.Traces.FirstOrDefaultAsync(x => x.PlannedTraces == trace1.PlannedTraces);
-            if (TraceTest != null)
+            var TraceTest = await _authcontext.Contractors.FirstOrDefaultAsync(x => x.Id == trace1.ContractorId);
+            if (TraceTest == null)
             {
                 return BadRequest(new
                 {
-                    Message = "Trasa nie istnieje"
+                    Message = "Brak kontrahenta"
                 });
             }
 
 
             string query = @"insert into dbo.trace
-                            values (@start_lok,@end_lok,@distance,@timetravel)";
+                            values (@contractorid,@start_lok,@end_lok,@distance,@timetravel)";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
-            SqlTransaction transaction;
+            //SqlTransaction transaction;
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {
                 connection.Open();
-                transaction = connection.BeginTransaction();
+               /* transaction = connection.BeginTransaction();
                 try
-                {
-                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                {*/
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@contractorid", trace1.ContractorId);
                         command.Parameters.AddWithValue("@start_lok", trace1.StartLocation);
                         command.Parameters.AddWithValue("@end_lok", trace1.FinishLocation);
                         command.Parameters.AddWithValue("@distance", trace1.Distance);
                         command.Parameters.AddWithValue("@timetravel", trace1.TravelTime);
                         command.ExecuteNonQuery();
-                    }
+                    }/*
                     transaction.Commit();
                 }
                 catch (SqlException ex)
@@ -146,7 +155,7 @@ namespace Bazydanych.Controllers
                     {
                         Message = "Trasa o tej nazwie istnieje."
                     });
-                }
+                }*/
                 connection.Close();
             }
             return Ok(new

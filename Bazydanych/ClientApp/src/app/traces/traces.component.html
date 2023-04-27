@@ -40,12 +40,12 @@
 
         <tr *ngFor="let trace of traces">
           <!--  -->
-          <td>{{trace.id_trace}}</td>
-          <td>{{trace.start_location}}</td>
-          <td>{{trace.finish_location}}</td>
+          <td>{{trace.contractor}}</td>
+          <td>{{trace.src_location}}</td>
+          <td>{{trace.des_location}}</td>
           <td>{{trace.distance}}</td>
           <td>{{trace.travel_time}}</td>
-          <td><div class="d-flex justify-content-center"><button class="btn btn-outline-secondary" (click)="Edit()">Pokaż</button><button class="btn btn-outline-secondary" (click)="Delete()">Usuń</button></div></td>
+          <td><div class="d-flex justify-content-center"><button class="btn btn-outline-secondary" (click)="Edit()">Pokaż</button><button class="btn btn-outline-secondary" (click)="Delete(trace)">Usuń</button></div></td>
 
         </tr>
       </tbody>
