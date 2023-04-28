@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
 using Bazydanych.Helpers;
 using Microsoft.EntityFrameworkCore.Storage;
+using Newtonsoft.Json;
 
 namespace Bazydanych.Controllers
 {
@@ -55,6 +56,7 @@ namespace Bazydanych.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+
                 }
                 return new JsonResult(data);
             }
@@ -88,6 +90,10 @@ namespace Bazydanych.Controllers
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
+                    return BadRequest(new
+                    {
+                        Message = ex.Message
+                    });
                 }
                 connection.Close();
             }
@@ -178,7 +184,7 @@ namespace Bazydanych.Controllers
                         }
                         
                        
-                        command.Parameters.AddWithValue("@locationID", "");
+                        command.Parameters.AddWithValue("@locationID", Contractor.LocationId);
                         command.ExecuteNonQuery();
                     }
                     transaction.Commit();
@@ -186,9 +192,9 @@ namespace Bazydanych.Controllers
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
-                    BadRequest(new
+                    return BadRequest(new
                     {
-                        Message = "Kontrahent o tej nazwie istnieje"
+                        Message = ex.Message
                     });
                 }
                 connection.Close();
@@ -338,6 +344,7 @@ namespace Bazydanych.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    
                 }
                 return new JsonResult(data);
             }

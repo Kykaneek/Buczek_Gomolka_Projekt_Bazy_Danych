@@ -1,17 +1,22 @@
 
 
 
-<h3 class="border-bottom pb-2"><b>Dodaj użytkownika</b></h3>
+<h3 class="border-bottom pb-2"><b>Dodaj lokalizacje</b></h3>
 
 <form class="d-flex flex-column p-2 justify-content-start align-items-start" [formGroup]="locationForm" >
 
   <div class="row">
-    <div class="row"><label class="col-2">Nazwa</label><input class="form-control col" type="text" placeholder="Nazwa lokalizacji" formControlName="Name"  /></div>
+    <div class="row"><label class="col-2">Nazwa</label><input class="form-control col" type="text" placeholder="Nazwa lokalizacji" formControlName="Name" /></div>
     <div class="row"><label class="col-2">Miasto</label><input class="form-control col" type="text" placeholder="Miasto lokalizacji" formControlName="City" /></div>
     <div class="row"><label class="col-2">Ulica</label><input class="form-control col" type="text" placeholder="Nazwa Ulicy" formControlName="Street" /> </div>
     <div class="row"><label class="col-2">Numer</label><input class="form-control col" type="text" placeholder="Numer lokalu | Numer budynku" formControlName="Number" /> </div>
+    <div class="row">
+      <label class="col-2">Kontraktor</label><select class="form-control col" formControlName="contractorID">
+        <option >Wybierz kontrahenta</option>
+        <option *ngFor="let contractor of contractors" value="{{contractor.id}}">{{contractor.name}}</option>
+      </select>
+    </div>
 
-   
 
   </div>
 

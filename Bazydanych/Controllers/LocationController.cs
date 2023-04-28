@@ -92,34 +92,43 @@ namespace Bazydanych.Controllers
 
 
             string query = @"insert into dbo.location
-                            values (@locationId,@name,@city,@street,@number)";
+                            values (@name,@city,@street,@number)";
+            string query1 = @"insert into dbo.contractor_location
+                            values ((select id from location where name = @name),@contractorid)";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
-            //SqlTransaction transaction;
+            SqlTransaction transaction;
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {
                 connection.Open();
-                /* transaction = connection.BeginTransaction();
+                 transaction = connection.BeginTransaction();
                  try
-                 {*/
-                using (SqlCommand command = new SqlCommand(query, connection))
+                 {
+                using (SqlCommand command = new SqlCommand(query, connection, transaction))
                 {
-                    command.Parameters.AddWithValue("@locationId", "");
+
                     command.Parameters.AddWithValue("@name", lokalizacja.Name);
                     command.Parameters.AddWithValue("@city", lokalizacja.City);
                     command.Parameters.AddWithValue("@street", lokalizacja.Street);
                     command.Parameters.AddWithValue("@number", lokalizacja.Number);
                     command.ExecuteNonQuery();
-                }/*
+                }
+                    using (SqlCommand command1 = new SqlCommand(query1, connection, transaction))
+                    {
+
+                        command1.Parameters.AddWithValue("@name", lokalizacja.Name);
+                        command1.Parameters.AddWithValue("@contractorid", lokalizacja.contractorID);
+                        command1.ExecuteNonQuery();
+                    }
                     transaction.Commit();
                 }
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
-                    BadRequest(new
+                    return BadRequest(new
                     {
-                        Message = "Komunikat o takiej samej lokalizacji."
+                        Message = ex.Message
                     });
-                }*/
+                }
                 connection.Close();
             }
             return Ok(new

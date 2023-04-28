@@ -130,14 +130,14 @@ namespace Bazydanych.Controllers
             string query = @"insert into dbo.trace
                             values (@contractorid,@start_lok,@end_lok,@distance,@timetravel)";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
-            //SqlTransaction transaction;
+            SqlTransaction transaction;
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {
                 connection.Open();
-               /* transaction = connection.BeginTransaction();
+                transaction = connection.BeginTransaction();
                 try
-                {*/
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
                     {
                         command.Parameters.AddWithValue("@contractorid", trace1.ContractorId);
                         command.Parameters.AddWithValue("@start_lok", trace1.StartLocation);
@@ -145,17 +145,18 @@ namespace Bazydanych.Controllers
                         command.Parameters.AddWithValue("@distance", trace1.Distance);
                         command.Parameters.AddWithValue("@timetravel", trace1.TravelTime);
                         command.ExecuteNonQuery();
-                    }/*
+                    }
                     transaction.Commit();
                 }
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
-                    BadRequest(new
+                    return BadRequest(new
                     {
-                        Message = "Trasa o tej nazwie istnieje."
+                        Message = ex.Message
                     });
-                }*/
+                    
+                }
                 connection.Close();
             }
             return Ok(new

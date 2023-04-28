@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationService } from "../services/location.service";
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';;
+import { ToastrService } from 'ngx-toastr';import { GetService } from '../services/get.service';
+;
 
 @Component({
   selector: 'app-addlocation',
@@ -13,16 +14,20 @@ export class AddLocationComponent implements OnInit {
 
   public addlocations: any = [];
 
-  constructor(private route: Router, private service: LocationService, private fb: FormBuilder, private toast: ToastrService) {
+  constructor(private route: Router, private service: LocationService, private fb: FormBuilder, private toast: ToastrService,private Get: GetService) {
   }
-
+  contractors: any =[];
   locationForm!: FormGroup;
   ngOnInit(): void {
     this.locationForm = this.fb.group({
-      Name: [],
-      City: [],
-      Street: [],
-      Number: []
+      Name: [,Validators.required],
+      City: [,Validators.required],
+      Street: [,Validators.required],
+      Number: [, Validators.required],
+      contractorID: [,Validators.required]
+    })
+    this.Get.getContractor().subscribe((res: any) => {
+      this.contractors = res;
     })
   }
 

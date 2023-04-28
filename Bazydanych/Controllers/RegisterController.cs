@@ -106,6 +106,10 @@ namespace Bazydanych.Controllers
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
+                    return BadRequest(new
+                    {
+                        Message = ex.Message
+                    });
                 }
                 connection.Close();
             }

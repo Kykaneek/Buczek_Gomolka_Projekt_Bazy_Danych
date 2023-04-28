@@ -20,13 +20,13 @@ export class LocationService {
   }
 
 
-  addLocation(lokalizacja: any) {
-    return this.http.post<any>(this.ApiUrl + "addLocation", lokalizacja);
+  addLocation(location: any) {
+    return this.http.post<any>(this.ApiUrl + "addLocation", location);
   }
 
 
-  deleteLocation(lokalizacja: any) {
-    return this.http.post<any>(this.ApiUrl + "deleteLocation", lokalizacja);
+  deleteLocation(location: any) {
+    return this.http.post<any>(this.ApiUrl + "deleteLocation", location);
   }
 
   setLocation(locationid: any) {
