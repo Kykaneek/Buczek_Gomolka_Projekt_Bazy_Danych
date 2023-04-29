@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-addcars',
-  templateUrl: './addcars.component.html',
-  styleUrls: ['./addcars.component.css']
+  selector: 'app-editcars',
+  templateUrl: './editcars.component.html',
+  styleUrls: ['./editcars.component.css']
 })
-export class AddCarsComponent implements OnInit {
+
+
+export class EditCarsComponent implements OnInit {
 
   constructor(private route: Router) { }
   ngOnInit(): void {
@@ -26,7 +30,8 @@ export class AddCarsComponent implements OnInit {
 
   }
 
-  Resignate(): void {
+  Resignate(): void
+  {
     this.route.navigate(['/cars']);
   }
 

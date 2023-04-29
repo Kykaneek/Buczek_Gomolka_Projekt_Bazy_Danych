@@ -38,6 +38,8 @@ export class EditConcractorComponent implements OnInit {
   }
 
 
+
+
   EditConcrator() {
     if (this.updateform.valid) {
       this.api.UpdateConcrator(this.updateform.value).subscribe({

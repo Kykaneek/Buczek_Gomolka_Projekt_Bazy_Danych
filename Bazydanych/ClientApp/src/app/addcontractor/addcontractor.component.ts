@@ -24,8 +24,8 @@ export class AddConcractorComponent implements OnInit {
   Resignate() {
     this.contractorForm.reset();
     this.route.navigate(['contractors'])
-
   }
+
   Back() {
     
     var answer = window.confirm("Czy przerwać dodawanie kontrahenta?");

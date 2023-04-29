@@ -18,7 +18,10 @@ import { TokenInterceptor } from './Intercepters/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditUserComponent } from './edituser/edituser.component';
+import { EditCarsComponent } from './editcars/editcars.component';
+import { EditTraceComponent } from './edittrace/edittrace.component';
 import { EditConcractorComponent } from './editcontractor/editcontractor.component';
+import { EditLocationComponent } from './editlocation/editlocation.component';
 import { AddConcractorComponent } from './addcontractor/addcontractor.component';
 import { AddtraceComponent } from './addtrace/addtrace.component';
 import { AddCarsComponent } from './addcars/addcars.component';
@@ -34,6 +37,9 @@ const routes: Routes = [
   { path: 'location', component: LocationComponent, canActivate: [AuthGuard] },
   { path: 'adduser', component: AddusersComponent, canActivate: [AuthGuard] },
   { path: 'edituser', component: EditUserComponent, canActivate: [AuthGuard] },
+  { path: 'editcars', component: EditCarsComponent, canActivate: [AuthGuard] },
+  { path: 'edittrace', component: EditTraceComponent, canActivate: [AuthGuard] },
+  { path: 'editlocation', component: EditLocationComponent, canActivate: [AuthGuard] },
   { path: 'editcontractor', component: EditConcractorComponent, canActivate: [AuthGuard] },
   { path: 'addcontractor', component: AddConcractorComponent, canActivate: [AuthGuard] },
   { path: 'addtrace', component: AddtraceComponent, canActivate: [AuthGuard] },
@@ -55,8 +61,11 @@ const routes: Routes = [
     EditUserComponent,
     EditConcractorComponent,
     AddConcractorComponent,
+    AddLocationComponent,
     AddtraceComponent,
     AddCarsComponent,
+    EditCarsComponent,
+    EditTraceComponent,
     AddLocationComponent
   ],
   imports: [

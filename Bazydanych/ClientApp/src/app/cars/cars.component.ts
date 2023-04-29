@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from '../services/car.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cars',
@@ -8,7 +9,7 @@ import { CarService } from '../services/car.service';
 })
 export class CarsComponent implements OnInit{
 
-  constructor(private api : CarService) {
+  constructor(private api : CarService, private route: Router) {
 
   }
   public cars: any = []
@@ -17,7 +18,17 @@ export class CarsComponent implements OnInit{
       this.cars = res;
     })
   }
-  
-  
+
+
+  Edit(): void {
+    //this.api.setCar(vehicle);
+    this.route.navigate(['/editcars']);
+  }
+
+  Remove(): void {
+    //this.api.setCar(vehicle);
+    
+  }
+
 
 }

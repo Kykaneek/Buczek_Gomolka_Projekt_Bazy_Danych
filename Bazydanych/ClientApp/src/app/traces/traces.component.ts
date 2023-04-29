@@ -19,7 +19,7 @@ export class TracesComponent implements OnInit {
   }
 
   Edit(): void {
-    this.route.navigate(['/addtrace']);
+    this.route.navigate(['/edittrace']);
   }
   Delete(trace: any): void {
     this.api.Delete(trace).subscribe((res: any) => {

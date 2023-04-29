@@ -23,7 +23,7 @@ export class LocationComponent implements OnInit {
 
   Edit(/*locations: any*/): void {
     /*this.api.setLocation(locations);*/
-    this.route.navigate(['/addlocation']);
+    this.route.navigate(['/editlocation']);
   }
 
   Delete(): void {
