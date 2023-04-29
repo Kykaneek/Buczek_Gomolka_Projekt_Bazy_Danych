@@ -16,13 +16,13 @@ export class AddCarsComponent implements OnInit {
   carform!: FormGroup;
   ngOnInit(): void {
     this.carform = this.fb.group({
-      Driver: [],
-      RegistrationNumber: [],
-      Mileage: [],
-      BuyDate: [],
-      IsTruck: [],
-      Loadingsize: [],
-      IsAvailable: [],
+      Driver: ["", Validators.required],
+      Registration_Number: ["", Validators.required],
+      Mileage: ["", Validators.required],
+      Buy_Date: ["", Validators.required],
+      Is_Truck: ["", Validators.required],
+      Loadingsize: ["", Validators.required],
+      IsAvailable: ["", Validators.required],
     })
   }
 

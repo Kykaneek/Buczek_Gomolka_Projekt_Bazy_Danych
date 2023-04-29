@@ -26,7 +26,7 @@ namespace Bazydanych.Controllers
         [Authorize]
         [HttpGet]
         [ActionName("Getall")]
-        public JsonResult GetAllContractors()
+        public JsonResult GetAllCars()
         {
 
             string query = @"select *, CONVERT(VARCHAR(10), buy_date, 105) kupno from Cars";
@@ -76,7 +76,7 @@ namespace Bazydanych.Controllers
                     Message = "Błędne dane"
                 });
             }
-            var CarTest = await _authcontext.Cars.FirstOrDefaultAsync(x => x.Driver == pojazd.Driver);
+            var CarTest = await _authcontext.Car.FirstOrDefaultAsync(x => x.Driver == pojazd.Driver);
             if (CarTest != null)
             {
                 return BadRequest(new
@@ -85,12 +85,7 @@ namespace Bazydanych.Controllers
                 });
             }
 
-
-            /*string query = @"insert into dbo.cars
-                            values (@driver,@register_number,@mileage,@buy_date, @isTruck, @loadingsize, @isAvailable)";*/
-            
-            string query = @"insert into dbo.cars (driver, registration_number, mileage, buy_date, IS_truck, loadingsize, is_available)
-                            values (@driver,@register_number,@mileage,@buy_date, @isTruck, @loadingsize, @isAvailable)";
+            string query = @"insert into dbo.cars values (@driver,@register_number,@mileage,@buy_date, @isTruck, @loadingsize, @isAvailable)";
 
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;
@@ -104,12 +99,12 @@ namespace Bazydanych.Controllers
                     {
 
                         command.Parameters.AddWithValue("@driver", pojazd.Driver);
-                        command.Parameters.AddWithValue("@register_number", pojazd.RegistrationNumber);
+                        command.Parameters.AddWithValue("@register_number", pojazd.Registration_Number);
                         command.Parameters.AddWithValue("@mileage", pojazd.Mileage);
-                        command.Parameters.AddWithValue("@buy_date", pojazd.BuyDate);
-                        command.Parameters.AddWithValue("@isTruck", pojazd.IsTruck);
-                        command.Parameters.AddWithValue("@loadingsize", pojazd.Loadingsize);
-                        command.Parameters.AddWithValue("@isAvailable", pojazd.IsAvailable);
+                        command.Parameters.AddWithValue("@buy_date", pojazd.Buy_Date);
+                        command.Parameters.AddWithValue("@isTruck", pojazd.IS_truck);
+                        command.Parameters.AddWithValue("@loadingsize", pojazd.loadingsize);
+                        command.Parameters.AddWithValue("@isAvailable", pojazd.is_available);
                         command.ExecuteNonQuery();
                     }
                 }

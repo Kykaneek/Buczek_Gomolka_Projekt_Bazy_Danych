@@ -14,12 +14,12 @@ namespace Bazydanych.Models
 
         public int Id { get; set; }
         public int Driver { get; set; }
-        public string RegistrationNumber { get; set; } = null!;
+        public string Registration_Number { get; set; } = null!;
         public string Mileage { get; set; } = null!;
-        public DateTime BuyDate { get; set; }
-        public bool IsTruck { get; set; }
-        public int Loadingsize { get; set; }
-        public bool IsAvailable { get; set; }
+        public DateTime Buy_Date { get; set; }
+        public bool IS_truck { get; set; }
+        public int loadingsize { get; set; }
+        public bool is_available { get; set; }
         [NotMapped]
         public virtual ICollection<Loading> Loadings { get; set; }
         [NotMapped]
