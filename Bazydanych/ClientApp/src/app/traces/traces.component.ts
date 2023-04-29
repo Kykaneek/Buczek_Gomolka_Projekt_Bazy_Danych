@@ -22,9 +22,15 @@ export class TracesComponent implements OnInit {
     this.route.navigate(['/edittrace']);
   }
   Delete(trace: any): void {
-    this.api.Delete(trace).subscribe((res: any) => {
-      location.reload();
-    })
+    var answer = window.confirm("Czy chcesz usunąć trasę?");
+    if (answer) {
+      this.api.Delete(trace).subscribe((res: any) => {
+        location.reload();
+      })
+    }
+    else {
+
+    }
   }
 
 }

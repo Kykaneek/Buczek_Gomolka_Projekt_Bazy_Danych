@@ -17,4 +17,10 @@ export class CarService {
     return this.http.post<any>(this.ApiUrl + "addCar", pojazd);
   }
 
+
+  deleteCars(pojazd: any) {
+    return this.http.post<any>(this.ApiUrl + "DeleteCar", pojazd);
+  }
+
+ 
 }

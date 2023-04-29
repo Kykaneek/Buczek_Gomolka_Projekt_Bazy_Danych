@@ -25,9 +25,15 @@ export class ContractorsComponent implements OnInit {
     this.route.navigate(['/editcontractor']);
   }
   Delete(contractor: any): void {
-    this.api.Delete(contractor).subscribe((res: any) => {
-      location.reload();
-    })
+    var answer = window.confirm("Czy chcesz usunąć kontrahenta?");
+    if (answer) {
+      this.api.Delete(contractor).subscribe((res: any) => {
+        location.reload();
+      })
+    }
+    else {
+
+    }
 
   }
 

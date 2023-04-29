@@ -26,12 +26,21 @@ export class LocationComponent implements OnInit {
     this.route.navigate(['/editlocation']);
   }
 
-  Delete(): void {
-    
+  Delete(locationt: any) {
+    var answer = window.confirm("Czy chcesz usunąć użytkownika?");
+    if (answer) {
+      this.api.deleteLocation(locationt).subscribe((res: any) => {
+        location.reload();
+      })
+    }
+    else {
+
+    }
+  }
 
   }
 
-} 
+
 
 
 

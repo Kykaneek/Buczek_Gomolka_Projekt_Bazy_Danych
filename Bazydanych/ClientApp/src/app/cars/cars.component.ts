@@ -25,9 +25,17 @@ export class CarsComponent implements OnInit{
     this.route.navigate(['/editcars']);
   }
 
-  Remove(): void {
-    //this.api.setCar(vehicle);
-    
+  Delete(car: any): void {
+    var answer = window.confirm("Czy chcesz usunąć pojazd?");
+    if (answer) {
+      this.api.deleteCars(car).subscribe((res: any) => {
+        car.reload();
+      })
+    }
+    else {
+
+    }
+
   }
 
 

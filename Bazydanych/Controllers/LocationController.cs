@@ -81,7 +81,7 @@ namespace Bazydanych.Controllers
                     Message = "Błędne dane"
                 });
             }
-            var LocationTest = await _authcontext.Locations.FirstOrDefaultAsync(x => x.Name == lokalizacja.Name);
+            var LocationTest = await _authcontext.Location.FirstOrDefaultAsync(x => x.Name == lokalizacja.Name);
             if (LocationTest != null)
             {
                 return BadRequest(new
@@ -137,5 +137,47 @@ namespace Bazydanych.Controllers
             });
 
         }
+
+
+        [Authorize]
+        [HttpPost]
+        [ActionName("deleteLocation")]
+        public async Task<IActionResult> DeleteLocation(Location location)
+        {
+
+            string query = @"delete from locations where id = @id";
+            string sqlDataSource = _conn.GetConnectionString("DBCon");
+            SqlTransaction transaction;
+            using (SqlConnection connection = new SqlConnection(sqlDataSource))
+            {
+                connection.Open();
+                transaction = connection.BeginTransaction();
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue("@id", location.Id);
+                        command.ExecuteNonQuery();
+                    }
+                    transaction.Commit();
+                }
+                catch (SqlException ex)
+                {
+                    transaction.Rollback();
+                    return BadRequest(new
+                    {
+                        Message = ex.Message
+                    });
+                }
+                connection.Close();
+            }
+            return Ok(new
+            {
+                Message = "Poprawnie usunięto pojazd."
+            });
+        }
+
+
+
     }
 }

@@ -21,9 +21,15 @@ export class UsersComponent implements OnInit {
     })
   }
   DeleteUser(User: any) {
-    this.api.DeleteUser(User).subscribe((res: any) => {
-      location.reload();
-    })
+    var answer = window.confirm("Czy chcesz usunąć użytkownika?");
+    if (answer) {
+      this.api.DeleteUser(User).subscribe((res: any) => {
+        location.reload();
+      })
+    }
+    else {
+
+    }
   }
 
   ShowUser(userid: any) {

@@ -126,6 +126,44 @@ namespace Bazydanych.Controllers
         }
 
 
+        [Authorize]
+        [HttpPost]
+        [ActionName("DeleteCar")]
+        public async Task<IActionResult> DeleteCar(Car pojazd)
+        {
+
+            string query = @"delete from cars where id = @id";
+            string sqlDataSource = _conn.GetConnectionString("DBCon");
+            SqlTransaction transaction;
+            using (SqlConnection connection = new SqlConnection(sqlDataSource))
+            {
+                connection.Open();
+                transaction = connection.BeginTransaction();
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue("@id", pojazd.Id);
+                        command.ExecuteNonQuery();
+                    }
+                    transaction.Commit();
+                }
+                catch (SqlException ex)
+                {
+                    transaction.Rollback();
+                    return BadRequest(new
+                    {
+                        Message = ex.Message
+                    });
+                }
+                connection.Close();
+            }
+            return Ok(new
+            {
+                Message = "Poprawnie usunięto pojazd."
+            });
+        }
+
 
     }
 }

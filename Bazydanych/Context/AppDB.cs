@@ -12,13 +12,14 @@ namespace Bazydanych.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<Contractor> Contractors { get; set; }
         public DbSet<Trace> Traces{ get; set; }
-        public DbSet<Location> Locations{ get; set; }
+        public DbSet<Location> Location{ get; set; }
         public DbSet<Car> Car{ get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Role>().ToTable("Roles");
             modelBuilder.Entity<Contractor>().ToTable("Contractors");
+            modelBuilder.Entity<Location>().ToTable("Location");
             modelBuilder.Entity<Trace>().ToTable("Traces");
             modelBuilder.Entity<Car>().ToTable("Cars");
         }
