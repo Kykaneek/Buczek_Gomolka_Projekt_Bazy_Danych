@@ -12,6 +12,9 @@ export class CarService {
     return this.http.get<any>(this.ApiUrl + "Getall");
   }
 
-
+  addCars(pojazd: any)
+  {
+    return this.http.post<any>(this.ApiUrl + "addCar", pojazd);
+  }
 
 }

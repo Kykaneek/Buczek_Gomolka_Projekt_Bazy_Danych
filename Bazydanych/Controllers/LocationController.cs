@@ -136,9 +136,6 @@ namespace Bazydanych.Controllers
                 Message = "Poprawnie utworzono Lokalizację."
             });
 
-
-
-
         }
     }
 }

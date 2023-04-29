@@ -9,6 +9,7 @@ import { ContractorService } from '../services/contractor.service';
   templateUrl: './addcontractor.component.html',
   styleUrls: ['./addcontractor.component.css']
 })
+
 export class AddConcractorComponent implements OnInit {
   constructor(private service: ContractorService, private fb: FormBuilder, private route: Router, private toast: ToastrService) {
   }

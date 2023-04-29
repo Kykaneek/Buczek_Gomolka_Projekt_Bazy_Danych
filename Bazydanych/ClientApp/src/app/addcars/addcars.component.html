@@ -2,28 +2,49 @@
 
 <h3 class="border-bottom pb-2"><b>Dodawanie pojazdu</b></h3>
 
-<form class="d-flex flex-column p-2 justify-content-start align-items-start">
+<form class="d-flex flex-column p-2 justify-content-start align-items-start" [formGroup]="carform">
   <section class="d-flex flex-column p-2 justify-content-start align-items-start">
 
     <div class="row">
-      <div class="row"><label class="col-2">Kierowca</label><input class="form-control col" type="text" placeholder="" /></div>
-      <div class="row"><label class="col-2">Numer rejestracyjny</label><input class="form-control col" type="text" placeholder="" /> </div>
-      <div class="row"><label class="col-2">Przebieg</label><input class="form-control col" type="text" placeholder="" /> </div>
-      <div class="row"><label class="col-2">Data zakupu</label><input class="form-control col" type="text" placeholder="" /> </div>
-      <div class="row"><label class="col-2">Ładowność</label><input class="form-control col" type="text" placeholder="" /> </div>
-      <div class="row"><label class="col-2">Czy dostępny?</label><input class="form-control col" type="text" placeholder="" /> </div>
-      <div class="row"><label class="col-2">Czy ciężarówka?</label><input class="form-control col" type="text" placeholder="" /> </div>
 
+      <!--<div class="row">
+  <label class="col-2">Kierowca</label><select class="form-control col" formControlName="Driver">
+    <option></option>
+    <option *ngFor="let driver of drivers" value="{{user.id}}">{{user.name}}</option>
+  </select>-->
 
+      <div class="row"><label class="col-2">Kierowca</label><input class="form-control col" type="number" placeholder="" formControlName="Driver" /></div>
+      <div class="row"><label class="col-2">Numer rejestracyjny</label><input class="form-control col" type="text" placeholder="" formControlName="RegistrationNumber" /> </div>
+      <div class="row"><label class="col-2">Przebieg</label><input class="form-control col" type="text" placeholder="" formControlName="Mileage" /> </div>
+      <div class="row"><label class="col-2">Data zakupu</label><input class="form-control col" type="date" placeholder="" formControlName="BuyDate" /> </div>
+      <div class="row"><label class="col-2">Ładowność</label><input class="form-control col" type="number" placeholder="" formControlName="Loadingsize" /> </div>
+
+      <div class="row">
+        <label class="col-2">Czy dostępny></label>
+        <select class="col form-control" formControlName="IsAvailable">
+          <option value="true">Tak</option>
+          <option value="false">Nie</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label class="col-2">Czy ciężarówka?</label>
+        <select class="col form-control" formControlName="IsTruck">
+          <option value="true">Tak</option>
+          <option value="false">Nie</option>
+        </select>
+      </div>
 
 
       <div class="d-flex justify-content-end mt-5 ">
         <div class="buttondiv m-t">
-          <button class="btn btn-success m-2 col" >Dodaj pojazd</button>
-          <button class="btn btn-warning m-2 col" (click)="Back()" >Powrót do listy</button>
+          <button class="btn btn-success m-2 col" (click)="addCars()">Dodaj pojazd</button>
+          <button class="btn btn-warning m-2 col" (click)="Back()">Powrót do listy</button>
           <button class="btn btn-light m-2 col" (click)="Resignate()">Rezygnacja</button>
         </div>
       </div>
+
     </div>
-  </section>
+
+</section>
 </form>
