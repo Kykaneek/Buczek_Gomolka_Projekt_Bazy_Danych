@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 
 namespace Bazydanych.Controllers
 {
@@ -81,9 +82,25 @@ namespace Bazydanych.Controllers
             {
                 return BadRequest(new
                 {
-                    Message = "Brak lokalizacji"
+                    Message = "Ten kierowca ma już przypisany pojazd"
                 });
             }
+            var UserTest = await _authcontext.Users.FirstOrDefaultAsync(x => x.Id == pojazd.Driver);
+            if (UserTest == null)
+            {
+                return BadRequest(new
+                {
+                    Message = "Brak takiego użytkownika"
+                });
+            }
+            if (!UserTest.is_driver)
+            {
+                return BadRequest(new
+                {
+                    Message = "Pracownik nie jest kierowcą"
+                });
+            }
+
 
             string query = @"insert into dbo.cars values (@driver,@register_number,@mileage,@buy_date, @isTruck, @loadingsize, @isAvailable)";
 
@@ -95,7 +112,7 @@ namespace Bazydanych.Controllers
                 transaction = connection.BeginTransaction();
                 try
                 {
-                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
 
                         command.Parameters.AddWithValue("@driver", pojazd.Driver);
@@ -106,7 +123,9 @@ namespace Bazydanych.Controllers
                         command.Parameters.AddWithValue("@loadingsize", pojazd.loadingsize);
                         command.Parameters.AddWithValue("@isAvailable", pojazd.is_available);
                         command.ExecuteNonQuery();
+
                     }
+                    transaction.Commit();
                 }
                 catch (SqlException ex)
                 {
@@ -163,6 +182,52 @@ namespace Bazydanych.Controllers
                 Message = "Poprawnie usunięto pojazd."
             });
         }
+
+
+
+
+
+
+
+
+        [Authorize]
+        [HttpGet]
+        [ActionName("getCar")]
+        public JsonResult GetAllCars(string car)
+        {
+
+            string query = @"select CONVERT(VARCHAR(10), c.buy_date, 31) kupno, c.*,u.login from cars c 
+                            join users u on u.id = c.driver where c.id = @carid";
+            DataTable data = new DataTable();
+            SqlDataReader reader;
+            string DataSource = _conn.GetConnectionString("DBCon");
+            SqlTransaction transaction;
+            using (SqlConnection connection = new SqlConnection(DataSource))
+            {
+                connection.Open();
+                transaction = connection.BeginTransaction();
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue("@carid", car);
+                        reader = command.ExecuteReader();
+                        data.Load(reader);
+                        reader.Close();
+
+                    }
+                    transaction.Commit();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    //transaction.Rollback();
+                }
+                return new JsonResult(data);
+            }
+
+        }
+
 
 
     }

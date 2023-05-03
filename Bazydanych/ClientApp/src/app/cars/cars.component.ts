@@ -20,8 +20,8 @@ export class CarsComponent implements OnInit{
   }
 
 
-  Edit(): void {
-    //this.api.setCar(vehicle);
+  Edit(car:any): void {
+    this.api.setCar(car);
     this.route.navigate(['/editcars']);
   }
 

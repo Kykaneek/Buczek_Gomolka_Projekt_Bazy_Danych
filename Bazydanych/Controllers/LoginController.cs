@@ -261,7 +261,41 @@ namespace Bazydanych.Controllers
         }
 
 
+        [Authorize]
+        [HttpGet]
+        [ActionName("GetDrivers")]
+        public JsonResult GetAllDriveres()
+        {
 
+            string query = @"select * from users where is_driver = 1";
+            DataTable data = new DataTable();
+            SqlDataReader reader;
+            string DataSource = _conn.GetConnectionString("DBCon");
+            SqlTransaction transaction;
+            using (SqlConnection connection = new SqlConnection(DataSource))
+            {
+                connection.Open();
+                transaction = connection.BeginTransaction();
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                    {
+                        reader = command.ExecuteReader();
+                        data.Load(reader);
+                        reader.Close();
+
+                    }
+                    transaction.Commit();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+                return new JsonResult(data);
+            }
+
+        }
 
 
     }

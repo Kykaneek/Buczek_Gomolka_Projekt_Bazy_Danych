@@ -24,6 +24,9 @@ export class GetService {
   getLocation() {
     return this.http.get<any>(this.location + "getAllLocations");
   }
+  GetDrivers() {
+    return this.http.get<any>(this.User + "GetDrivers");
+  }
 
 
 

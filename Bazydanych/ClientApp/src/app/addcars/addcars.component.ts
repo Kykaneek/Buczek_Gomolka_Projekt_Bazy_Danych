@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router, } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CarService } from '../services/car.service';
+import { GetService } from '../services/get.service';
 
 
 @Component({
@@ -12,8 +13,9 @@ import { CarService } from '../services/car.service';
 })
 export class AddCarsComponent implements OnInit {
 
-  constructor(private route: Router, private fb: FormBuilder, private service: CarService, private toast: ToastrService ) { }
+  constructor(private route: Router, private fb: FormBuilder, private service: CarService, private toast: ToastrService, private Get: GetService ) { }
   carform!: FormGroup;
+  Drivers: any = [];
   ngOnInit(): void {
     this.carform = this.fb.group({
       Driver: ["", Validators.required],
@@ -23,6 +25,9 @@ export class AddCarsComponent implements OnInit {
       Is_Truck: ["", Validators.required],
       Loadingsize: ["", Validators.required],
       IsAvailable: ["", Validators.required],
+    })
+    this.Get.GetDrivers().subscribe((res: any) => {
+      this.Drivers = res;
     })
   }
 
