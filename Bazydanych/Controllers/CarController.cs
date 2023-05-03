@@ -1,4 +1,5 @@
 ﻿using Bazydanych.Context;
+using Bazydanych.Helpers;
 using Bazydanych.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@ namespace Bazydanych.Controllers
         public JsonResult GetAllCars()
         {
 
-            string query = @"select *, CONVERT(VARCHAR(10), buy_date, 105) kupno from Cars";
+            string query = @"select c.*,u.login, CONVERT(VARCHAR(10), buy_date, 105) kupno from Cars c join Users u on u.id = c.Driver ";
             DataTable data = new DataTable();
             SqlDataReader reader;
             string DataSource = _conn.GetConnectionString("DBCon");
@@ -228,7 +229,61 @@ namespace Bazydanych.Controllers
 
         }
 
+        [Authorize]
+        [HttpPut]
+        [ActionName("update")]
+        public async Task<IActionResult> update(Car car)
+        {
+            if (car == null)
+            {
+                return BadRequest(new
+                {
+                    Message = "Błędne dane"
+                });
+            }
+            if (car.Driver == null)
+            {
+                return BadRequest(new
+                {
+                    Message = "Brak kierowcy"
+                });
+            }
+            var cartmp = await _authcontext.Car.FirstOrDefaultAsync(x => x.Id == car.Id);
+            var owner = _authcontext.Car.Where(x => x.Driver == car.Driver);
+            if (owner.Count() > 1)
+            {
 
+                    return BadRequest(new
+                    {
+                        Message = "Zmiana kierowcy nie jest możliwa, ten kierowca posiada już pojazd"
+                    });
+            }
+            using (_authcontext)
+            {
+                if (cartmp != null)
+                {
+                    cartmp.Driver = car.Driver;
+                    cartmp.IS_truck = car.IS_truck;
+                    cartmp.Buy_Date = car.Buy_Date;
+                    cartmp.Registration_Number = car.Registration_Number;
+                    cartmp.is_available = car.is_available;
+                    cartmp.Mileage = car.Mileage;
+                    cartmp.loadingsize= car.loadingsize;
+                    _authcontext.SaveChanges();
+
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+
+
+            return Ok(new
+            {
+                Message = "Poprawna edycja pojazdu."
+            });
+        }
 
     }
 }

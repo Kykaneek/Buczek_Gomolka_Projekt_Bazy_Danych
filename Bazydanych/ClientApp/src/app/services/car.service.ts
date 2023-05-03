@@ -31,4 +31,7 @@ export class CarService {
     return this.http.get<any>(this.ApiUrl + "getCar", { params: queryParams });
 
   }
+  updateCar(car: any) {
+    return this.http.put<any>(this.ApiUrl + "update", car);
+  }
 }
