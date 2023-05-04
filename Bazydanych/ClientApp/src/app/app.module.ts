@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { TracesComponent } from './traces/traces.component';
+import { PlanTraceComponent } from './plantrace/plantrace.component';
 import { CarsComponent } from './cars/cars.component';
 import { AddusersComponent } from './addusers/addusers.component';
 import { ContractorsComponent } from './contractors/contractors.component';
@@ -14,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guard/auth.guard';
 import { UsersComponent } from './users/users.component';
+import { PlannedTracesComponent } from './planned_traces/planned_traces.component';
 import { TokenInterceptor } from './Intercepters/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,8 +34,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'traces', component: TracesComponent, canActivate: [AuthGuard] },
+  { path: 'plantrace', component: PlanTraceComponent, canActivate: [AuthGuard] },
   { path: 'cars', component: CarsComponent, canActivate: [AuthGuard] },
   { path: 'contractors', component: ContractorsComponent, canActivate: [AuthGuard] },
+  { path: 'planned_traces', component: PlannedTracesComponent, canActivate: [AuthGuard] },
   { path: 'location', component: LocationComponent, canActivate: [AuthGuard] },
   { path: 'adduser', component: AddusersComponent, canActivate: [AuthGuard] },
   { path: 'edituser', component: EditUserComponent, canActivate: [AuthGuard] },
@@ -56,6 +60,8 @@ const routes: Routes = [
     ContractorsComponent,
     LocationComponent,
     CarsComponent,
+    PlannedTracesComponent,
+    PlanTraceComponent,
     AddusersComponent,
     TracesComponent,
     EditUserComponent,

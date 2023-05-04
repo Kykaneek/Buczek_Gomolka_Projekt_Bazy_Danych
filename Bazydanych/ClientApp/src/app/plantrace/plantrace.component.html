@@ -1,0 +1,52 @@
+
+
+<h3 class="border-bottom pb-2"><b>Zaplanuj trasę</b></h3>
+
+
+<form class="d-flex flex-column p-2 justify-content-start align-items-start">
+
+  <div class="row">
+
+
+
+    <div class="row">
+      <label class="col-2">Trasa</label><select class="form-control col" formControlName="TraceId">
+        <option></option>
+        <option></option>
+      </select>
+    </div>
+    <div class="row">
+      <label class="col-2">Użytkownik</label><select class="form-control col" formControlName="UserId">
+        <option></option>
+        <option></option>
+      </select>
+    </div>
+    <div class="row">
+      <label class="col-2">Pojazd</label><select class="form-control col" formControlName="CarId">
+        <option></option>
+        <option></option>
+      </select>
+    </div>
+    <div class="row">
+      <label class="col-2">Nastepna trasa</label><select class="form-control col" formControlName="NextTraceId">
+        <option></option>
+        <option></option>
+      </select>
+    </div>
+    <div class="row">
+      <label class="col-2">Załadunek</label><select class="form-control col" formControlName="LoadingId">
+        <option></option>
+        <option></option>
+      </select>
+    </div>
+
+    <div class="d-flex justify-content-end mt- ">
+      <div class="buttondiv">
+        <button class="btn btn-success m-2 col">Dodaj Trasę</button>
+        <button class="btn btn-warning m-2 col" (click)="Back()">Powrót do listy</button>
+        <button class="btn btn-light m-2 col" (click)="Resignate()">Rezygnacja</button>
+      </div>
+    </div>
+  </div>
+</form>
+
