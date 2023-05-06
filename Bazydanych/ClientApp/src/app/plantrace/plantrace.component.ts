@@ -1,5 +1,8 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PlannedTraceService } from '../services/plantrace.service';
 
 
 @Component({
@@ -9,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class PlanTraceComponent {
 
-  constructor(private route: Router) { }
+  constructor(private route: Router, private service: PlannedTraceService, private fb: FormBuilder,  private toast: ToastrService) { }
   Resignate() {
     this.route.navigate(['planned_traces'])
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { CarService } from '../services/car.service';
+//import { PlannedTraceService } from '../services/plantrace.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,5 +35,8 @@ export class PlannedTracesComponent implements OnInit {
 
   }
 
+  Show(): void {
+    this.route.navigate(['/editplannedtraces']);
+  }
 
 }

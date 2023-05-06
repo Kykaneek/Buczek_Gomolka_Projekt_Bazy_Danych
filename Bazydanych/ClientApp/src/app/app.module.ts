@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { TracesComponent } from './traces/traces.component';
+import { EditPlannedTracesComponent } from './editplannedtraces/editplannedtraces.component';
 import { PlanTraceComponent } from './plantrace/plantrace.component';
 import { CarsComponent } from './cars/cars.component';
 import { AddusersComponent } from './addusers/addusers.component';
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'cars', component: CarsComponent, canActivate: [AuthGuard] },
   { path: 'contractors', component: ContractorsComponent, canActivate: [AuthGuard] },
   { path: 'planned_traces', component: PlannedTracesComponent, canActivate: [AuthGuard] },
+  { path: 'editplannedtraces', component: EditPlannedTracesComponent, canActivate: [AuthGuard] },
   { path: 'location', component: LocationComponent, canActivate: [AuthGuard] },
   { path: 'adduser', component: AddusersComponent, canActivate: [AuthGuard] },
   { path: 'edituser', component: EditUserComponent, canActivate: [AuthGuard] },
@@ -61,6 +63,7 @@ const routes: Routes = [
     LocationComponent,
     CarsComponent,
     PlannedTracesComponent,
+    EditPlannedTracesComponent,
     PlanTraceComponent,
     AddusersComponent,
     TracesComponent,
