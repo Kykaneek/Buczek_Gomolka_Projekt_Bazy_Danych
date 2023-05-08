@@ -35,6 +35,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\app\Intercepters\" />
     <Folder Include="Migrations\" />
+    <Folder Include="SQL\PROCEDURES\" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
