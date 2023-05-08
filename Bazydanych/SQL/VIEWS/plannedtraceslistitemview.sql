@@ -1,5 +1,6 @@
-﻿CREATE VIEW PlannedTracesListItemView AS
+﻿CREATE or alter VIEW PlannedTracesListItemView AS
 SELECT 
+	l.ID loadingID,
 	l.pickupdate,
 	l.time_to_loading,
 	t.distance,
