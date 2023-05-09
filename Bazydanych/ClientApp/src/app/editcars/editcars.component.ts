@@ -43,7 +43,7 @@ export class EditCarsComponent implements OnInit {
 
   Back() {
 
-    var answer = window.confirm("Czy przerwać dodawanie pojazdu?");
+    var answer = window.confirm("Czy przerwać podgląd pojazdu?");
     if (answer) {
       //this.carForm.reset();
       this.route.navigate(['cars'])

@@ -24,7 +24,7 @@ export class EditLocationComponent implements OnInit {
 
 
   Back() {
-    var answer = window.confirm("Czy przerwać dodawanie lokalizacji?");
+    var answer = window.confirm("Czy przerwać podgląd lokalizacji?");
     if (answer) {
 
       this.route.navigate(['location'])

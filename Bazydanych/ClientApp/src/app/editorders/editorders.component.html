@@ -1,0 +1,34 @@
+
+
+<h3 class="border-bottom pb-2"><b>Szczegóły zlecenia</b></h3>
+
+<form class="d-flex flex-column p-2 justify-content-start align-items-start" [formGroup]="updateform">
+  <section class="d-flex flex-column p-2 justify-content-start align-items-start">
+
+    <div class="row">
+      <div class="row">
+        <label class="col-2">Trasa</label><select class="form-control col" formControlName="Trace">
+          <option value=""></option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label class="col-2">Pojazd</label><select class="form-control col" formControlName="Car">
+          <option value=""></option>
+        </select>
+      </div>
+
+      <div class="row"><label class="col-2">Data załadunku</label><input class="form-control col" type="date" formControlName="Buy_Date" /> </div>
+      <div class="row"><label class="col-2">Czas załadunku</label><input class="form-control col" type="time" formControlName="Buy_Date" /> </div>
+      <div class="row"><label class="col-2">Czas rozładunku</label><input class="form-control col" type="time" formControlName="Buy_Date" /> </div>
+
+      <div class="d-flex justify-content-end mt-5 ">
+        <div class="buttondiv m-t">
+          <button class="btn btn-success m-2 col" (click)="EditCar()">Zatwierdz zmiany</button>
+          <button class="btn btn-warning m-2 col" (click)="Back()">Powrót do listy</button>
+          <button class="btn btn-light m-2 col" (click)="Resignate()">Rezygnacja</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>

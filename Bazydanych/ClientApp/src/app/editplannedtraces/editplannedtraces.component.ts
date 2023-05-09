@@ -16,7 +16,7 @@ export class EditPlannedTracesComponent {
   }
   Back() {
 
-    var answer = window.confirm("Czy przerwać dodawanie trasy?");
+    var answer = window.confirm("Czy przerwać podgląd zaplanowanej trasy?");
     if (answer) {
 
       this.route.navigate(['planned_traces'])

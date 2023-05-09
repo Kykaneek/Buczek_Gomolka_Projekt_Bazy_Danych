@@ -19,7 +19,7 @@ export class PlanTraceComponent {
   }
   Back() {
 
-    var answer = window.confirm("Czy przerwać dodawanie trasy?");
+    var answer = window.confirm("Czy przerwać planowanie trasy?");
     if (answer) {
    
       this.route.navigate(['planned_traces'])

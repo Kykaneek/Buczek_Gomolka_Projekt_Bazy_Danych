@@ -25,7 +25,7 @@ export class EditTraceComponent implements OnInit {
 
 
   Back() {
-    var answer = window.confirm("Czy przerwać dodawanie tras?");
+    var answer = window.confirm("Czy przerwać podgląd trasy?");
     if (answer) {
 
       this.route.navigate(['/traces'])

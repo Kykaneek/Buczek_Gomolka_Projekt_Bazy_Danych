@@ -13,6 +13,7 @@ import { ContractorsComponent } from './contractors/contractors.component';
 import { LocationComponent } from './location/location.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
+import { OrderComponent } from './orders/orders.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guard/auth.guard';
 import { UsersComponent } from './users/users.component';
@@ -21,11 +22,13 @@ import { TokenInterceptor } from './Intercepters/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditUserComponent } from './edituser/edituser.component';
+import { EditOrderComponent } from './editorders/editorders.component';
 import { EditCarsComponent } from './editcars/editcars.component';
 import { EditTraceComponent } from './edittrace/edittrace.component';
 import { EditConcractorComponent } from './editcontractor/editcontractor.component';
 import { EditLocationComponent } from './editlocation/editlocation.component';
 import { AddConcractorComponent } from './addcontractor/addcontractor.component';
+import { AddOrderComponent } from './addorders/addorders.component';
 import { AddtraceComponent } from './addtrace/addtrace.component';
 import { AddCarsComponent } from './addcars/addcars.component';
 import { AddLocationComponent } from './addlocation/addlocation.component';
@@ -38,6 +41,8 @@ const routes: Routes = [
   { path: 'plantrace', component: PlanTraceComponent, canActivate: [AuthGuard] },
   { path: 'cars', component: CarsComponent, canActivate: [AuthGuard] },
   { path: 'contractors', component: ContractorsComponent, canActivate: [AuthGuard] },
+  { path: 'orders', component: OrderComponent, canActivate: [AuthGuard] },
+  { path: 'editorders', component: EditOrderComponent, canActivate: [AuthGuard] },
   { path: 'planned_traces', component: PlannedTracesComponent, canActivate: [AuthGuard] },
   { path: 'editplannedtraces', component: EditPlannedTracesComponent, canActivate: [AuthGuard] },
   { path: 'location', component: LocationComponent, canActivate: [AuthGuard] },
@@ -49,6 +54,7 @@ const routes: Routes = [
   { path: 'editcontractor', component: EditConcractorComponent, canActivate: [AuthGuard] },
   { path: 'addcontractor', component: AddConcractorComponent, canActivate: [AuthGuard] },
   { path: 'addtrace', component: AddtraceComponent, canActivate: [AuthGuard] },
+  { path: 'addorders', component: AddOrderComponent, canActivate: [AuthGuard] },
   { path: 'addcars', component: AddCarsComponent, canActivate: [AuthGuard] },
   { path: 'addlocation', component: AddLocationComponent, canActivate: [AuthGuard] }
 ]
@@ -68,11 +74,14 @@ const routes: Routes = [
     AddusersComponent,
     TracesComponent,
     EditUserComponent,
+    EditOrderComponent,
     EditConcractorComponent,
     AddConcractorComponent,
     AddLocationComponent,
     AddtraceComponent,
     AddCarsComponent,
+    AddOrderComponent,
+    OrderComponent,
     EditCarsComponent,
     EditTraceComponent,
     AddLocationComponent
