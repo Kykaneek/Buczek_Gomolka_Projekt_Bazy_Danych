@@ -92,26 +92,6 @@ ALTER DATABASE [Carboat] SET QUERY_STORE = OFF
 GO
 USE [Carboat]
 GO
-/****** Object:  Table [dbo].[Cars]    Script Date: 08.05.2023 19:10:26 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Cars](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[driver] [int] NOT NULL,
-	[registration_number] [varchar](50) NOT NULL,
-	[mileage] [varchar](50) NOT NULL,
-	[buy_date] [date] NOT NULL,
-	[IS_truck] [bit] NOT NULL,
-	[loadingsize] [int] NOT NULL,
-	[is_available] [bit] NOT NULL,
- CONSTRAINT [PK_Cars] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
 /****** Object:  Table [dbo].[Contractor_location]    Script Date: 08.05.2023 19:10:26 ******/
 SET ANSI_NULLS ON
 GO
@@ -144,6 +124,49 @@ CREATE TABLE [dbo].[Contractors](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+/****** Object:  Table [dbo].[Users]    Script Date: 08.05.2023 19:10:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[login] [nvarchar](50) NOT NULL,
+	[pass] [nvarchar](50) NOT NULL,
+	[phone] [nvarchar](50) NULL,
+	[licence] [nvarchar](50) NULL,
+	[is_driver] [bit] NOT NULL,
+	[is_in_base] [bit] NOT NULL,
+	[pause_time] [int] NULL,
+	[Token] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Cars]    Script Date: 08.05.2023 19:10:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cars](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[driver] [int] NOT NULL,
+	[registration_number] [varchar](50) NOT NULL,
+	[mileage] [varchar](50) NOT NULL,
+	[buy_date] [date] NOT NULL,
+	[IS_truck] [bit] NOT NULL,
+	[loadingsize] [int] NOT NULL,
+	[is_available] [bit] NOT NULL,
+	CONSTRAINT FK_UserKey FOREIGN KEY (driver) REFERENCES Users(id),
+ CONSTRAINT [PK_Cars] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 /****** Object:  Table [dbo].[Loading]    Script Date: 08.05.2023 19:10:26 ******/
 SET ANSI_NULLS ON
 GO
@@ -245,35 +268,7 @@ CREATE TABLE [dbo].[UnLoading](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Users]    Script Date: 08.05.2023 19:10:26 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Users](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[login] [nvarchar](50) NOT NULL,
-	[pass] [nvarchar](50) NOT NULL,
-	[phone] [nvarchar](50) NULL,
-	[licence] [nvarchar](50) NULL,
-	[is_driver] [bit] NOT NULL,
-	[is_in_base] [bit] NOT NULL,
-	[pause_time] [int] NULL,
-	[Token] [nvarchar](50) NULL,
- CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-SET IDENTITY_INSERT [dbo].[Cars] ON 
-GO
-INSERT [dbo].[Cars] ([ID], [driver], [registration_number], [mileage], [buy_date], [IS_truck], [loadingsize], [is_available]) VALUES (3, 5, N'12', N'123', CAST(N'2023-03-05' AS Date), 0, 3123, 0)
-GO
-INSERT [dbo].[Cars] ([ID], [driver], [registration_number], [mileage], [buy_date], [IS_truck], [loadingsize], [is_available]) VALUES (4, 1, N'qweq12', N'12ew213', CAST(N'2023-05-04' AS Date), 0, 213213, 0)
-GO
-SET IDENTITY_INSERT [dbo].[Cars] OFF
-GO
+
 SET IDENTITY_INSERT [dbo].[Contractor_location] ON 
 GO
 INSERT [dbo].[Contractor_location] ([ID], [Location_id], [Contractor_id]) VALUES (1, 1, 2)
@@ -321,6 +316,14 @@ GO
 INSERT [dbo].[Users] ([ID], [login], [pass], [phone], [licence], [is_driver], [is_in_base], [pause_time], [Token]) VALUES (5, N'Dawid Kwiatkowski', N'/ilvi/FZi5xgPZrOJhjI2q2kbI70LMsA4ozyU28DjWahx1Jt', N'123332132', N'C', 1, 1, 0, NULL)
 GO
 SET IDENTITY_INSERT [dbo].[Users] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Cars] ON 
+GO
+INSERT [dbo].[Cars] ([ID], [driver], [registration_number], [mileage], [buy_date], [IS_truck], [loadingsize], [is_available]) VALUES (3, 5, N'12', N'123', CAST(N'2023-03-05' AS Date), 0, 3123, 0)
+GO
+INSERT [dbo].[Cars] ([ID], [driver], [registration_number], [mileage], [buy_date], [IS_truck], [loadingsize], [is_available]) VALUES (4, 1, N'qweq12', N'12ew213', CAST(N'2023-05-04' AS Date), 0, 213213, 0)
+GO
+SET IDENTITY_INSERT [dbo].[Cars] OFF
 GO
 ALTER TABLE [dbo].[Contractor_location]  WITH CHECK ADD  CONSTRAINT [FK_Contractor_location_Contractors] FOREIGN KEY([Contractor_id])
 REFERENCES [dbo].[Contractors] ([ID])

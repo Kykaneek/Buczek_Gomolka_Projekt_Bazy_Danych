@@ -31,7 +31,7 @@ namespace Bazydanych.Controllers
         public JsonResult GetAllCars()
         {
 
-            string query = @"select c.*,u.login, CONVERT(VARCHAR(10), buy_date, 105) kupno from Cars c join Users u on u.id = c.Driver ";
+            string query = @"select c.*,u.login, CONVERT(VARCHAR(10), buy_date, 105) kupno from Cars c left join Users u on u.id = c.Driver ";
             DataTable data = new DataTable();
             SqlDataReader reader;
             string DataSource = _conn.GetConnectionString("DBCon");
@@ -198,7 +198,7 @@ namespace Bazydanych.Controllers
         {
 
             string query = @"select CONVERT(VARCHAR(10), c.buy_date, 31) kupno, c.*,u.login from cars c 
-                            join users u on u.id = c.driver where c.id = @carid";
+                            left join users u on u.id = c.driver where c.id = @carid";
             DataTable data = new DataTable();
             SqlDataReader reader;
             string DataSource = _conn.GetConnectionString("DBCon");
