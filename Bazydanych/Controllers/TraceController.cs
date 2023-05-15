@@ -58,6 +58,7 @@ namespace Bazydanych.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    connection.Close();
                 }
                 return new JsonResult(data);
             }
@@ -87,13 +88,15 @@ namespace Bazydanych.Controllers
                         command.ExecuteNonQuery();
                     }
                     transaction.Commit();
+                    connection.Close();
                 }
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
+                    connection.Close();
                     return BadRequest(new
                     {
-                        Message = ex
+                        Message = ex.Message
                     });
                 }
                 connection.Close();
@@ -147,10 +150,12 @@ namespace Bazydanych.Controllers
                         command.ExecuteNonQuery();
                     }
                     transaction.Commit();
+                    connection.Close();
                 }
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
+                    connection.Close();
                     return BadRequest(new
                     {
                         Message = ex.Message

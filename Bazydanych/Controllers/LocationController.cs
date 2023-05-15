@@ -58,6 +58,7 @@ namespace Bazydanych.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    connection.Close();
                 }
                 return new JsonResult(data);
             }
@@ -112,24 +113,36 @@ namespace Bazydanych.Controllers
                     command.Parameters.AddWithValue("@number", lokalizacja.Number);
                     command.ExecuteNonQuery();
                 }
-                    using (SqlCommand command1 = new SqlCommand(query1, connection, transaction))
+
+                    if (lokalizacja.contractorID != 0)
+                    {
+                        using (SqlCommand command1 = new SqlCommand(query1, connection, transaction))
+                        {
+
+                            command1.Parameters.AddWithValue("@name", lokalizacja.Name);
+                            command1.Parameters.AddWithValue("@contractorid", lokalizacja.contractorID);
+                            command1.ExecuteNonQuery();
+                        }
+
+                    }
+                    else
                     {
 
-                        command1.Parameters.AddWithValue("@name", lokalizacja.Name);
-                        command1.Parameters.AddWithValue("@contractorid", lokalizacja.contractorID);
-                        command1.ExecuteNonQuery();
                     }
                     transaction.Commit();
+                    connection.Close();
                 }
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
+                    connection.Close();
                     return BadRequest(new
+
                     {
                         Message = ex.Message
                     });
                 }
-                connection.Close();
+               
             }
             return Ok(new
             {
@@ -145,7 +158,8 @@ namespace Bazydanych.Controllers
         public async Task<IActionResult> DeleteLocation(Location location)
         {
 
-            string query = @"delete from locations where id = @id";
+            string query = @"delete from location where id = @id";
+            string query2 = @"delete from contractor_location where location_id = @id";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
@@ -154,22 +168,29 @@ namespace Bazydanych.Controllers
                 transaction = connection.BeginTransaction();
                 try
                 {
+                    
+                    using (SqlCommand command = new SqlCommand(query2, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue("@id", location.Id);
+                        command.ExecuteNonQuery();
+                    }
                     using (SqlCommand command = new SqlCommand(query, connection, transaction))
                     {
                         command.Parameters.AddWithValue("@id", location.Id);
                         command.ExecuteNonQuery();
                     }
                     transaction.Commit();
+                    connection.Close();
                 }
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
+                    connection.Close();
                     return BadRequest(new
                     {
                         Message = ex.Message
                     });
                 }
-                connection.Close();
             }
             return Ok(new
             {

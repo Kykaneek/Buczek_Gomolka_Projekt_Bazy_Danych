@@ -12,7 +12,7 @@
     <div class="row"><label class="col-2">Numer</label><input class="form-control col" type="text" placeholder="Numer lokalu | Numer budynku" formControlName="Number" /> </div>
     <div class="row">
       <label class="col-2">Kontraktor</label><select class="form-control col" formControlName="contractorID">
-        <option >Wybierz kontrahenta</option>
+        <option value="0">Wybierz kontrahenta</option>
         <option *ngFor="let contractor of contractors" value="{{contractor.id}}">{{contractor.name}}</option>
       </select>
     </div>

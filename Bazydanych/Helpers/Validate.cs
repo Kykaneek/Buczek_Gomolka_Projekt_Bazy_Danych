@@ -7,6 +7,10 @@
         {
             int[] weights = { 6, 5, 7, 2, 3, 4, 5, 6, 7 };
             bool result = false;
+            if (string.IsNullOrEmpty(input))
+            {
+                return true;
+            }
             if (input.Length != 10)
             {
                 return result;
@@ -27,6 +31,10 @@
         {
             int[] weights = { 1, 3, 7, 9, 1, 3, 7, 9, 1, 3 };
             bool result = false;
+            if (string.IsNullOrEmpty(input))
+            {
+                return true;
+            }
             if (input.Length == 11)
             {
                 int controlSum = CalculateControlSum(input, weights);
@@ -53,6 +61,10 @@
         }
         public static bool ValidateNr(this string input)
         {
+            if (string.IsNullOrEmpty(input))
+            {
+                return true;
+            }
             if(input.Length == 9)
             {
                 bool isNumeric = int.TryParse(input, out _);

@@ -102,16 +102,17 @@ namespace Bazydanych.Controllers
                         command1.ExecuteNonQuery();
                     }
                     transaction.Commit();
+                    connection.Close();
                 }
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
+                    connection.Close();
                     return BadRequest(new
                     {
                         Message = ex.Message
                     });
                 }
-                connection.Close();
             }
             return Ok(new
             {

@@ -32,7 +32,7 @@ namespace Bazydanych.Controllers
         public JsonResult GetAllContractors()
         {
 
-            string query = @"select * from Contractors";
+            string query = @"select C.*,l.city, l.street,l.number from Contractors C left join location l on l.id= c.locationid";
             DataTable data = new DataTable();
             SqlDataReader reader;
             string DataSource = _conn.GetConnectionString("DBCon");
@@ -73,6 +73,7 @@ namespace Bazydanych.Controllers
 
             string query = @"delete from contractors where id = @id";
             string query2 = @"delete from trace where contractor_id = @id";
+            string query1 = @"delete from contractor_location where contractor_id = @id";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
@@ -81,27 +82,34 @@ namespace Bazydanych.Controllers
                 transaction = connection.BeginTransaction();
                 try
                 {
-                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                    using (SqlCommand command = new SqlCommand(query2, connection, transaction))
                     {
                         command.Parameters.AddWithValue("@id", contractor1.Id);
                         command.ExecuteNonQuery();
                     }
-                    using (SqlCommand command1 = new SqlCommand(query2,connection, transaction))
+                    using (SqlCommand command = new SqlCommand(query1, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue("@id", contractor1.Id);
+                        command.ExecuteNonQuery();
+                    }
+                    using (SqlCommand command1 = new SqlCommand(query,connection, transaction))
                     {
                         command1.Parameters.AddWithValue("@id", contractor1.Id);
                         command1.ExecuteNonQuery();
                     }
                     transaction.Commit();
+                    connection.Close();
                 }
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
+                    connection.Close();
                     return BadRequest(new
                     {
                         Message = ex.Message
                     });
                 }
-                connection.Close();
+               
             }
             return Ok(new
             {
@@ -130,7 +138,7 @@ namespace Bazydanych.Controllers
                     Message = "Kontrahent o tej nazwie istnieje"
                 });
             }
-            if (Contractor.Nip!= null)
+            if (!string.IsNullOrEmpty(Contractor.Nip))
             {
                 if (!Validate.IsValidNIP(Contractor.Nip))
                 {
@@ -141,7 +149,7 @@ namespace Bazydanych.Controllers
                 }
             }
            
-            if(Contractor.Pesel != null)
+            if(!string.IsNullOrEmpty(Contractor.Pesel))
             {
                 if (!Validate.IsValidPESEL(Contractor.Pesel))
                 {
@@ -151,22 +159,33 @@ namespace Bazydanych.Controllers
                     });
                 }
             }
-            if (Contractor.Pesel == null && Contractor.Nip == null)
+            if (string.IsNullOrEmpty(Contractor.Pesel) && string.IsNullOrEmpty(Contractor.Nip))
             {
                 return BadRequest(new
                 {
                     Message = "Wymagane jest podanie PESEL lub NIP"
                 });
             }
-        
-                string query = @"insert into dbo.contractors
+
+            if (string.IsNullOrEmpty(Contractor.Nip))
+            {
+                return BadRequest(new
+                {
+                    Message = "Wymagane jest podanie PESEL lub NIP"
+                });
+            }
+            
+
+            string query = @"insert into dbo.contractors
                             values (@name,@NIP,@PESEL,@locationID)";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;
+
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {
                 connection.Open();
                 transaction = connection.BeginTransaction();
+                
                 try
                 {
                     using (SqlCommand command = new SqlCommand(query, connection, transaction))
@@ -188,22 +207,31 @@ namespace Bazydanych.Controllers
                         {
                             command.Parameters.AddWithValue("@NIP", DBNull.Value);
                         }
-                        
+
+                        if (Contractor.LocationId != null)
+                        {
+                            command.Parameters.AddWithValue("@locationID", Contractor.LocationId);
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@locationID", DBNull.Value);
+                        }
                        
-                        command.Parameters.AddWithValue("@locationID", Contractor.LocationId);
                         command.ExecuteNonQuery();
                     }
                     transaction.Commit();
+                    connection.Close();
                 }
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
+                    connection.Close();
                     return BadRequest(new
                     {
                         Message = ex.Message
                     });
                 }
-                connection.Close();
+                
             }
             return Ok(new
             {

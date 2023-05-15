@@ -24,7 +24,7 @@ export class AddLocationComponent implements OnInit {
       City: [,Validators.required],
       Street: [,Validators.required],
       Number: [, Validators.required],
-      contractorID: [,Validators.required]
+      contractorID:[0]
     })
     this.Get.getContractor().subscribe((res: any) => {
       this.contractors = res;

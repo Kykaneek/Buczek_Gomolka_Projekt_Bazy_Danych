@@ -51,7 +51,7 @@ namespace Bazydanych.Controllers
             var TokenDescrypter = new SecurityTokenDescriptor
             {
                 Subject = identity,
-                Expires = DateTime.Now.AddSeconds(20),
+                Expires = DateTime.Now.AddSeconds(1000),
                 SigningCredentials = creedindetials
             };
             var token = jwtHandler.CreateToken(TokenDescrypter);

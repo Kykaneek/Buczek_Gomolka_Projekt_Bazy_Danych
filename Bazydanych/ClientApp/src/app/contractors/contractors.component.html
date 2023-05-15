@@ -41,8 +41,9 @@
           <td>{{contractor.name}}</td>
           <td>{{contractor.nip}}</td>
           <td>{{contractor.pesel}}</td>
-          <td>{{contractor.locationID}}</td>
-          <td><div class="d-flex justify-content-center"><button class="btn btn-outline-secondary" (click)="Edit(contractor.id)" >Pokaż</button><button   class="btn btn-outline-secondary" (click)="Delete(contractor)">Usuń</button></div></td>
+          <td>{{contractor.city}} {{contractor.street}} {{contractor.number}}</td>
+         
+          <td><div class="d-flex justify-content-center"><button class="btn btn-outline-secondary" (click)="Edit(contractor.id)">Pokaż</button><button class="btn btn-outline-secondary" (click)="Delete(contractor)">Usuń</button></div></td>
         </tr>
       </tbody>
     </table>

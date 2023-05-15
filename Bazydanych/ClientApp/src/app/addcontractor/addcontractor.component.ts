@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router, } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ContractorService } from '../services/contractor.service';
+import { GetService } from '../services/get.service';
 
 @Component({
   selector: 'app-addcontractor',
@@ -11,14 +12,19 @@ import { ContractorService } from '../services/contractor.service';
 })
 
 export class AddConcractorComponent implements OnInit {
-  constructor(private service: ContractorService, private fb: FormBuilder, private route: Router, private toast: ToastrService) {
+  constructor(private service: ContractorService, private fb: FormBuilder, private route: Router, private toast: ToastrService,private get:GetService) {
   }
   contractorForm!: FormGroup;
+  locations: any = [];
   ngOnInit(): void {
     this.contractorForm = this.fb.group({
       Name: ["", Validators.required],
       Nip: [],
-      Pesel: []
+      Pesel: [],
+      LocationID: []
+    })
+    this.get.getLocation().subscribe((res: any) => {
+      this.locations = res;
     })
 }
 
@@ -64,6 +70,9 @@ export class AddConcractorComponent implements OnInit {
   private validateAllForm(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
+      if (control?.getRawValue().length == 0) {
+        control.markAsDirty({ onlySelf: true });
+      }
       if (control instanceof FormControl) {
         control.markAsDirty({ onlySelf: true });
       } else if (control instanceof FormGroup) {
