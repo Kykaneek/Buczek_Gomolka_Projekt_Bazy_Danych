@@ -114,6 +114,15 @@ namespace Bazydanych.Controllers
             string query = @"delete from Roles where userid = @id";
             string query1 = @"delete from Users where id = @id";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
+
+            var check = await _authcontext.Car.FirstOrDefaultAsync(x => x.Driver == user.Id);
+            if (check != null)
+            {
+                return BadRequest(new   
+                {
+                    Message = "Użytkownik posiada przypisany pojazd - brak możliwości usunięcia"
+                });
+            }
             SqlTransaction transaction;
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {
@@ -147,7 +156,7 @@ namespace Bazydanych.Controllers
         [Authorize]
         [HttpGet]
         [ActionName("getuser")]
-        public JsonResult GetAllContractors(string user)
+        public JsonResult GetUser(string user)
         {
 
             string query = @"select login,phone,licence,is_driver,UserRole from users u join roles r on r.userid= u.id where u.id = @userid";
@@ -267,7 +276,7 @@ namespace Bazydanych.Controllers
         public JsonResult GetAllDriveres()
         {
 
-            string query = @"select * from users where is_driver = 1";
+            string query = @"select u.* from users u left JOIN cars c on c.driver = u.id where is_driver = 1 and c.driver is null";
             DataTable data = new DataTable();
             SqlDataReader reader;
             string DataSource = _conn.GetConnectionString("DBCon");

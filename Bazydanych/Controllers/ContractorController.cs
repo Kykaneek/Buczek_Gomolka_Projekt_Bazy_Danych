@@ -56,7 +56,7 @@ namespace Bazydanych.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-
+                    connection.Close();
                 }
                 return new JsonResult(data);
             }
@@ -72,6 +72,7 @@ namespace Bazydanych.Controllers
         {
 
             string query = @"delete from contractors where id = @id";
+            string query2 = @"delete from trace where contractor_id = @id";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
@@ -84,6 +85,11 @@ namespace Bazydanych.Controllers
                     {
                         command.Parameters.AddWithValue("@id", contractor1.Id);
                         command.ExecuteNonQuery();
+                    }
+                    using (SqlCommand command1 = new SqlCommand(query2,connection, transaction))
+                    {
+                        command1.Parameters.AddWithValue("@id", contractor1.Id);
+                        command1.ExecuteNonQuery();
                     }
                     transaction.Commit();
                 }
@@ -99,7 +105,7 @@ namespace Bazydanych.Controllers
             }
             return Ok(new
             {
-                Message = "Poprawnie utworzono kontrahenta."
+                Message = "Poprawnie usunięto kontrahenta wraz z jego trasami"
             });
         }
 

@@ -6,46 +6,46 @@ import { Injectable } from '@angular/core';
 })
 export class OrderService {
 
-  readonly Loading = "https://localhost:44449/api/Loading/";
-  readonly Unloading = "https://localhost:44449/api/UnLoading/";
+  readonly Orders = "https://localhost:44449/api/Orders/";
 
   constructor(private http: HttpClient) { }
 
+   OrderID: any;
 
-
-  getLoadings() {
-    return this.http.get<any>(this.Loading + "GetallLoadings");
-  }
-
-  getUnloadings() {
-    return this.http.get<any>(this.Unloading + "GetallLoadings");
+  GetOrders() {
+    return this.http.get<any>(this.Orders + "GetallLoadings");
   }
   
-  addLoading(loading: any) {
-    return this.http.post<any>(this.Loading + "AddLoading", loading);
-  }
-
-  addUnLoading(unloading: any) {
-    return this.http.post<any>(this.Unloading + "AddUnLoading", unloading);
-  }
-
-  deleteLoading(loading: any) {
-    return this.http.post<any>(this.Loading + "DeleteLoading", loading);
-  }
-
-  deleteUnLoading(unloading: any) {
-    return this.http.post<any>(this.Unloading + "DeleteLoading", unloading);
-  }
-
-  updateLoading(loading: any) {
-    return this.http.put<any>(this.Loading + "UpdateLoading", loading);
-  }
-
-  updateUnLoading(unloading: any) {
-    return this.http.put<any>(this.Unloading + "UpdateUnloading", unloading);
+  addOrder(loading: any) {
+    return this.http.post<any>(this.Orders + "AddLoading", loading);
   }
 
 
+
+  deleteOrder(loading: any) {
+    return this.http.post<any>(this.Orders + "DeleteLoading", loading);
+  }
+
+  updateOrder(loading: any) {
+    return this.http.put<any>(this.Orders + "UpdateLoading", loading);
+  }
+
+
+  SetConcrator(contractorid: any) {
+    this.OrderID = contractorid;
+  }
+  GetOrderToUpdate() {
+    let queryParams = { "contractor": this.OrderID };
+    return this.http.get<any>(this.Orders + "getcontractor", { params: queryParams });
+
+  }
+  UpdateOrder(contractor: any) {
+    return this.http.put<any>(this.Orders + "update", contractor);
+
+  }
+  UnsetOrder() {
+    this.OrderID = null;
+  }
 
 }
 

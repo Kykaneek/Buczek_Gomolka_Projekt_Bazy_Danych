@@ -14,30 +14,30 @@ export class OrderComponent implements OnInit{
 
   }
 
-  //public orders: any = []
+  public orders: any = []
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
   
 
-  Edit(/*order:any*/): void {
-   // this.api.setOrder(order);
+  Edit(order:any): void {
+    this.api.updateOrder(order);
     this.route.navigate(['/editorders']);
   }
 
-  /*
+  
   Delete(order: any): void {
     var answer = window.confirm("Czy chcesz usunąć zlecenie?");
     if (answer) {
-      //this.api.deleteOrder(order).subscribe((res: any) => {
-        car.reload();
+      this.api.deleteOrder(order).subscribe((res: any) => {
+        order.reload();
       })
     }
     else {
 
     }
 
-  }*/
+  }
   
 
 }

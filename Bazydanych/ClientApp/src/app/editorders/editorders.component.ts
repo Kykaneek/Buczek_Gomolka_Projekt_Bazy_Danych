@@ -16,9 +16,21 @@ export class EditOrderComponent implements OnInit {
 
   constructor(private route: Router, private api: OrderService, private fb: FormBuilder, private toast: ToastrService) { }
   updateform!: FormGroup;
-
+  public orderedit: any= [];
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.api.GetOrderToUpdate().subscribe((res: any) => {
+      this.orderedit = res;
+    })
+
+    this.updateform = this.fb.group({
+      Id: [this.api.OrderID, Validators.required],
+      Contractor: ["", Validators.required],
+      Car: [],
+      loading_date: [],
+      loading_time: [],
+      Unloading_time: []
+    }, { initialValueIsDefault: false })
+    this.api.UnsetOrder();
   }
 
   Back() {

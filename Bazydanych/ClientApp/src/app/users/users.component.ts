@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { Toast, ToastrConfig, ToastrService } from 'ngx-toastr';
 import { ApiService } from '../services/api.service';
 import { Router } from '@angular/router';
 
@@ -23,12 +23,14 @@ export class UsersComponent implements OnInit {
   DeleteUser(User: any) {
     var answer = window.confirm("Czy chcesz usunąć użytkownika?");
     if (answer) {
-      this.api.DeleteUser(User).subscribe((res: any) => {
-        location.reload();
-      })
-    }
-    else {
-
+      this.api.DeleteUser(User).subscribe({
+        next: (res) => {
+          location.reload();
+        },
+        error: (err) => {
+          this.toast.error(err!.error.message);
+        }
+        })
     }
   }
 
