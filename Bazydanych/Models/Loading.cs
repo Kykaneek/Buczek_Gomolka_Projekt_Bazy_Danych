@@ -13,6 +13,7 @@ namespace Bazydanych.Models
         }
 
         public int Id { get; set; }
+        public int contractorID { get; set; }
         public int TraceId { get; set; }
         public int CarId { get; set; }
         public DateTime? Pickupdate { get; set; }

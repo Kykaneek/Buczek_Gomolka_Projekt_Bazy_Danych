@@ -174,6 +174,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Loading](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[ContractorID] [int] NOT NULL,
 	[TraceID] [int] NOT NULL,
 	[carID] [int] NOT NULL,
 	[pickupdate] [datetime] NULL,

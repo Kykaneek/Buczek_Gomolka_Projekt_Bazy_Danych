@@ -8,8 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
 using Bazydanych.Helpers;
 using Microsoft.EntityFrameworkCore.Storage;
-
-
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace Bazydanych.Controllers
 {
@@ -160,6 +159,17 @@ namespace Bazydanych.Controllers
 
             string query = @"delete from location where id = @id";
             string query2 = @"delete from contractor_location where location_id = @id";
+
+            var testTrace1 = await _authcontext.Traces.FirstOrDefaultAsync(x => x.StartLocation == location.Id);
+            var testTrace2 = await _authcontext.Traces.FirstOrDefaultAsync(x => x.FinishLocation == location.Id);
+
+            if (testTrace1 != null || testTrace2!= null)
+            {
+                return BadRequest(new
+                {
+                    Message = "Lokalizacja jest używana w trasie - usuń trasę, następnie spróbuj ponownie"
+                });
+            }
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
@@ -194,7 +204,7 @@ namespace Bazydanych.Controllers
             }
             return Ok(new
             {
-                Message = "Poprawnie usunięto pojazd."
+                Message = "Poprawnie usunięto lokalizacje."
             });
         }
 

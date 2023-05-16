@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bazydanych.Models
 {
@@ -11,10 +12,13 @@ namespace Bazydanych.Models
         public int CarId { get; set; }
         public int? NextPlannedTraceId { get; set; }
         public int? LoadingId { get; set; }
-
+        [NotMapped]
         public virtual Car Car { get; set; } = null!;
+        [NotMapped]
         public virtual Loading? Loading { get; set; }
+        [NotMapped]
         public virtual Trace Trace { get; set; } = null!;
+        [NotMapped]
         public virtual User User { get; set; } = null!;
     }
 }

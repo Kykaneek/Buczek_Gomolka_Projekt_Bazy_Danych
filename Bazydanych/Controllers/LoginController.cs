@@ -115,14 +115,32 @@ namespace Bazydanych.Controllers
             string query1 = @"delete from Users where id = @id";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
 
-            var check = await _authcontext.Car.FirstOrDefaultAsync(x => x.Driver == user.Id);
-            if (check != null)
+            var Carcheck = await _authcontext.Car.FirstOrDefaultAsync(x => x.Driver == user.Id);
+            if (Carcheck != null)
             {
                 return BadRequest(new   
                 {
                     Message = "Użytkownik posiada przypisany pojazd - brak możliwości usunięcia"
                 });
             }
+
+            var plannedcheck = await _authcontext.PlannedTraces.FirstOrDefaultAsync(x=>x.UserId == user.Id);
+            if (plannedcheck != null)
+            {
+                return BadRequest(new
+                {
+                    Message = "Brak możliwosci usunięcia - w trakcie zlecenia"
+                });
+            }
+
+            if (user.Login == "Admin")
+            {
+                return NotFound( new
+                {
+                    Message = "Brak możliwości usunięcia Admina - Konto systemowe!! "
+                });
+            }
+            
             SqlTransaction transaction;
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {

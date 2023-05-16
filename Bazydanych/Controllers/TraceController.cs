@@ -3,6 +3,7 @@ using Bazydanych.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
@@ -76,6 +77,20 @@ namespace Bazydanych.Controllers
             string query = @"delete from trace where id = @id";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;
+
+            var checkplanned = _authcontext.PlannedTraces.FirstOrDefaultAsync(x => x.TraceId == trace1.Id);
+            var checkplanned1 = _authcontext.PlannedTraces.FirstOrDefaultAsync(x => x.NextPlannedTraceId == trace1.Id);
+            
+            if (checkplanned != null || checkplanned1 != null)
+            {
+                return BadRequest(new
+                {
+                    Message = "istnieje zaplanowane zlecenie dla tej trasy - brak możliwości usuniecia"
+                });
+            }
+            
+            
+            
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {
                 connection.Open();

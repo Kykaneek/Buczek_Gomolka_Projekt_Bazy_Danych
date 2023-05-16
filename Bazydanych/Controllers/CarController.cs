@@ -155,6 +155,17 @@ namespace Bazydanych.Controllers
         public async Task<IActionResult> DeleteCar(Car pojazd)
         {
 
+            var checkTrace = await _authcontext.PlannedTraces.FirstOrDefaultAsync(x => x.CarId == pojazd.Id);
+            if (checkTrace != null)
+            {
+                return BadRequest(new
+                {
+                    Message = "Istnieją zaplanowane trasy dla tego pojazdu"
+                });
+            }
+
+
+
             string query = @"delete from cars where id = @id";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;

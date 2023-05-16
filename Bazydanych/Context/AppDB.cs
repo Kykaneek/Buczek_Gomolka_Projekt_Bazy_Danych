@@ -14,6 +14,7 @@ namespace Bazydanych.Context
         public DbSet<Trace> Traces{ get; set; }
         public DbSet<Location> Location{ get; set; }
         public DbSet<Car> Car{ get; set; }
+        public DbSet<PlannedTrace> PlannedTraces { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("Users");
@@ -22,6 +23,7 @@ namespace Bazydanych.Context
             modelBuilder.Entity<Location>().ToTable("Location");
             modelBuilder.Entity<Trace>().ToTable("Traces");
             modelBuilder.Entity<Car>().ToTable("Cars");
+            modelBuilder.Entity<PlannedTrace>().ToTable("PlannedTraces");
         }
     }
 }
