@@ -22,6 +22,7 @@ import { TokenInterceptor } from './Intercepters/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditUserComponent } from './edituser/edituser.component';
+import { EditPasswordComponent } from './editpassword/editpassword.component';
 import { EditOrderComponent } from './editorders/editorders.component';
 import { EditCarsComponent } from './editcars/editcars.component';
 import { EditTraceComponent } from './edittrace/edittrace.component';
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'location', component: LocationComponent, canActivate: [AuthGuard] },
   { path: 'adduser', component: AddusersComponent, canActivate: [AuthGuard] },
   { path: 'edituser', component: EditUserComponent, canActivate: [AuthGuard] },
+  { path: 'editpassword', component: EditPasswordComponent, canActivate: [AuthGuard] },
   { path: 'editcars', component: EditCarsComponent, canActivate: [AuthGuard] },
   { path: 'edittrace', component: EditTraceComponent, canActivate: [AuthGuard] },
   { path: 'editlocation', component: EditLocationComponent, canActivate: [AuthGuard] },
@@ -75,6 +77,7 @@ const routes: Routes = [
     TracesComponent,
     EditUserComponent,
     EditOrderComponent,
+    EditPasswordComponent,
     EditConcractorComponent,
     AddConcractorComponent,
     AddLocationComponent,
