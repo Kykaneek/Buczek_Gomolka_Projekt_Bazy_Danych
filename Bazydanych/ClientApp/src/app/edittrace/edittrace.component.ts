@@ -20,7 +20,14 @@ export class EditTraceComponent implements OnInit {
   tracess: any = [];
   traceForm!: FormGroup;
   ngOnInit(): void {
-
+    this.edittrace = this.fb.group({
+      Id: [this.service.traceId, Validators.required],
+      ContractorId: ['null', Validators.required],
+      StartLocation: [, Validators.required],
+      FinishLocation: [, Validators.required],
+      distance: [, Validators.required],
+      TravelTime: [, Validators.required]
+    }, { initialValueIsDefault: false })
   }
 
 

@@ -27,7 +27,10 @@ export class GetService {
   GetDrivers() {
     return this.http.get<any>(this.User + "GetDrivers");
   }
-
+  GetDriversedit(id: any) {
+    let queryParams = { "id": id };
+    return this.http.get<any>(this.Trace + "GetDriveredited", { params: queryParams });
+  }
 
 
 

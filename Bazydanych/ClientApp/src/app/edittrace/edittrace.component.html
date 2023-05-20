@@ -6,26 +6,37 @@
 <form class="d-flex flex-column p-2 justify-content-start align-items-start" [formGroup]="traceForm">
 
   <div class="row">
-    <div class="row"><label class="col-2">Nazwa</label><input class="form-control col" type="text" placeholder="Nazwa lokalizacji" formControlName="Name" /></div>
-    <div class="row"><label class="col-2">Miasto</label><input class="form-control col" type="text" placeholder="Miasto lokalizacji" formControlName="City" /></div>
-    <div class="row"><label class="col-2">Ulica</label><input class="form-control col" type="text" placeholder="Nazwa ulicy" formControlName="Street" /> </div>
-    <div class="row"><label class="col-2">Numer</label><input class="form-control col" type="text" placeholder="Numer lokalu | Numer budynku" formControlName="Number" /> </div>
     <div class="row">
-      <label class="col-2">Kontraktor</label><select class="form-control col" formControlName="contractorID">
-        <option>Wybierz kontrahenta</option>
-        <option value="IdKontraktora">Nazwa kontraktora</option>
+      <label class="col-2">Kontraktor</label><select required class="form-control col" formControlName="contractorID" >
+     <option [ngValue]="null" hidden>Wybierz kontrahenta</option>
+        <option >Nazwa kontraktora</option>
       </select>
-    </div>
+      </div>
+      <div class="row">
+        <label class="col-2">Lokalizacja początkowa</label><select class="form-control col" formControlName="StartLocation">
+       <option [ngValue]="" hidden>Wybierz Lokalizację</option>
+          <option value="IdKontraktora">Nazwa kontraktora</option>
+        </select>
+        </div>
+        <div class="row">
+        <label class="col-2">Lokalizacja końcowa</label><select class="form-control col" formControlName="FinishLocation">
+          <option>Wybierz kontrahenta</option>
+          <option value="IdKontraktora">Nazwa kontraktora</option>
+        </select>
+          </div>
+        <div class="row"><label class="col-2">Dystans</label><input class="form-control col" type="text" placeholder="Nazwa ulicy" formControlName="distance" /> </div>
+        <div class="row"><label class="col-2">Czas pordóży</label><input class="form-control col" type="time"  formControlName="TravelTime" /> </div>
+       
 
 
-  </div>
+      </div>
 
-  <div class="d-flex justify-content-end mt-4 ">
-    <div class="buttondiv">
-      <button class="btn btn-success m-2 col" >Edytuj trasę</button>
-      <button class="btn btn-warning m-2 col" (click)="Back()">Powrót do listy</button>
-      <button class="btn btn-light m-2 col" (click)="Resignate()">Rezygnacja</button>
-    </div>
-  </div>
+      <div class="d-flex justify-content-end mt-4 ">
+        <div class="buttondiv">
+          <button class="btn btn-success m-2 col">Edytuj trasę</button>
+          <button class="btn btn-warning m-2 col" (click)="Back()">Powrót do listy</button>
+          <button class="btn btn-light m-2 col" (click)="Resignate()">Rezygnacja</button>
+        </div>
+      </div>
 </form>
 

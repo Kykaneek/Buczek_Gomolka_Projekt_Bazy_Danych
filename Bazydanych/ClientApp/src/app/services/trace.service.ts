@@ -7,6 +7,8 @@ import { Injectable } from '@angular/core';
 export class TraceService {
   readonly ApiUrl = "https://localhost:44449/api/Trace/";
   constructor(private http: HttpClient) { }
+
+  traceId: any;
   getTraces() {
     return this.http.get<any>(this.ApiUrl + "Getall");
   }

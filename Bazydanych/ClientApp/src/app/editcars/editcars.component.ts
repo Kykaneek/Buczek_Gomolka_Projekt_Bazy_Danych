@@ -17,19 +17,18 @@ export class EditCarsComponent implements OnInit {
 
   constructor(private route: Router, private api: CarService, private fb: FormBuilder, private Get: GetService, private toast: ToastrService) { }
   updateform!: FormGroup;
-  public useredit: any = [];
+  public useredit: any ;
   public Drivers: any = [];
+  public Driverer: any;
   ngOnInit(): void {
 
     this.api.GetCarToUpdate().subscribe((res: any) => {
       this.useredit = res;
     })
-    this.Get.GetDrivers().subscribe((res: any) => {
-      this.Drivers = res;
-    })
+    
     this.updateform = this.fb.group({
       Id: [this.api.carID, Validators.required],
-      Driver: ["", Validators.required],
+      Driver: [, Validators.required],
       Registration_Number: ["", Validators.required],
       Mileage: ["", Validators.required],
       Buy_Date: ["", Validators.required],
@@ -37,6 +36,13 @@ export class EditCarsComponent implements OnInit {
       Loadingsize: ["", Validators.required],
       IsAvailable: ["", Validators.required],
     }, { initialValueIsDefault: false })
+    
+    this.Get.GetDrivers().subscribe((res: any) => {
+      this.Drivers = res;
+    })
+    this.Get.GetDriversedit(this.api.driverID).subscribe((res: any) => {
+      this.Driverer = res;
+    })
     this.api.UnsetCar();
   }
 

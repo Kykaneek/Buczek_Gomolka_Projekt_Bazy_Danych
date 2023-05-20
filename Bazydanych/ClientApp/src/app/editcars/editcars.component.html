@@ -7,6 +7,7 @@
     
     <div class="row">
       <div class="row"><label class="col-2">Kierowca</label><select class="form-control col" formControlName="Driver" [(ngModel)]="car.driver">
+  <option *ngFor="let driver of Driverer" value="{{driver.id}}">{{driver.login}}</option>
   <option *ngFor="let driver of Drivers" value="{{driver.id}}">{{driver.login}}</option>
 </select></div>
       <div class="row"><label class="col-2">Numer rejestracyjny</label><input class="form-control col" type="text" formControlName="Registration_Number" [(ngModel)]="car.registration_number" /> </div>

@@ -237,6 +237,7 @@ namespace Bazydanych.Controllers
                 }
                 catch (Exception ex)
                 {
+                    
                     transaction.Rollback();
                     connection.Close();
                 }

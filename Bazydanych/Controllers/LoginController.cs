@@ -141,9 +141,10 @@ namespace Bazydanych.Controllers
                 });
             }
             
-            SqlTransaction transaction;
+           
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {
+                SqlTransaction transaction;
                 connection.Open();
                 transaction = connection.BeginTransaction();
                 try
@@ -181,9 +182,10 @@ namespace Bazydanych.Controllers
             DataTable data = new DataTable();
             SqlDataReader reader;
             string DataSource = _conn.GetConnectionString("DBCon");
-            SqlTransaction transaction;
+            
             using (SqlConnection connection = new SqlConnection(DataSource))
             {
+                SqlTransaction transaction;
                 connection.Open();
                 transaction = connection.BeginTransaction();
                 try
@@ -298,9 +300,10 @@ namespace Bazydanych.Controllers
             DataTable data = new DataTable();
             SqlDataReader reader;
             string DataSource = _conn.GetConnectionString("DBCon");
-            SqlTransaction transaction;
+           
             using (SqlConnection connection = new SqlConnection(DataSource))
             {
+                SqlTransaction transaction;
                 connection.Open();
                 transaction = connection.BeginTransaction();
                 try
@@ -325,5 +328,50 @@ namespace Bazydanych.Controllers
         }
 
 
-    }
+    
+
+    [Authorize]
+    [HttpGet]
+    [ActionName("GetDriveredited")]
+    public JsonResult GetAllDriveres(string id)
+    {
+
+        string query = @"select u.* from users u left JOIN cars c on c.driver = u.id where is_driver = 1 and (c.driver is null or c.driver = @id) ";
+        DataTable data = new DataTable();
+        SqlDataReader reader;
+        string DataSource = _conn.GetConnectionString("DBCon");
+        
+        using (SqlConnection connection = new SqlConnection(DataSource))
+        {
+                //SqlTransaction transaction;
+                connection.Open();
+                //transaction = connection.BeginTransaction();
+                try
+                {
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    reader = command.ExecuteReader();
+                    data.Load(reader);
+                    reader.Close();
+
+                }
+                //transaction.Commit();
+                connection.Close();
+            }
+            catch (Exception ex)
+                {
+                    //transaction.Rollback();
+                    connection.Close();
+                }
+                
+        }
+            return new JsonResult(data);
+        }
+
+
+}
+
+
 }

@@ -184,11 +184,60 @@ namespace Bazydanych.Controllers
                 Message = "Poprawnie utworzono Trasę."
             });
         }
+
+
+        [Authorize]
+        [HttpGet]
+        [ActionName("GetTraceEdit")]
+        public JsonResult GetTraceToEdit(string id)
+        {
+
+            string query = @"select c.name Contractor,c.id Cid,l.Name src_location,lc.Name des_location,t.distance,CONVERT(VARCHAR(5), t.travel_time, 108) travel_time from Trace t
+                            join Contractors c on c.ID = t.contractor_id
+                            join Location l on l.ID = t.Start_location
+                            join Location lc on lc.ID = t.Finish_location
+                            where t.traceid = @id";
+            DataTable data = new DataTable();
+            SqlDataReader reader;
+            string DataSource = _conn.GetConnectionString("DBCon");
+            SqlTransaction transaction;
+            using (SqlConnection connection = new SqlConnection(DataSource))
+            {
+                connection.Open();
+                transaction = connection.BeginTransaction();
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        reader = command.ExecuteReader();
+                        data.Load(reader);
+                        reader.Close();
+
+                    }
+                    transaction.Commit();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    connection.Close();
+                }
+                return new JsonResult(data);
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+
+
     }
-
-
-
-
-
 }
 

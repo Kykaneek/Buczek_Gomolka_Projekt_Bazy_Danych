@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class CarService {
   carID: any;
+  driverID: any;
   readonly ApiUrl = "https://localhost:44449/api/Car/";
   constructor(private http: HttpClient) { }
   getCars() {
@@ -16,8 +17,9 @@ export class CarService {
   {
     return this.http.post<any>(this.ApiUrl + "addCar", pojazd);
   }
-  setCar(carid: any) {
+  setCar(carid: any,driverID:any) {
     this.carID = carid;
+    this.driverID = driverID;
   }
 
   deleteCars(pojazd: any) {
@@ -25,6 +27,7 @@ export class CarService {
   }
   UnsetCar() {
     this.carID = null;
+    this.driverID = null;
   }
   GetCarToUpdate() {
     let queryParams = { "car": this.carID };

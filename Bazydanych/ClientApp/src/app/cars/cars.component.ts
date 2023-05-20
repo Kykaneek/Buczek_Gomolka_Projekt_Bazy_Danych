@@ -26,8 +26,8 @@ export class CarsComponent implements OnInit{
   }
 
 
-  Edit(car:any): void {
-    this.api.setCar(car);
+  Edit(car:any,driver:any): void {
+    this.api.setCar(car,driver);
     this.route.navigate(['/editcars']);
   }
 
