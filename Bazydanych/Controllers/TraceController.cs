@@ -31,10 +31,10 @@ namespace Bazydanych.Controllers
         public JsonResult GetAllTraces()
         {
 
-            string query = @"select c.name Contractor,l.Name src_location,lc.Name des_location,t.distance,CONVERT(VARCHAR(5), t.travel_time, 108) travel_time from Trace t
+            string query = @"select t.id, c.name Contractor,l.Name src_location,lc.Name des_location,t.distance,CONVERT(VARCHAR(5), t.travel_time, 108) travel_time from Trace t
                             join Contractors c on c.ID = t.contractor_id
-                            join Location l on l.ID = t.Start_location
-                            join Location lc on lc.ID = t.Finish_location
+                            join Location l on l.ID = t.Startlocation
+                            join Location lc on lc.ID = t.Finishlocation
                             ";
             DataTable data = new DataTable();
             SqlDataReader reader;
@@ -78,8 +78,8 @@ namespace Bazydanych.Controllers
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;
 
-            var checkplanned = _authcontext.PlannedTraces.FirstOrDefaultAsync(x => x.TraceId == trace1.Id);
-            var checkplanned1 = _authcontext.PlannedTraces.FirstOrDefaultAsync(x => x.NextPlannedTraceId == trace1.Id);
+            var checkplanned = await _authcontext.PlannedTraces.FirstOrDefaultAsync(x => x.TraceId == trace1.Id);
+            var checkplanned1 = await _authcontext.PlannedTraces.FirstOrDefaultAsync(x => x.NextPlannedTraceId == trace1.Id);
             
             if (checkplanned != null || checkplanned1 != null)
             {
@@ -94,18 +94,18 @@ namespace Bazydanych.Controllers
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {
                 connection.Open();
-                transaction = connection.BeginTransaction();
-                try
+                 transaction = connection.BeginTransaction();
+                 try
+                 {
+                using (SqlCommand command = new SqlCommand(query, connection, transaction))
                 {
-                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
-                    {
-                        command.Parameters.AddWithValue("@id", trace1.Id);
-                        command.ExecuteNonQuery();
-                    }
+                    command.Parameters.AddWithValue("@id", trace1.Id);
+                    command.ExecuteNonQuery();
+                }
                     transaction.Commit();
                     connection.Close();
                 }
-                catch (SqlException ex)
+               catch (SqlException ex)
                 {
                     transaction.Rollback();
                     connection.Close();
@@ -196,9 +196,9 @@ namespace Bazydanych.Controllers
 
             string query = @"select c.name Contractor,c.id Cid,l.Name src_location,lc.Name des_location,t.distance,CONVERT(VARCHAR(5), t.travel_time, 108) travel_time from Trace t
                             join Contractors c on c.ID = t.contractor_id
-                            join Location l on l.ID = t.Start_location
-                            join Location lc on lc.ID = t.Finish_location
-                            where t.traceid = @id";
+                            join Location l on l.ID = t.Startlocation
+                            join Location lc on lc.ID = t.Finishlocation
+                            where t.id = @id";
             DataTable data = new DataTable();
             SqlDataReader reader;
             string DataSource = _conn.GetConnectionString("DBCon");

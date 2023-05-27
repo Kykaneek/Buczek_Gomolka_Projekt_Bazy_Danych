@@ -167,14 +167,6 @@ namespace Bazydanych.Controllers
                 });
             }
 
-            if (string.IsNullOrEmpty(Contractor.Nip))
-            {
-                return BadRequest(new
-                {
-                    Message = "Wymagane jest podanie PESEL lub NIP"
-                });
-            }
-            
 
             string query = @"insert into dbo.contractors
                             values (@name,@NIP,@PESEL,@locationID)";

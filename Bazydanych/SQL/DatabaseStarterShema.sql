@@ -244,8 +244,8 @@ GO
 CREATE TABLE [dbo].[Trace](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[contractor_id] [int] NOT NULL,
-	[Start_location] [int] NOT NULL,
-	[Finish_location] [int] NOT NULL,
+	[Startlocation] [int] NOT NULL,
+	[Finishlocation] [int] NOT NULL,
 	[distance] [int] NOT NULL,
 	[travel_time] [time](7) NOT NULL,
  CONSTRAINT [PK_Trace] PRIMARY KEY CLUSTERED 

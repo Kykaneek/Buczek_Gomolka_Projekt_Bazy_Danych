@@ -18,8 +18,10 @@ export class TracesComponent implements OnInit {
     })
   }
 
-  Edit(): void {
+  Edit(trace: any): void {
+    this.api.SetTrace(trace);
     this.route.navigate(['/edittrace']);
+    
   }
   Delete(trace: any): void {
     var answer = window.confirm("Czy chcesz usunąć trasę?");

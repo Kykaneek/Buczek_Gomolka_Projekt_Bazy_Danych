@@ -19,7 +19,7 @@ export class EditTraceComponent implements OnInit {
 
   constructor(private route: Router, private service: TraceService, private fb: FormBuilder,private Get: GetService) {
   }
-  tracess: any = [];
+  edittraced: any = [];
   traceForm!: FormGroup;
   ngOnInit(): void {
     this.edittrace = this.fb.group({
