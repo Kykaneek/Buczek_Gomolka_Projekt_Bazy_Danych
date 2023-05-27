@@ -3,12 +3,12 @@
 
 <h3 class="border-bottom pb-2"><b>Szczegóły trasy</b></h3>
 
-<form class="d-flex flex-column p-2 justify-content-start align-items-start" [formGroup]="traceForm">
+<form class="d-flex flex-column p-2 justify-content-start align-items-start" [formGroup]="traceForm" *ngFor="let trace of edittrace">
 
   <div class="row">
     <div class="row">
-      <label class="col-2">Kontraktor</label><select required class="form-control col" formControlName="contractorID" >
-     <option [ngValue]="null" hidden>Wybierz kontrahenta</option>
+      <label class="col-2">Kontraktor</label><select required class="form-control col" formControlName="contractorID" [(ngModel)]="trace.Cid">
+      <option value="trace.Cid" hidden>{{trace.contractor}}</option>
         <option >Nazwa kontraktora</option>
       </select>
       </div>

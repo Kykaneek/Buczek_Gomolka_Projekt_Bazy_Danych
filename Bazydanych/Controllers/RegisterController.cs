@@ -74,6 +74,7 @@ namespace Bazydanych.Controllers
             SqlTransaction transaction;
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {
+                
                 connection.Open();
                 transaction = connection.BeginTransaction();
                 try

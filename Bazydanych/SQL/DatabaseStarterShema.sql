@@ -208,14 +208,14 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Planned_traces](
+CREATE TABLE [dbo].[Plannedtraces](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[trace_id] [int] NOT NULL,
-	[user_id] [int] NOT NULL,
-	[car_id] [int] NOT NULL,
-	[next_planned_trace_id] [int] NULL,
+	[traceid] [int] NOT NULL,
+	[userid] [int] NOT NULL,
+	[carid] [int] NOT NULL,
+	[nextplannedtraceid] [int] NULL,
 	[LoadingID] [int] NULL,
- CONSTRAINT [PK_Planned_traces] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Plannedtraces] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
@@ -346,25 +346,25 @@ REFERENCES [dbo].[Trace] ([ID])
 GO
 ALTER TABLE [dbo].[Loading] CHECK CONSTRAINT [FK_Loading_Trace]
 GO
-ALTER TABLE [dbo].[Planned_traces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Cars] FOREIGN KEY([car_id])
+ALTER TABLE [dbo].[Plannedtraces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Cars] FOREIGN KEY([car_id])
 REFERENCES [dbo].[Cars] ([ID])
 GO
-ALTER TABLE [dbo].[Planned_traces] CHECK CONSTRAINT [FK_Planned_traces_Cars]
+ALTER TABLE [dbo].[Plannedtraces] CHECK CONSTRAINT [FK_Planned_traces_Cars]
 GO
-ALTER TABLE [dbo].[Planned_traces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Loading] FOREIGN KEY([LoadingID])
+ALTER TABLE [dbo].[Plannedtraces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Loading] FOREIGN KEY([LoadingID])
 REFERENCES [dbo].[Loading] ([ID])
 GO
-ALTER TABLE [dbo].[Planned_traces] CHECK CONSTRAINT [FK_Planned_traces_Loading]
+ALTER TABLE [dbo].[Plannedtraces] CHECK CONSTRAINT [FK_Planned_traces_Loading]
 GO
-ALTER TABLE [dbo].[Planned_traces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Trace] FOREIGN KEY([trace_id])
+ALTER TABLE [dbo].[Plannedtraces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Trace] FOREIGN KEY([trace_id])
 REFERENCES [dbo].[Trace] ([ID])
 GO
-ALTER TABLE [dbo].[Planned_traces] CHECK CONSTRAINT [FK_Planned_traces_Trace]
+ALTER TABLE [dbo].[Plannedtraces] CHECK CONSTRAINT [FK_Planned_traces_Trace]
 GO
-ALTER TABLE [dbo].[Planned_traces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Users] FOREIGN KEY([user_id])
+ALTER TABLE [dbo].[Plannedtraces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Users] FOREIGN KEY([user_id])
 REFERENCES [dbo].[Users] ([ID])
 GO
-ALTER TABLE [dbo].[Planned_traces] CHECK CONSTRAINT [FK_Planned_traces_Users]
+ALTER TABLE [dbo].[Plannedtraces] CHECK CONSTRAINT [FK_Planned_traces_Users]
 GO
 ALTER TABLE [dbo].[Roles]  WITH CHECK ADD  CONSTRAINT [FK_Roles_Users] FOREIGN KEY([UserID])
 REFERENCES [dbo].[Users] ([ID])

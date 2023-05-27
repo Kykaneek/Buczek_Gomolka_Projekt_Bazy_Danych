@@ -13,21 +13,30 @@ import { ToastrService } from 'ngx-toastr'; import { GetService } from '../servi
 
 export class EditTraceComponent implements OnInit {
 
-  public edittrace: any = [];
+  public edittrace: any ;
+  startloc: any;
+  finishloc: any;
 
-  constructor(private route: Router, private service: TraceService, private fb: FormBuilder) {
+  constructor(private route: Router, private service: TraceService, private fb: FormBuilder,private Get: GetService) {
   }
   tracess: any = [];
   traceForm!: FormGroup;
   ngOnInit(): void {
     this.edittrace = this.fb.group({
       Id: [this.service.traceId, Validators.required],
-      ContractorId: ['null', Validators.required],
+      ContractorId: [, Validators.required],
       StartLocation: [, Validators.required],
       FinishLocation: [, Validators.required],
       distance: [, Validators.required],
       TravelTime: [, Validators.required]
     }, { initialValueIsDefault: false })
+
+    this.service.GetTraceEdit(this.service.traceId).subscribe((res: any) => {
+      this.edittrace = res;
+    })
+
+
+    this.service.UnsetTrace();
   }
 
 

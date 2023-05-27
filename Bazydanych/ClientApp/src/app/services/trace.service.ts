@@ -20,7 +20,15 @@ export class TraceService {
     return this.http.post<any>(this.ApiUrl + "DeleteTrace", trace1);
   }
 
-  
+  GetTraceEdit(id: any) {
+    let queryParams = { "id": id };
+    return this.http.get<any>(this.ApiUrl + "GetTraceEdit", { params: queryParams });
+  }
 
-
+  SetTrace(trace: any) {
+    this.traceId = trace;
+  }
+  UnsetTrace() {
+    this.traceId = null;
+  }
 }

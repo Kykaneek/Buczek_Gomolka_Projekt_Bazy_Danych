@@ -149,6 +149,7 @@ namespace Bazydanych.Controllers
                             values (@contractorid,@start_lok,@end_lok,@distance,@timetravel)";
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;
+
             using (SqlConnection connection = new SqlConnection(sqlDataSource))
             {
                 connection.Open();
@@ -162,6 +163,7 @@ namespace Bazydanych.Controllers
                         command.Parameters.AddWithValue("@end_lok", trace1.FinishLocation);
                         command.Parameters.AddWithValue("@distance", trace1.Distance);
                         command.Parameters.AddWithValue("@timetravel", trace1.TravelTime);
+                        command.Transaction= transaction;
                         command.ExecuteNonQuery();
                     }
                     transaction.Commit();

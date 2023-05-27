@@ -114,7 +114,7 @@ namespace Bazydanych.Controllers
                 transaction = connection.BeginTransaction();
                 try
                 {
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection,transaction))
                     {
 
                         command.Parameters.AddWithValue("@driver", pojazd.Driver);
@@ -155,7 +155,7 @@ namespace Bazydanych.Controllers
         public async Task<IActionResult> DeleteCar(Car pojazd)
         {
 
-            var checkTrace = await _authcontext.PlannedTraces.FirstOrDefaultAsync(x => x.CarId == pojazd.Id);
+             var checkTrace = await _authcontext.PlannedTraces.FirstOrDefaultAsync(x => x.CarId == pojazd.Id);
             if (checkTrace != null)
             {
                 return BadRequest(new
