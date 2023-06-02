@@ -258,13 +258,7 @@ namespace Bazydanych.Controllers
                     Message = "Błędne dane"
                 });
             }
-            if (car.Driver == null)
-            {
-                return BadRequest(new
-                {
-                    Message = "Brak kierowcy"
-                });
-            }
+            
             var cartmp = await _authcontext.Car.FirstOrDefaultAsync(x => x.Id == car.Id);
             var owner = _authcontext.Car.Where(x => x.Driver == car.Driver);
             if (owner.Count() > 1)

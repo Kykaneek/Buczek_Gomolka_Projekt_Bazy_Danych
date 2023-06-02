@@ -1,16 +1,6 @@
-﻿EXEC msdb.dbo.sp_delete_database_backuphistory @database_name = N'Carboat'
+﻿USE [master]
 GO
-use [master];
-GO
-USE [master]
-GO
-ALTER DATABASE [Carboat] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE
-GO
-USE [master]
-GO
-/****** Object:  Database [Carboat]    Script Date: 08.05.2023 19:15:11 ******/
-DROP DATABASE [Carboat]
-GO
+/****** Object:  Database [Carboat]    Script Date: 02.06.2023 20:09:25 ******/
 CREATE DATABASE [Carboat]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -92,22 +82,7 @@ ALTER DATABASE [Carboat] SET QUERY_STORE = OFF
 GO
 USE [Carboat]
 GO
-/****** Object:  Table [dbo].[Contractor_location]    Script Date: 08.05.2023 19:10:26 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Contractor_location](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[Location_id] [int] NOT NULL,
-	[Contractor_id] [int] NOT NULL,
- CONSTRAINT [PK_Contractor_location] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[Contractors]    Script Date: 08.05.2023 19:10:26 ******/
+/****** Object:  Table [dbo].[Contractors]    Script Date: 02.06.2023 20:09:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -124,7 +99,7 @@ CREATE TABLE [dbo].[Contractors](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Users]    Script Date: 08.05.2023 19:10:26 ******/
+/****** Object:  Table [dbo].[Users]    Script Date: 02.06.2023 20:09:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -145,7 +120,7 @@ CREATE TABLE [dbo].[Users](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Cars]    Script Date: 08.05.2023 19:10:26 ******/
+/****** Object:  Table [dbo].[Cars]    Script Date: 02.06.2023 20:09:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -159,15 +134,13 @@ CREATE TABLE [dbo].[Cars](
 	[IS_truck] [bit] NOT NULL,
 	[loadingsize] [int] NOT NULL,
 	[is_available] [bit] NOT NULL,
-	CONSTRAINT FK_UserKey FOREIGN KEY (driver) REFERENCES Users(id),
  CONSTRAINT [PK_Cars] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
-/****** Object:  Table [dbo].[Loading]    Script Date: 08.05.2023 19:10:26 ******/
+/****** Object:  Table [dbo].[Loading]    Script Date: 02.06.2023 20:09:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -186,7 +159,7 @@ CREATE TABLE [dbo].[Loading](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Location]    Script Date: 08.05.2023 19:10:26 ******/
+/****** Object:  Table [dbo].[Location]    Script Date: 02.06.2023 20:09:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -203,40 +176,7 @@ CREATE TABLE [dbo].[Location](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Planned_traces]    Script Date: 08.05.2023 19:10:26 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Plannedtraces](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[traceid] [int] NOT NULL,
-	[userid] [int] NOT NULL,
-	[carid] [int] NOT NULL,
-	[nextplannedtraceid] [int] NULL,
-	[LoadingID] [int] NULL,
- CONSTRAINT [PK_Plannedtraces] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[Roles]    Script Date: 08.05.2023 19:10:26 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Roles](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[UserID] [int] NOT NULL,
-	[UserRole] [nvarchar](50) NOT NULL,
- CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[Trace]    Script Date: 08.05.2023 19:10:26 ******/
+/****** Object:  Table [dbo].[Trace]    Script Date: 02.06.2023 20:09:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -254,7 +194,7 @@ CREATE TABLE [dbo].[Trace](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UnLoading]    Script Date: 08.05.2023 19:10:26 ******/
+/****** Object:  Table [dbo].[UnLoading]    Script Date: 02.06.2023 20:09:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -269,10 +209,122 @@ CREATE TABLE [dbo].[UnLoading](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+/****** Object:  View [dbo].[OrdersListItemView]    Script Date: 02.06.2023 20:09:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE   VIEW [dbo].[OrdersListItemView] AS
 
+select ca.registration_number registation
+,U.login driver
+,lo.Name startloc
+,lo2.Name finishloc
+,co.name contractor
+,CONVERT(VARCHAR(10), l.pickupdate, 105) pickupdates
+,l.time_to_loading loading
+,ul.time_to_unloading unloading
+	FROM Loading L 
+	JOIN UnLoading UL on l.ID = ul.loading_ID
+	JOIN Contractors CO on co.ID = l.ContractorID 
+	JOIN Trace T on t.ID = l.TraceID
+	JOIN Cars CA on ca.ID = l.carID
+	JOIN Users U on CA.driver = u.ID
+	JOIN Location LO on lo.ID = T.Startlocation
+	JOIN Location LO2 on lo2.ID = T.Finishlocation
+GO
+/****** Object:  View [dbo].[PlannedTracesListItemView]    Script Date: 02.06.2023 20:09:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE   VIEW [dbo].[PlannedTracesListItemView] AS
+SELECT 
+	l.ID loadingID,
+	l.pickupdate,
+	l.time_to_loading,
+	t.distance,
+	t.travel_time,
+	co.name Contractor,
+	lo.Name Start_location,
+	loc.Name Finish_location,
+	UL.time_to_unloading,
+	u.login Driver,
+	u.phone,
+	c.buy_date,
+	c.registration_number
+FROM Loading L
+	JOIN Trace T ON 
+		T.ID=L.TraceID
+	JOIN Contractors CO ON 
+		t.contractor_id = cO.ID
+	JOIN Location LO ON t.Startlocation = lo.ID
+	JOIN Location LOC ON t.Finishlocation = loc.ID
+	JOIN UnLoading UL ON UL.loading_ID = L.ID
+	JOIN Cars C ON l.carID = C.ID
+	JOIN Users U on c.driver = u.login
+GO
+/****** Object:  Table [dbo].[Contractor_location]    Script Date: 02.06.2023 20:09:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Contractor_location](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Location_id] [int] NOT NULL,
+	[Contractor_id] [int] NOT NULL,
+ CONSTRAINT [PK_Contractor_location] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Plannedtraces]    Script Date: 02.06.2023 20:09:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Plannedtraces](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[traceid] [int] NOT NULL,
+	[userid] [int] NOT NULL,
+	[carid] [int] NOT NULL,
+	[nextplannedtraceid] [int] NULL,
+	[LoadingID] [int] NULL,
+ CONSTRAINT [PK_Plannedtraces] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Roles]    Script Date: 02.06.2023 20:09:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Roles](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[UserRole] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Cars] ON 
+GO
+INSERT [dbo].[Cars] ([ID], [driver], [registration_number], [mileage], [buy_date], [IS_truck], [loadingsize], [is_available]) VALUES (3, 5, N'12', N'123', CAST(N'2023-03-05' AS Date), 0, 3123, 0)
+GO
+INSERT [dbo].[Cars] ([ID], [driver], [registration_number], [mileage], [buy_date], [IS_truck], [loadingsize], [is_available]) VALUES (5, 1, N'dasdas', N'21', CAST(N'2023-06-21' AS Date), 1, 123, 0)
+GO
+SET IDENTITY_INSERT [dbo].[Cars] OFF
+GO
 SET IDENTITY_INSERT [dbo].[Contractor_location] ON 
 GO
 INSERT [dbo].[Contractor_location] ([ID], [Location_id], [Contractor_id]) VALUES (1, 1, 2)
+GO
+INSERT [dbo].[Contractor_location] ([ID], [Location_id], [Contractor_id]) VALUES (2, 2, 2)
 GO
 SET IDENTITY_INSERT [dbo].[Contractor_location] OFF
 GO
@@ -282,9 +334,17 @@ INSERT [dbo].[Contractors] ([ID], [name], [NIP], [PESEL], [LocationID]) VALUES (
 GO
 SET IDENTITY_INSERT [dbo].[Contractors] OFF
 GO
+SET IDENTITY_INSERT [dbo].[Loading] ON 
+GO
+INSERT [dbo].[Loading] ([ID], [ContractorID], [TraceID], [carID], [pickupdate], [time_to_loading], [isplanned]) VALUES (3, 2, 7, 5, CAST(N'2023-06-02T00:00:00.000' AS DateTime), CAST(N'16:25:00' AS Time), NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Loading] OFF
+GO
 SET IDENTITY_INSERT [dbo].[Location] ON 
 GO
 INSERT [dbo].[Location] ([ID], [Name], [City], [street], [number]) VALUES (1, N'NS', N'NS', N'123', N'123')
+GO
+INSERT [dbo].[Location] ([ID], [Name], [City], [street], [number]) VALUES (2, N'ee', N'123', N'123', N'123')
 GO
 SET IDENTITY_INSERT [dbo].[Location] OFF
 GO
@@ -302,9 +362,17 @@ SET IDENTITY_INSERT [dbo].[Roles] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Trace] ON 
 GO
-INSERT [dbo].[Trace] ([ID], [contractor_id], [Start_location], [Finish_location], [distance], [travel_time]) VALUES (1, 2, 1, 1, 12, CAST(N'02:02:00' AS Time))
+INSERT [dbo].[Trace] ([ID], [contractor_id], [Startlocation], [Finishlocation], [distance], [travel_time]) VALUES (1, 2, 1, 1, 12, CAST(N'12:02:00' AS Time))
+GO
+INSERT [dbo].[Trace] ([ID], [contractor_id], [Startlocation], [Finishlocation], [distance], [travel_time]) VALUES (7, 2, 2, 1, 21, CAST(N'21:12:00' AS Time))
 GO
 SET IDENTITY_INSERT [dbo].[Trace] OFF
+GO
+SET IDENTITY_INSERT [dbo].[UnLoading] ON 
+GO
+INSERT [dbo].[UnLoading] ([ID], [time_to_unloading], [loading_ID]) VALUES (1, CAST(N'16:29:00' AS Time), 3)
+GO
+SET IDENTITY_INSERT [dbo].[UnLoading] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Users] ON 
 GO
@@ -318,13 +386,10 @@ INSERT [dbo].[Users] ([ID], [login], [pass], [phone], [licence], [is_driver], [i
 GO
 SET IDENTITY_INSERT [dbo].[Users] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Cars] ON 
+ALTER TABLE [dbo].[Cars]  WITH CHECK ADD  CONSTRAINT [FK_UserKey] FOREIGN KEY([driver])
+REFERENCES [dbo].[Users] ([ID])
 GO
-INSERT [dbo].[Cars] ([ID], [driver], [registration_number], [mileage], [buy_date], [IS_truck], [loadingsize], [is_available]) VALUES (3, 5, N'12', N'123', CAST(N'2023-03-05' AS Date), 0, 3123, 0)
-GO
-INSERT [dbo].[Cars] ([ID], [driver], [registration_number], [mileage], [buy_date], [IS_truck], [loadingsize], [is_available]) VALUES (4, 1, N'qweq12', N'12ew213', CAST(N'2023-05-04' AS Date), 0, 213213, 0)
-GO
-SET IDENTITY_INSERT [dbo].[Cars] OFF
+ALTER TABLE [dbo].[Cars] CHECK CONSTRAINT [FK_UserKey]
 GO
 ALTER TABLE [dbo].[Contractor_location]  WITH CHECK ADD  CONSTRAINT [FK_Contractor_location_Contractors] FOREIGN KEY([Contractor_id])
 REFERENCES [dbo].[Contractors] ([ID])
@@ -346,25 +411,10 @@ REFERENCES [dbo].[Trace] ([ID])
 GO
 ALTER TABLE [dbo].[Loading] CHECK CONSTRAINT [FK_Loading_Trace]
 GO
-ALTER TABLE [dbo].[Plannedtraces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Cars] FOREIGN KEY([car_id])
-REFERENCES [dbo].[Cars] ([ID])
-GO
-ALTER TABLE [dbo].[Plannedtraces] CHECK CONSTRAINT [FK_Planned_traces_Cars]
-GO
 ALTER TABLE [dbo].[Plannedtraces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Loading] FOREIGN KEY([LoadingID])
 REFERENCES [dbo].[Loading] ([ID])
 GO
 ALTER TABLE [dbo].[Plannedtraces] CHECK CONSTRAINT [FK_Planned_traces_Loading]
-GO
-ALTER TABLE [dbo].[Plannedtraces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Trace] FOREIGN KEY([trace_id])
-REFERENCES [dbo].[Trace] ([ID])
-GO
-ALTER TABLE [dbo].[Plannedtraces] CHECK CONSTRAINT [FK_Planned_traces_Trace]
-GO
-ALTER TABLE [dbo].[Plannedtraces]  WITH CHECK ADD  CONSTRAINT [FK_Planned_traces_Users] FOREIGN KEY([user_id])
-REFERENCES [dbo].[Users] ([ID])
-GO
-ALTER TABLE [dbo].[Plannedtraces] CHECK CONSTRAINT [FK_Planned_traces_Users]
 GO
 ALTER TABLE [dbo].[Roles]  WITH CHECK ADD  CONSTRAINT [FK_Roles_Users] FOREIGN KEY([UserID])
 REFERENCES [dbo].[Users] ([ID])
@@ -375,16 +425,6 @@ ALTER TABLE [dbo].[Trace]  WITH CHECK ADD  CONSTRAINT [FK_Trace_Contractors] FOR
 REFERENCES [dbo].[Contractors] ([ID])
 GO
 ALTER TABLE [dbo].[Trace] CHECK CONSTRAINT [FK_Trace_Contractors]
-GO
-ALTER TABLE [dbo].[Trace]  WITH CHECK ADD  CONSTRAINT [FK_Trace_Location] FOREIGN KEY([Start_location])
-REFERENCES [dbo].[Location] ([ID])
-GO
-ALTER TABLE [dbo].[Trace] CHECK CONSTRAINT [FK_Trace_Location]
-GO
-ALTER TABLE [dbo].[Trace]  WITH CHECK ADD  CONSTRAINT [FK_Trace_Location_02] FOREIGN KEY([Finish_location])
-REFERENCES [dbo].[Location] ([ID])
-GO
-ALTER TABLE [dbo].[Trace] CHECK CONSTRAINT [FK_Trace_Location_02]
 GO
 ALTER TABLE [dbo].[UnLoading]  WITH CHECK ADD  CONSTRAINT [FK_UnLoading_Loading] FOREIGN KEY([loading_ID])
 REFERENCES [dbo].[Loading] ([ID])
