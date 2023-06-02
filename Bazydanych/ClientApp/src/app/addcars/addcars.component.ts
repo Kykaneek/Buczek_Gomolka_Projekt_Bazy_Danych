@@ -18,7 +18,7 @@ export class AddCarsComponent implements OnInit {
   Drivers: any = [];
   ngOnInit(): void {
     this.carform = this.fb.group({
-      Driver: ["", Validators.required],
+      Driver: ["",Validators.required],
       Registration_Number: ["", Validators.required],
       Mileage: ["", Validators.required],
       Buy_Date: ["", Validators.required],

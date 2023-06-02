@@ -8,7 +8,7 @@
         public int TraceId { get; set; }
         public int CarId { get; set; }
         public DateTime? Pickupdate { get; set; }
-        public TimeSpan? TimeToLoading { get; set; }
-        public TimeSpan? TimeToUnloading { get; set; }
+        public TimeSpan? Time_To_Loading { get; set; }
+        public TimeSpan? Time_To_Unloading { get; set; }
     }
 }

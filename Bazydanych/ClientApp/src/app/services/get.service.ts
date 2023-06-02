@@ -11,6 +11,7 @@ export class GetService {
   readonly Contractor = "https://localhost:44449/api/Contractor/"; 
   readonly Trace = "https://localhost:44449/api/Trace/";
   readonly location = "https://localhost:44449/api/Location/";
+  readonly cars = "https://localhost:44449/api/Car/"
   constructor(private http: HttpClient) { }
   getUsers() {
     return this.http.get<any>(this.User + "users");
@@ -30,6 +31,9 @@ export class GetService {
   GetDriversedit(id: any) {
     let queryParams = { "id": id };
     return this.http.get<any>(this.Trace + "GetDriveredited", { params: queryParams });
+  }
+  GetCars() {
+    return this.http.get<any>(this.cars + "getall");
   }
 
 

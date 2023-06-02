@@ -3,6 +3,7 @@ using Bazydanych.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.Data.SqlClient;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
@@ -78,27 +79,29 @@ namespace Bazydanych.Controllers
                     Message = "Brak takiego kontrahenta"
                 });
             }
-            var TraceTest = await _authcontext.Traces.FirstOrDefaultAsync(x => x.Id == order.contractorID);
-            if (TraceTest == null)
+            var carTest = await _authcontext.Car.FirstOrDefaultAsync(x => x.Id == order.CarId);
+            if (carTest == null)
             {
                 return BadRequest(new
                 {
-                    Message = "Brak Trasy"
+                    Message = "Brak pojazdu"
                 });
             }
-            if (TraceTest.ContractorId != order.contractorID)
+            var tracetest = await _authcontext.Traces.FirstOrDefaultAsync(x => x.Id == order.TraceId);
+            if (tracetest == null)
             {
                 return BadRequest(new
                 {
-                    Message = "Kontrahent nie posiada takiej trasy"
+                    Message = "Brak trasy"
                 });
             }
+           
 
           
 
 
-            string query = @"insert into dbo.loading values ()";
-            string query1 = @"insert into dbo.unloading values ()";
+            string query = @"insert into dbo.loading values (@contractor,@trace,@car,@pickupdate,@timetoloading,null)";
+            string query1 = @"insert into dbo.unloading values (@timetounloading,(select TOP 1 id from loading where contractorID = @contractor order by id desc))";
 
             string sqlDataSource = _conn.GetConnectionString("DBCon");
             SqlTransaction transaction;
@@ -106,21 +109,28 @@ namespace Bazydanych.Controllers
             {
                 connection.Open();
                 transaction = connection.BeginTransaction();
+                
                 try
                 {
-                    using (SqlCommand command = new SqlCommand(query, connection,transaction))
+                    using (SqlCommand command = new SqlCommand(query, connection, transaction))
                     {
-
+                        command.Parameters.AddWithValue("@contractor", order.contractorID);
+                        command.Parameters.AddWithValue("@trace", order.TraceId);
+                        command.Parameters.AddWithValue("@car", order.CarId);
+                        command.Parameters.AddWithValue("@pickupdate", order.Pickupdate);
+                        command.Parameters.AddWithValue("@timetoloading", order.Time_To_Loading);
                         command.ExecuteNonQuery();
 
                     }
 
-                    using (SqlCommand command = new SqlCommand(query1, connection,transaction))
+                    using (SqlCommand command = new SqlCommand(query1, connection, transaction))
                     {
-
+                        command.Parameters.AddWithValue("@timetounloading", order.Time_To_Unloading);
+                        command.Parameters.AddWithValue("@contractor", order.contractorID);
                         command.ExecuteNonQuery();
 
                     }
+
                     transaction.Commit();
                     connection.Close();
                 }
@@ -137,7 +147,7 @@ namespace Bazydanych.Controllers
             }
             return Ok(new
             {
-                Message = "Poprawnie utworzono Pojazd."
+                Message = "Poprawnie utworzono Zlecenie."
             });
         }
 

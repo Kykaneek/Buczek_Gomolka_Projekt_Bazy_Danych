@@ -10,11 +10,11 @@ namespace Bazydanych.Models
         
         [Key]
         public int Id { get; set; }
-        public int ContractorId { get; set; }
+        public int Contractor_Id { get; set; }
         public int StartLocation { get; set; }
         public int FinishLocation { get; set; }
         public int Distance { get; set; }
-        public TimeSpan TravelTime { get; set; }
+        public TimeSpan Travel_Time { get; set; }
 
 
     }

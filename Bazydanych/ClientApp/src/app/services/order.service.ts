@@ -13,11 +13,11 @@ export class OrderService {
    OrderID: any;
 
   GetOrders() {
-    return this.http.get<any>(this.Orders + "GetallLoadings");
+    return this.http.get<any>(this.Orders + "Getall");
   }
   
   addOrder(loading: any) {
-    return this.http.post<any>(this.Orders + "AddLoading", loading);
+    return this.http.post<any>(this.Orders + "add", loading);
   }
 
 

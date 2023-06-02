@@ -16,7 +16,9 @@ export class OrderComponent implements OnInit{
 
   public orders: any = []
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.api.GetOrders().subscribe((res: any) => {
+      this.orders = res;
+    })
   }
   
 

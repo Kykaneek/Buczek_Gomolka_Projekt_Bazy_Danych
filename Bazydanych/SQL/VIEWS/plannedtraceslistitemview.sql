@@ -18,8 +18,8 @@ FROM Loading L
 		T.ID=L.TraceID
 	JOIN Contractors CO ON 
 		t.contractor_id = cO.ID
-	JOIN Location LO ON t.Start_location = lo.ID
-	JOIN Location LOC ON t.Finish_location = loc.ID
+	JOIN Location LO ON t.Startlocation = lo.ID
+	JOIN Location LOC ON t.Finishlocation = loc.ID
 	JOIN UnLoading UL ON UL.loading_ID = L.ID
 	JOIN Cars C ON l.carID = C.ID
 	JOIN Users U on c.driver = u.login

@@ -80,8 +80,9 @@ namespace Bazydanych.Controllers
 
             var checkplanned = await _authcontext.PlannedTraces.FirstOrDefaultAsync(x => x.TraceId == trace1.Id);
             var checkplanned1 = await _authcontext.PlannedTraces.FirstOrDefaultAsync(x => x.NextPlannedTraceId == trace1.Id);
+            var checkloading = await _authcontext.Loading.FirstOrDefaultAsync(x => x.TraceId == trace1.Id);
             
-            if (checkplanned != null || checkplanned1 != null)
+            if (checkplanned != null || checkplanned1 != null || checkloading!=null)
             {
                 return BadRequest(new
                 {
@@ -135,7 +136,7 @@ namespace Bazydanych.Controllers
                     Message = "Błędne dane"
                 });
             }
-            var TraceTest = await _authcontext.Contractors.FirstOrDefaultAsync(x => x.Id == trace1.ContractorId);
+            var TraceTest = await _authcontext.Contractors.FirstOrDefaultAsync(x => x.Id == trace1.Contractor_Id);
             if (TraceTest == null)
             {
                 return BadRequest(new
@@ -158,11 +159,11 @@ namespace Bazydanych.Controllers
                 {
                     using (SqlCommand command = new SqlCommand(query, connection, transaction))
                     {
-                        command.Parameters.AddWithValue("@contractorid", trace1.ContractorId);
+                        command.Parameters.AddWithValue("@contractorid", trace1.Contractor_Id);
                         command.Parameters.AddWithValue("@start_lok", trace1.StartLocation);
                         command.Parameters.AddWithValue("@end_lok", trace1.FinishLocation);
                         command.Parameters.AddWithValue("@distance", trace1.Distance);
-                        command.Parameters.AddWithValue("@timetravel", trace1.TravelTime);
+                        command.Parameters.AddWithValue("@timetravel", trace1.Travel_Time);
                         command.Transaction= transaction;
                         command.ExecuteNonQuery();
                     }

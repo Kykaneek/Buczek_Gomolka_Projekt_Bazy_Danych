@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { TraceService } from '../services/trace.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { TraceService } from '../services/trace.service';
 export class TracesComponent implements OnInit {
   public traces: any = [];
 
-  constructor(private route: Router, private api: TraceService) {
+  constructor(private route: Router, private api: TraceService, private toast: ToastrService) {
   }
   ngOnInit(): void {
     this.api.getTraces().subscribe((res: any) => {
@@ -26,10 +27,16 @@ export class TracesComponent implements OnInit {
   Delete(trace: any): void {
     var answer = window.confirm("Czy chcesz usunąć trasę?");
     if (answer) {
-      this.api.Delete(trace).subscribe((res: any) => {
-        location.reload();
+      this.api.Delete(trace).subscribe({
+        next: (res) => {
+          window.location.href = window.location.pathname + '?deleteSuccess=1';
+        },
+        error: (err) => {
+          this.toast.error(err!.error.message);
+
+        }
       })
-    }
+  }
     else {
 
     }
